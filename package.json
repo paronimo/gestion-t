@@ -2,15 +2,18 @@
   "name": "gestor-t",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "description": "Planificador mensual de salidas de predicación. Raíz del proyecto: desde aquí se arrancan backend y frontend juntos.",
+  "description": "Planificador mensual de salidas de predicación. Raíz del proyecto: aquí se arrancan backend y frontend a la vez.",
   "scripts": {
     "dev": "node scripts/dev.js",
-    "start": "node scripts/dev.js",
+    "start": "npm run dev",
     "test": "npm --prefix backend test",
     "build": "npm --prefix frontend run build",
     "setup": "npm --prefix backend install && npm --prefix frontend install"
   },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "engines": {
     "node": ">=18"
   }
