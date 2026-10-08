@@ -4,7 +4,6 @@ import {
   copyMonthConfiguration,
   createDriver,
   createHouse,
-  createLocation,
   createOutingType,
   createTerritory,
   createTerritoryLocation,
@@ -12,15 +11,12 @@ import {
   deleteTerritory as removeTerritory,
   deleteDriver as removeDriver,
   deleteHouse as removeHouse,
-  deleteLocation as removeLocation,
   deleteOuting,
   deleteOutingType as removeOutingType,
   getDrivers,
   getHouses,
-  getLocations,
   getMonth,
   getMonthlyDrivers,
-  getMonthlyLocations,
   getMonthlyDriverRotations,
   getMonthlyHouses,
   getMonthConfigurationSummary,
@@ -35,8 +31,6 @@ import {
   updateHouse,
   updateHouseAvailability,
   updateHouseRotation,
-  updateLocation,
-  updateLocationAvailability,
   updateOuting,
   updateOutingType,
   updateTerritory,
@@ -133,13 +127,14 @@ function outingFields(body, year, month, response) {
   };
 }
 
-// El lugar de encuentro se muestra igual sea una casa o una ubicación,
-// por eso la columna se arma con los dos registros juntos.
+// El lugar de encuentro se muestra igual sea una casa o una ubicación por
+// territorio, por eso la columna se arma con los dos registros juntos. Si una
+// salida antigua guardó un lugar escrito a mano, se muestra ese texto.
 function withPlace(outing, places) {
   const place = places.find((item) => item.id === outing.placeId);
   return {
     ...outing,
-    placeName: place?.name || '',
+    placeName: place?.name || outing.legacyPlaceText || '',
     placeMapsUrl: place?.mapsUrl || '',
   };
 }
@@ -170,26 +165,6 @@ function validHouse(body, response, groups) {
   };
   if (typeof body.active === 'boolean') house.active = body.active;
   return house;
-}
-
-function validLocation(body, response) {
-  if (
-    !body
-    || typeof body.name !== 'string'
-    || !body.name.trim()
-    || (body.address !== undefined && typeof body.address !== 'string')
-    || (body.mapsUrl !== undefined && typeof body.mapsUrl !== 'string')
-    || (body.mapsUrl && !/^https?:\/\//i.test(body.mapsUrl))
-    || (body.active !== undefined && typeof body.active !== 'boolean')
-  ) {
-    response.status(400).json({ error: 'El nombre de la ubicación es obligatorio y el enlace debe ser una URL válida' });
-    return null;
-  }
-
-  const location = { name: body.name.trim(), address: (body.address || '').trim() };
-  if (body.mapsUrl) location.mapsUrl = body.mapsUrl.trim();
-  if (typeof body.active === 'boolean') location.active = body.active;
-  return location;
 }
 
 function validTerritoryLocation(body, response) {
@@ -316,15 +291,14 @@ export async function getOutings(request, response) {
   response.json(month.outings.map((outing) => withPlace(withDriverName(outing, drivers), places)));
 }
 
-// Casas, ubicaciones y ubicaciones por territorio comparten la columna
-// "Lugar de Encuentro": juntas resuelven el nombre y el enlace de Maps.
+// Casas y ubicaciones por territorio comparten la columna "Lugar de Encuentro":
+// juntas resuelven el nombre y el enlace de Maps.
 async function allPlaces() {
-  const [houses, locations, territoryLocations] = await Promise.all([
+  const [houses, territoryLocations] = await Promise.all([
     getHouses(),
-    getLocations(),
     getTerritoryLocations(),
   ]);
-  return [...houses, ...locations, ...territoryLocations];
+  return [...houses, ...territoryLocations];
 }
 
 export async function postOuting(request, response) {
@@ -602,7 +576,6 @@ export async function postConfigurationCopy(request, response) {
     'groupConfigurations',
     'houseAvailability',
     'houseRotations',
-    'locationAvailability',
     'driverAvailability',
     'driverRotations',
   ];
@@ -671,32 +644,6 @@ export async function putHouseRotation(request, response) {
   }
 
   response.json(rotations);
-}
-
-export async function getMonthlyLocationList(request, response) {
-  const params = monthParams(request, response);
-  if (!params) return;
-
-  response.json(await getMonthlyLocations(params.year, params.month));
-}
-
-export async function putLocationAvailability(request, response) {
-  const params = monthParams(request, response);
-  if (!params) return;
-
-  const { available } = request.body || {};
-  if (typeof available !== 'boolean') {
-    response.status(400).json({ error: 'La disponibilidad debe ser verdadera o falsa' });
-    return;
-  }
-
-  const result = await updateLocationAvailability(params.year, params.month, request.params.id, available);
-  if (!result) {
-    response.status(404).json({ error: 'No se encontró la ubicación' });
-    return;
-  }
-
-  response.json(result);
 }
 
 export async function getMonthSummary(request, response) {
@@ -773,42 +720,6 @@ export async function deleteOutingType(request, response) {
   }
 
   response.status(200).json(result);
-}
-
-// ---------------------------------------------------------------- ubicaciones
-
-export async function getLocationList(_request, response) {
-  response.json(await getLocations());
-}
-
-export async function postLocation(request, response) {
-  const location = validLocation(request.body, response);
-  if (!location) return;
-
-  response.status(201).json(await createLocation(location));
-}
-
-export async function putLocation(request, response) {
-  const changes = validLocation(request.body, response);
-  if (!changes) return;
-
-  const updated = await updateLocation(request.params.id, changes);
-  if (!updated) {
-    response.status(404).json({ error: 'No se encontró la ubicación' });
-    return;
-  }
-
-  response.json(updated);
-}
-
-export async function deleteLocation(request, response) {
-  const result = await removeLocation(request.params.id);
-  if (!result) {
-    response.status(404).json({ error: 'No se encontró la ubicación' });
-    return;
-  }
-
-  response.status(result.deleted ? 200 : 400).json(result);
 }
 
 // ---------------------------------------------------------------- ubicaciones por territorio

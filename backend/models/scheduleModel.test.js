@@ -14,17 +14,14 @@ const {
   copyMonthConfiguration,
   createDriver,
   createHouse,
-  createLocation,
   createOutingType,
   createTerritory,
   createTerritoryLocation,
   deleteDriver,
   deleteHouse,
-  deleteLocation,
   deleteTerritory,
   getDrivers,
   getHouses,
-  getLocations,
   getMonth,
   getMonthConfigurationSummary,
   getMonthlyDrivers,
@@ -39,8 +36,6 @@ const {
   updateHouse,
   updateHouseAvailability,
   updateHouseRotation,
-  updateLocation,
-  updateLocationAvailability,
   updateOuting,
   updateTerritory,
   updateTerritoryLocation,
@@ -128,10 +123,11 @@ test('migra datos anteriores al modelo de tipo unico y lugar unico', async () =>
   const congregational = generated.outings.find((outing) => outing.type === 'Congregacional');
   assert.equal(congregational.placeId, null);
   const legacyLocation = (await getMonth(2026, 10)).outings.find((outing) => outing.id === 'legacy-location');
-  assert.equal(legacyLocation.placeId, 'legacy:c. 14c');
+  // Un lugar escrito a mano no es una casa ni una ubicación por territorio: se
+  // conserva el texto para poder mostrarlo, sin crear un registro de ubicación.
+  assert.equal(legacyLocation.placeId, null);
   assert.equal(legacyLocation.placeType, 'location');
-  const locations = await getLocations();
-  assert(locations.some((location) => location.name === 'C. 14C'));
+  assert.equal(legacyLocation.legacyPlaceText, 'C. 14C');
 
   // Los días de precursor pasan a celdas mañana/tarde.
   const monthly = await getMonthlyDrivers(2026, 10);
@@ -164,17 +160,17 @@ test('los tipos de salida se registran y sostienen grupos nuevos', async () => {
 
 // ---------------------------------------------------------------- lugares
 
-test('una casa y una ubicación conviven en la misma salida', async () => {
+test('una casa y una ubicación por territorio conviven en la misma salida', async () => {
   await emptyData();
   const house = await createHouse({ name: 'Flia. Espinoza', group: '1', congregationalWeekend: true });
-  const location = await createLocation({
-    name: 'C. 14C',
-    address: 'Calle 14C 123',
-    mapsUrl: 'https://maps.google.com/?q=C+14C',
+  const location = await createTerritoryLocation({
+    name: 'Plaza de la Salud',
+    territories: '1, 2',
+    mapsUrl: 'https://maps.google.com/?q=plaza',
   });
 
-  assert.equal(location.mapsUrl, 'https://maps.google.com/?q=C+14C');
-  assert.equal((await getLocations())[0].assignedCount, 0);
+  assert.equal(location.mapsUrl, 'https://maps.google.com/?q=plaza');
+  assert.equal((await getTerritoryLocations())[0].assignedCount, 0);
 
   const withHouse = await addManualOuting(2026, 10, {
     date: '2026-10-06', time: '17:30', type: 'Grupo 1', driver: '', driverId: null,
@@ -188,20 +184,19 @@ test('una casa y una ubicación conviven en la misma salida', async () => {
   assert.equal(withHouse.placeId, house.id);
   assert.equal(withLocation.placeId, location.id);
   assert.equal((await getHouses()).find((item) => item.id === house.id).assignedCount, 1);
-  assert.equal((await getLocations()).find((item) => item.id === location.id).assignedCount, 1);
+  assert.equal((await getTerritoryLocations()).find((item) => item.id === location.id).assignedCount, 1);
   assert.deepEqual(await deleteHouse(house.id), { deleted: false, assignedCount: 1 });
-  assert.deepEqual(await deleteLocation(location.id), { deleted: false, assignedCount: 1 });
 
-  await updateLocation(location.id, { name: 'C. 14C', address: 'Calle 14C 123', active: false });
-  assert.equal((await getLocations())[0].active, false);
+  await updateTerritoryLocation(location.id, { name: 'Plaza de la Salud', territories: '1, 2', active: false });
+  assert.equal((await getTerritoryLocations())[0].active, false);
 
-  const unused = await createLocation({ name: 'Plaza de la Salud', address: '', mapsUrl: '' });
-  assert.deepEqual(await deleteLocation(unused.id), { deleted: true, assignedCount: 0 });
+  const unused = await createTerritoryLocation({ name: 'Esquina Nueva', territories: '3' });
+  assert.deepEqual(await deleteTerritoryLocation(unused.id), { deleted: true, assignedCount: 0 });
 });
 
-test('las ubicaciones no necesitan grupo y las casas sí', async () => {
+test('las ubicaciones por territorio no necesitan grupo y las casas sí', async () => {
   await emptyData();
-  const location = await createLocation({ name: 'Rodolfo Walsh y Vicente Rodríguez', address: 'Esquina' });
+  const location = await createTerritoryLocation({ name: 'Rodolfo Walsh y Vicente Rodríguez', territories: '4' });
   assert.equal(location.group, undefined);
 
   const house = await createHouse({ name: 'Casa con grupo', group: '2', congregationalWeekend: false });
@@ -336,14 +331,12 @@ test('cada categoría de la copia es independiente de las demás', async () => {
   const house1 = await createHouse({ name: 'Casa 1', group: '1', congregationalWeekend: false });
   const house2 = await createHouse({ name: 'Casa 2', group: '2', congregationalWeekend: false });
   const driver = await createDriver({ firstName: 'Ana', lastName: 'Prueba', category: 'Publicador' });
-  const location = await createLocation({ name: 'C. 14C', address: '' });
 
   await updateHouseAvailability(2026, 9, house1.id, true);
   await updateHouseAvailability(2026, 9, house2.id, false);
   await updateHouseRotation(2026, 9, '1', [house1.id]);
   await updateHouseRotation(2026, 9, '2', [house2.id]);
   await updateDriverAvailability(2026, 9, driver.id, slots('2:morning', '4:afternoon'));
-  await updateLocationAvailability(2026, 9, location.id, false);
   await saveConfiguration(2026, 9, [
     { id: 'tuesday', weekday: 2, time: '09:00', type: 'Congregacional', active: true },
   ]);
@@ -353,25 +346,22 @@ test('cada categoría de la copia es independiente de las demás', async () => {
   await updateHouseAvailability(2026, 10, house2.id, true);
   await updateHouseRotation(2026, 10, '2', []);
   await updateDriverAvailability(2026, 10, driver.id, slots('5:morning'));
-  await updateLocationAvailability(2026, 10, location.id, true);
   await saveConfiguration(2026, 10, [
     { id: 'friday', weekday: 5, time: '10:00', type: 'Especial', active: true },
   ]);
 
-  // Copiar solo casas: no debe tocar conductores, ubicaciones ni reglas.
+  // Copiar solo casas: no debe tocar conductores ni reglas.
   const soloCasas = await copyMonthConfiguration(2026, 9, 2026, 10, {
     recurringRules: false,
     groupConfigurations: false,
     houseAvailability: true,
     houseRotations: false,
-    locationAvailability: false,
     driverAvailability: false,
     driverRotations: false,
   });
   assert.deepEqual(soloCasas.houseAvailability, { [house1.id]: true, [house2.id]: false });
   assert.deepEqual(soloCasas.houseRotations, { '2': [] }, 'la rotación no se copió');
   assert.deepEqual(soloCasas.driverAvailability[driver.id].slots, { '5:morning': true });
-  assert.equal(soloCasas.locationAvailability[location.id], true);
   assert.deepEqual(soloCasas.configuration.map((rule) => rule.type), ['Especial']);
 
   // Copiar solo la disponibilidad de conductores, en un destino intacto.
@@ -380,7 +370,6 @@ test('cada categoría de la copia es independiente de las demás', async () => {
     groupConfigurations: false,
     houseAvailability: false,
     houseRotations: false,
-    locationAvailability: false,
     driverAvailability: true,
     driverRotations: false,
   });
@@ -388,21 +377,6 @@ test('cada categoría de la copia es independiente de las demás', async () => {
   assert.deepEqual(soloConductores.driverAvailability[driver.id].slots, { '2:morning': true, '4:afternoon': true });
   assert.deepEqual(soloConductores.houseAvailability, {}, 'copiar conductores no toca las casas');
   assert.deepEqual(soloConductores.houseRotations, {});
-
-  // Copiar solo los lugares de encuentro.
-  await copyMonthConfiguration(2026, 9, 2026, 12, {
-    recurringRules: false,
-    groupConfigurations: false,
-    houseAvailability: false,
-    houseRotations: false,
-    locationAvailability: true,
-    driverAvailability: false,
-    driverRotations: false,
-  });
-  const soloLugares = await getMonth(2026, 12);
-  assert.equal(soloLugares.locationAvailability[location.id], false);
-  assert.deepEqual(soloLugares.driverAvailability[driver.id].slots, { '2:morning': true, '4:afternoon': true });
-  assert.deepEqual(soloLugares.houseAvailability, {});
 });
 
 test('copiar reglas recalcula las fechas del mes destino', async () => {
@@ -418,7 +392,6 @@ test('copiar reglas recalcula las fechas del mes destino', async () => {
     groupConfigurations: true,
     houseAvailability: false,
     houseRotations: false,
-    locationAvailability: false,
     driverAvailability: false,
     driverRotations: false,
   });
@@ -453,7 +426,6 @@ test('copiar no arrastra las salidas individuales del origen', async () => {
     groupConfigurations: true,
     houseAvailability: false,
     houseRotations: false,
-    locationAvailability: false,
     driverAvailability: false,
     driverRotations: false,
   });
@@ -509,7 +481,6 @@ test('copiar configuración copia la disponibilidad por día y turno', async () 
     driverAvailability: true,
     driverRotations: true,
     groupConfigurations: true,
-    locationAvailability: true,
   });
   const november = (await getMonthlyDrivers(2026, 11)).find((item) => item.id === driver.id);
   assert.deepEqual(november.slots, { '4:morning': true, '5:morning': true });
@@ -597,7 +568,6 @@ test('copia opciones elegidas, regenera el destino y conserva solo su historial 
     driverAvailability: true,
     driverRotations: true,
     groupConfigurations: true,
-    locationAvailability: true,
   });
 
   // Al copiar reglas recurrentes, el destino toma las del mes origen.
@@ -693,7 +663,7 @@ test('generar, editar una salida y agregar una manual conserva ambos flujos', as
 test('el lugar manual de una salida recurrente se conserva al regenerar', async () => {
   await emptyData();
   const house = await createHouse({ name: 'Casa 1', group: '1', congregationalWeekend: false });
-  const location = await createLocation({ name: 'Plaza de la Salud', address: 'Centro' });
+  const location = await createTerritoryLocation({ name: 'Plaza de la Salud', territories: '1' });
   await updateHouseAvailability(2026, 10, house.id, true);
   await updateHouseRotation(2026, 10, '1', [house.id]);
   const configuration = [{
@@ -1177,10 +1147,10 @@ test('las congregacionales no toman la rotación de ningún grupo', async () => 
   assert(month.outings.filter((outing) => outing.type === 'Grupo 1').every((outing) => outing.placeId === g1.id));
 });
 
-test('una congregacional puede usar una casa o una ubicación como lugar de encuentro', async () => {
+test('una congregacional puede usar una casa o una ubicación por territorio como lugar de encuentro', async () => {
   await emptyData();
   const house = await createHouse({ name: 'Flia. Espinoza', group: '1', congregationalWeekend: true });
-  const location = await createLocation({ name: 'Plaza de la Salud', address: 'Centro', mapsUrl: 'https://maps.google.com/?q=plaza' });
+  const location = await createTerritoryLocation({ name: 'Plaza de la Salud', territories: '1', mapsUrl: 'https://maps.google.com/?q=plaza' });
   await updateHouseAvailability(2026, 10, house.id, true);
 
   const withHouse = await addManualOuting(2026, 10, {
@@ -1195,7 +1165,7 @@ test('una congregacional puede usar una casa o una ubicación como lugar de encu
   assert.equal(withHouse.placeType, 'house');
   assert.equal(withLocation.placeType, 'location');
   assert.equal((await getHouses())[0].assignedCount, 1);
-  assert.equal((await getLocations())[0].assignedCount, 1);
+  assert.equal((await getTerritoryLocations())[0].assignedCount, 1);
   // Ambas cuentas igual como lugar de encuentro, sin columna Casa.
   assert(withHouse.placeId && withLocation.placeId);
 });
@@ -1204,7 +1174,7 @@ test('editar el lugar de una salida no cambia la rotación ni las demás salidas
   await emptyData();
   const first = await createHouse({ name: 'Flia. Vigneau', group: '3', congregationalWeekend: false });
   const second = await createHouse({ name: 'Flia. Stoery', group: '3', congregationalWeekend: false });
-  const location = await createLocation({ name: 'Plaza de la Salud', address: '' });
+  const location = await createTerritoryLocation({ name: 'Plaza de la Salud', territories: '3' });
   for (const house of [first, second]) await updateHouseAvailability(2026, 10, house.id, true);
   await updateHouseRotation(2026, 10, '3', [first.id, second.id]);
 

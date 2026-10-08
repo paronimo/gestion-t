@@ -1,6 +1,5 @@
 import DriversPanel from './DriversPanel.jsx';
 import HousesPanel from './HousesPanel.jsx';
-import LocationsPanel from './LocationsPanel.jsx';
 import OutingTypesPanel, { groupIdsFromTypes } from './OutingTypesPanel.jsx';
 import TerritoriesPanel from './TerritoriesPanel.jsx';
 import TerritoryLocationsPanel from './TerritoryLocationsPanel.jsx';
@@ -8,7 +7,6 @@ import TerritoryLocationsPanel from './TerritoryLocationsPanel.jsx';
 export default function AdministrationPage({
   drivers,
   houses,
-  locations,
   territories,
   territoryLocations,
   types,
@@ -18,9 +16,6 @@ export default function AdministrationPage({
   onSaveHouse,
   onDeleteHouse,
   onHouseStatusChange,
-  onSaveLocation,
-  onDeleteLocation,
-  onLocationStatusChange,
   onSaveTerritory,
   onDeleteTerritory,
   onTerritoryStatusChange,
@@ -47,13 +42,6 @@ export default function AdministrationPage({
         onSave={onSaveType}
         onStatusChange={onTypeStatusChange}
         onDelete={onDeleteType}
-        saving={saving}
-      />
-      <LocationsPanel
-        locations={locations}
-        onSave={onSaveLocation}
-        onStatusChange={onLocationStatusChange}
-        onDelete={onDeleteLocation}
         saving={saving}
       />
       <TerritoriesPanel

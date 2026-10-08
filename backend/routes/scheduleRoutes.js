@@ -2,7 +2,6 @@ import { Router } from 'express';
 import {
   deleteDriver,
   deleteHouse,
-  deleteLocation,
   deleteOutingType,
   deleteTerritory,
   deleteTerritoryLocation,
@@ -13,10 +12,8 @@ import {
   getDriverRotations,
   getHouseList,
   getHouseRotations,
-  getLocationList,
   getMonthlyDriverList,
   getMonthlyHouseList,
-  getMonthlyLocationList,
   getMonthSummary,
   getOutings,
   getSchedulePdf,
@@ -27,7 +24,6 @@ import {
   postDriver,
   postHouse,
   postHouseRecord,
-  postLocation,
   postOuting,
   postOutingType,
   postTerritory,
@@ -39,8 +35,6 @@ import {
   putHouse,
   putHouseAvailability,
   putHouseRotation,
-  putLocation,
-  putLocationAvailability,
   putOuting,
   putOutingType,
   putTerritory,
@@ -58,12 +52,6 @@ router.get('/houses', getHouseList);
 router.post('/houses', postHouseRecord);
 router.put('/houses/:id', putHouse);
 router.delete('/houses/:id', deleteHouse);
-router.get('/locations', getLocationList);
-router.post('/locations', postLocation);
-router.put('/locations/:id', putLocation);
-router.delete('/locations/:id', deleteLocation);
-router.get('/months/:year/:month/locations', getMonthlyLocationList);
-router.put('/months/:year/:month/locations/:id/availability', putLocationAvailability);
 router.get('/months/:year/:month/summary', getMonthSummary);
 router.get('/outing-types', getTypeList);
 router.post('/outing-types', postOutingType);
@@ -77,9 +65,6 @@ router.get('/territory-locations', getTerritoryLocationList);
 router.post('/territory-locations', postTerritoryLocation);
 router.put('/territory-locations/:id', putTerritoryLocation);
 router.delete('/territory-locations/:id', deleteTerritoryLocation);
-router.get('/months/:year/:month/locations', getMonthlyLocationList);
-router.put('/months/:year/:month/locations/:id/availability', putLocationAvailability);
-router.get('/months/:year/:month/summary', getMonthSummary);
 router.get('/months/:year/:month/drivers/available', getAvailableDrivers);
 router.get('/months/:year/:month/drivers', getMonthlyDriverList);
 router.put('/months/:year/:month/drivers/:id/availability', putDriverAvailability);

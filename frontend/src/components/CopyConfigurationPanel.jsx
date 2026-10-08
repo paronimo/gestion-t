@@ -14,7 +14,6 @@ const copyOptions = [
   ['houseRotations', 'Orden de rotación de casas'],
   ['driverAvailability', 'Conductores disponibles (por día y turno)'],
   ['driverRotations', 'Rotaciones de conductores'],
-  ['locationAvailability', 'Lugares de encuentro disponibles'],
 ];
 
 const defaultOptions = Object.fromEntries(copyOptions.map(([key]) => [key, true]));

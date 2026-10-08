@@ -1,11 +1,16 @@
 import { unusedTerritories, usedTerritories } from '../../../shared/territories.js';
+import { unusedAvailableHouses } from '../../../shared/houses.js';
 
 // Control de territorios del mes. No asigna nada: solo muestra cuáles ya se
 // usaron y cuáles quedan disponibles, comparando con el registro general.
+// Debajo resume las casas disponibles que todavía no aparecen en el mes.
 // Esta información es solo de la pantalla: no forma parte del PDF.
-export default function TerritoryUsagePanel({ outings = [], territories = [] }) {
+export default function TerritoryUsagePanel({ outings = [], territories = [], houses = [] }) {
   const used = usedTerritories(outings);
   const remaining = unusedTerritories(territories, outings);
+  const remainingHouses = unusedAvailableHouses(houses, outings);
+
+  const groupLabel = (group) => (group ? `Grupo ${group}` : 'General');
 
   return (
     <section className="territory-usage" aria-labelledby="territory-usage-title">
@@ -50,6 +55,25 @@ export default function TerritoryUsagePanel({ outings = [], territories = [] }) 
               )}
         </section>
       </div>
+
+      <section className="territory-usage-group" aria-labelledby="houses-remaining-title">
+        <h4 id="houses-remaining-title">
+          Casas no utilizadas <span className="territory-count">{remainingHouses.length}</span>
+        </h4>
+        {houses.length === 0
+          ? <p className="empty-note">Todavía no hay casas registradas.</p>
+          : remainingHouses.length === 0
+            ? <p className="empty-note">Ya se usaron todas las casas disponibles este mes.</p>
+            : (
+              <ul className="territory-chips">
+                {remainingHouses.map(({ house, group }) => (
+                  <li key={house.id} className="territory-chip chip-remaining">
+                    {house.name} · {groupLabel(group)}
+                  </li>
+                ))}
+              </ul>
+            )}
+      </section>
     </section>
   );
 }

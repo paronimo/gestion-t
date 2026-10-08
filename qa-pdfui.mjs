@@ -9,7 +9,7 @@ export default async function run(page, ui) {
   await page.goto('http://127.0.0.1:5200/', { waitUntil: 'domcontentloaded' });
   await api('/api/outing-types', { method: 'POST', body: { name: 'Grupo 1' } });
   const house = await api('/api/houses', { method: 'POST', body: { name: 'Flia. Espinoza', group: '1', congregationalWeekend: true } });
-  await api('/api/locations', { method: 'POST', body: { name: 'C. 14C', mapsUrl: 'https://maps.google.com/?q=C+14C' } });
+  await api('/api/territory-locations', { method: 'POST', body: { name: 'C. 14C', territories: 'REVISITAS', mapsUrl: 'https://maps.google.com/?q=C+14C' } });
   const driver = await api('/api/drivers', { method: 'POST', body: { firstName: 'Ana', lastName: 'Prueba', category: 'Publicador' } });
   await api('/api/months/2026/10/drivers/' + driver.id + '/availability', { method: 'PUT', body: { slots: { '4:afternoon': true, '2:morning': true } } });
   await api('/api/months/2026/10/houses/' + house.id + '/availability', { method: 'PUT', body: { available: true } });
@@ -24,7 +24,7 @@ export default async function run(page, ui) {
   });
   // Salida manual con territorio y ubicación.
   const outs = await api('/api/months/2026/10/outings');
-  const loc = await api('/api/locations');
+  const loc = await api('/api/territory-locations');
   await api('/api/months/2026/10/outings', {
     method: 'POST',
     body: { date: '2026-10-03', time: '10:00', type: 'Congregacional', territory: 'REVISITAS', driverId: null, driver: '', placeId: loc[0].id, placeType: 'location' },

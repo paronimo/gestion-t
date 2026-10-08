@@ -2,8 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   houseGroup,
+  houseIsAvailable,
   houseServesGroup,
   outingGroup,
+  unusedAvailableHouses,
   unusedHouses,
   unusedHousesOfGroup,
   usedHouseGroups,
@@ -131,4 +133,38 @@ test('agregar o quitar una salida actualiza el listado', () => {
   const usadas = usedHouses(todas, cambiada).map((item) => item.house.id);
   assert.deepEqual(usadas, ['perez']);
   assert(unusedHouses(todas, cambiada).some((item) => item.house.id === 'camargo'), 'Camargo vuelve a estar libre');
+});
+
+test('una casa no disponible este mes no aparece entre las no utilizadas', () => {
+  const casasMes = [
+    { id: 'a', name: 'Flia. A', group: '1', available: true },
+    { id: 'b', name: 'Flia. B', group: '1', available: false },
+    { id: 'c', name: 'Flia. C', group: '', available: true, active: false },
+    { id: 'd', name: 'Flia. D', group: '', generalActive: false, available: true },
+  ];
+
+  const ids = unusedAvailableHouses(casasMes, []).map((item) => item.house.id);
+  assert.deepEqual(ids.sort(), ['a']);
+});
+
+test('una casa deshabilitada o no disponible tampoco cuenta como utilizada', () => {
+  const casasMes = [
+    { id: 'a', name: 'Flia. A', group: '1', available: true },
+    { id: 'b', name: 'Flia. B', group: '1', available: true },
+    { id: 'c', name: 'Flia. C', group: '', available: false },
+  ];
+  // 'b' se usó y 'c' está no disponible: solo 'a' queda como disponible no usada.
+  const outings = [{ id: 'o1', placeId: 'b', type: 'Grupo 1', date: '2026-09-01' }];
+  const remaining = unusedAvailableHouses(casasMes, outings);
+  assert.deepEqual(remaining.map((item) => item.house.id), ['a']);
+  assert(remaining.every((item) => item.house.id !== 'c'), 'la no disponible no aparece');
+});
+
+test('houseIsAvailable resume el estado mensual de la casa', () => {
+  assert.equal(houseIsAvailable({ available: true }), true);
+  assert.equal(houseIsAvailable({}), true);
+  assert.equal(houseIsAvailable({ available: false }), false);
+  assert.equal(houseIsAvailable({ active: false }), false);
+  assert.equal(houseIsAvailable({ generalActive: false }), false);
+  assert.equal(houseIsAvailable(null), false);
 });

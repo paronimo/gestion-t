@@ -57,6 +57,23 @@ export function unusedHouses(houses = [], outings = []) {
     .map((house) => ({ house, group: houseGroup(house) }));
 }
 
+// Una casa está disponible este mes si no fue deshabilitada en el registro
+// general ni quitada de las opciones del mes.
+export function houseIsAvailable(house) {
+  if (!house) return false;
+  if (house.active === false) return false;
+  if (house.generalActive === false) return false;
+  if (house.available === false) return false;
+  return true;
+}
+
+// Las casas disponibles que no aparecen en ninguna salida del mes. Una casa no
+// disponible o deshabilitada no cuenta como "no utilizada": simplemente no
+// estaba entre las opciones de este mes.
+export function unusedAvailableHouses(houses = [], outings = []) {
+  return unusedHouses(houses.filter(houseIsAvailable), outings);
+}
+
 // Las casas de un grupo concreto que todavía no se usaron en ese grupo.
 // "General" agrupa las casas sin grupo.
 export function unusedHousesOfGroup(houses = [], outings = [], group) {

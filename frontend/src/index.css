@@ -249,12 +249,12 @@ input[type='color'] { width: 46px; height: 34px; padding: 2px; border: 1px solid
 .monthly-rules-section { padding-top: 18px; border-top: 1px solid var(--line); }
 .monthly-rules-section h3, .copy-panel h3, .administration-page h2 { margin: 0 0 16px; color: var(--ink); font-size: 16px; }
 .copy-panel { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
-.locations-panel, .types-panel, .territories-panel { display: block; }
+.types-panel, .territories-panel { display: block; }
 
 .driver-form { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); align-items: end; gap: 12px; margin: 16px 0; padding: 16px; }
 .house-form { display: grid; grid-template-columns: minmax(180px, 1.3fr) minmax(140px, .8fr) minmax(220px, 1.5fr); align-items: end; gap: 12px; margin: 16px 0; padding: 16px; }
 .driver-form-actions, .house-form-actions { grid-column: 1 / -1; justify-content: flex-end; margin-top: 2px; }
-.location-form, .type-form, .territory-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 1rem; }
+.type-form, .territory-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 1rem; }
 .outing-form { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 14px; }
 .form-actions { margin-top: 18px; }
 .form-actions-end { grid-column: 1 / -1; justify-content: flex-end; }

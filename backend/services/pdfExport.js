@@ -215,7 +215,7 @@ function drawDayBlock(document, dayOutings, rowWidth) {
   let x = MARGIN + DATE_WIDTH;
   for (const column of COLUMNS.slice(1)) {
     for (const [index, outing] of dayOutings.entries()) {
-      const colors = paletteFor(outing.type);
+      const colors = paletteFor(outing);
       const rowTop = top + index * ROW_HEIGHT;
       const maxWidth = column.width - CELL_PADDING * 2;
       const isPlace = column.key === 'place';

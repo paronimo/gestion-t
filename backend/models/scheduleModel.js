@@ -20,7 +20,7 @@ function normalizeGroup(group) {
 const defaultTypes = () => [{ id: 'congregacional', name: 'Congregacional', active: true }];
 
 function emptyData() {
-  return { types: defaultTypes(), drivers: [], houses: [], locations: [], territoryLocations: [], territories: [], months: {} };
+  return { types: defaultTypes(), drivers: [], houses: [], territoryLocations: [], territories: [], months: {} };
 }
 
 async function readData() {
@@ -33,7 +33,7 @@ async function readData() {
 
     const parsed = JSON.parse(content);
     const data = parsed.months && parsed.drivers ? parsed : { drivers: [], houses: [], months: parsed };
-    return migrateData({ types: defaultTypes(), locations: [], territoryLocations: [], territories: [], ...data });
+    return migrateData({ types: defaultTypes(), territoryLocations: [], territories: [], ...data });
   } catch (error) {
     if (error.code === 'ENOENT') return emptyData();
     throw error;
@@ -65,7 +65,6 @@ function emptyMonth() {
     driverRotations: { elders: {}, groupConductors: {} },
     houseAvailability: {},
     houseRotations: {},
-    locationAvailability: {},
   };
 }
 
@@ -477,70 +476,6 @@ export async function updateHouseRotation(year, month, group, houseIds) {
   return currentMonth.houseRotations;
 }
 
-// ---------------------------------------------------------------- ubicaciones
-
-export async function getLocations() {
-  const data = await readData();
-  return data.locations.map((location) => ({
-    ...location,
-    active: location.active !== false,
-    assignedCount: countAssignments(data.months, 'placeId', location.id),
-  }));
-}
-
-export async function getMonthlyLocations(year, month) {
-  const [locations, currentMonth] = await Promise.all([getLocations(), getMonth(year, month)]);
-
-  return locations.map((location) => ({
-    ...location,
-    generalActive: location.active !== false,
-    available: currentMonth.locationAvailability?.[location.id] !== false,
-  }));
-}
-
-export async function updateLocationAvailability(year, month, locationId, available) {
-  const data = await readData();
-  const locationExists = data.locations.some((location) => location.id === locationId);
-  if (!locationExists) return null;
-
-  const key = monthKey(year, month);
-  const currentMonth = { ...emptyMonth(), ...data.months[key] };
-  currentMonth.locationAvailability[locationId] = available;
-  data.months[key] = currentMonth;
-  await writeData(data);
-  return { available };
-}
-
-export async function createLocation(location) {
-  const data = await readData();
-  const newLocation = { id: randomUUID(), active: true, address: '', mapsUrl: '', ...location };
-  data.locations.push(newLocation);
-  await writeData(data);
-  return { ...newLocation, assignedCount: 0 };
-}
-
-export async function updateLocation(id, changes) {
-  const data = await readData();
-  const location = data.locations.find((item) => item.id === id);
-  if (!location) return null;
-  Object.assign(location, changes);
-  await writeData(data);
-  return { ...location, assignedCount: countAssignments(data.months, 'placeId', id) };
-}
-
-export async function deleteLocation(id) {
-  const data = await readData();
-  const index = data.locations.findIndex((item) => item.id === id);
-  if (index === -1) return null;
-
-  const assignedCount = countAssignments(data.months, 'placeId', id);
-  if (assignedCount > 0) return { deleted: false, assignedCount };
-
-  data.locations.splice(index, 1);
-  await writeData(data);
-  return { deleted: true, assignedCount: 0 };
-}
-
 // ---------------------------------------------------------------- territorios
 
 function normalizeTerritory(territory) {
@@ -745,12 +680,6 @@ export async function copyMonthConfiguration(sourceYear, sourceMonth, destinatio
     );
   }
 
-  if (options.locationAvailability) {
-    destination.locationAvailability = Object.fromEntries(
-      data.locations.map((location) => [location.id, source.locationAvailability?.[location.id] !== false]),
-    );
-  }
-
   if (options.driverAvailability) {
     destination.driverAvailability = Object.fromEntries(data.drivers.map((driver) => {
       const sourceSlots = source.driverAvailability[driver.id]?.slots || {};
@@ -788,7 +717,6 @@ export async function getMonthConfigurationSummary(year, month) {
     recurringOutings: currentMonth.outings.filter((outing) => outing.source === 'recurring').length,
     housesAvailable: Object.values(currentMonth.houseAvailability).filter(Boolean).length,
     houseRotationGroups: Object.keys(currentMonth.houseRotations).length,
-    locationsAvailable: Object.values(currentMonth.locationAvailability).filter((value) => value !== false).length,
     driversWithSlots: Object.values(currentMonth.driverAvailability)
       .filter((entry) => Object.values(entry.slots || {}).some(Boolean)).length,
     driverRotationGroups: Object.keys(currentMonth.driverRotations.elders).length

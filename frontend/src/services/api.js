@@ -176,17 +176,6 @@ export function getMonthSummary(year, month) {
   return request(`${monthPath(year, month)}/summary`);
 }
 
-export function getMonthlyLocations(year, month) {
-  return request(`${monthPath(year, month)}/locations`);
-}
-
-export function updateLocationAvailability(year, month, id, available) {
-  return request(`${monthPath(year, month)}/locations/${id}/availability`, {
-    method: 'PUT',
-    body: JSON.stringify({ available }),
-  });
-}
-
 export function copyMonthConfiguration(sourceYear, sourceMonth, destinationYear, destinationMonth, options) {
   return request(`${monthPath(destinationYear, destinationMonth)}/copy-from/${sourceYear}/${sourceMonth}`, {
     method: 'POST',
@@ -204,22 +193,6 @@ export function createOutingType(name) {
 
 export function updateOutingType(id, changes) {
   return request(`/api/outing-types/${id}`, { method: 'PUT', body: JSON.stringify(changes) });
-}
-
-export function getLocations() {
-  return request('/api/locations');
-}
-
-export function createLocation(location) {
-  return request('/api/locations', { method: 'POST', body: JSON.stringify(location) });
-}
-
-export function updateLocation(id, location) {
-  return request(`/api/locations/${id}`, { method: 'PUT', body: JSON.stringify(location) });
-}
-
-export function removeLocation(id) {
-  return request(`/api/locations/${id}`, { method: 'DELETE' });
 }
 
 export function removeOutingType(id) {

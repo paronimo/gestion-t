@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import DriversPanel from './DriversPanel.jsx';
 import HousesPanel from './HousesPanel.jsx';
-import LocationsPanel from './LocationsPanel.jsx';
 import CopyConfigurationPanel from './CopyConfigurationPanel.jsx';
 import HouseUsagePanel from './HouseUsagePanel.jsx';
 import ColorField from './ColorField.jsx';
@@ -34,7 +33,7 @@ function newRule() {
   };
 }
 
-export default function MonthlyConfiguration({ configuration, drivers, driverRotations, houses, houseRotations, outings, groups = [], types = [], locations = [], year, month, onSave, onSaveDriver, onAvailabilityChange, onDriverRotationChange, onSaveHouse, onHouseAvailabilityChange, onHouseRotationChange, onLocationAvailabilityChange, onCopy, onClose, saving }) {
+export default function MonthlyConfiguration({ configuration, drivers, driverRotations, houses, houseRotations, outings, groups = [], types = [], year, month, onSave, onSaveDriver, onAvailabilityChange, onDriverRotationChange, onSaveHouse, onHouseAvailabilityChange, onHouseRotationChange, onCopy, onClose, saving }) {
   const [rules, setRules] = useState(configuration);
   const list = useLongList(rules, ruleName);
   const typeNames = types.map((type) => type.name);
@@ -143,12 +142,6 @@ export default function MonthlyConfiguration({ configuration, drivers, driverRot
         onAvailabilityChange={onHouseAvailabilityChange}
         onRotationChange={onHouseRotationChange}
         saving={saving}
-      />
-      <LocationsPanel
-        locations={locations}
-        onAvailabilityChange={onLocationAvailabilityChange}
-        saving={saving}
-        mode="monthly"
       />
       <DriversPanel
         drivers={drivers}

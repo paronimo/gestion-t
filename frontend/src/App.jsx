@@ -15,7 +15,6 @@ import {
   createTerritoryLocation,
   updateTerritoryLocation,
   removeTerritoryLocation,
-  createLocation,
   createOutingType,
   copyMonthConfiguration,
   deleteOutingType,
@@ -23,10 +22,8 @@ import {
   getDriverRotations,
   getDrivers,
   getHouses,
-  getLocations,
   getMonthlyDrivers,
   getMonthlyHouses,
-  getMonthlyLocations,
   getHouseRotations,
   getOutings,
   getOutingTypes,
@@ -35,7 +32,6 @@ import {
   removeOuting,
   removeDriver,
   removeHouse,
-  removeLocation,
   removeTerritory,
   saveConfiguration,
   saveDriverRotation,
@@ -46,8 +42,6 @@ import {
   updateDriverAvailability,
   updateHouse,
   updateHouseAvailability,
-  updateLocation,
-  updateLocationAvailability,
   updateOuting,
   updateOutingType,
   updateTerritory,
@@ -73,9 +67,7 @@ export default function App() {
   const [registeredHouses, setRegisteredHouses] = useState([]);
   const [territories, setTerritories] = useState([]);
   const [territoryLocations, setTerritoryLocations] = useState([]);
-  const [locations, setLocations] = useState([]);
   const [types, setTypes] = useState([]);
-  const [monthlyLocations, setMonthlyLocations] = useState([]);
   const [view, setView] = useState('schedule');
   const [showConfiguration, setShowConfiguration] = useState(false);
   const [editor, setEditor] = useState(null);
@@ -109,14 +101,12 @@ export default function App() {
       loadPart('Registro de conductores', getDrivers, []),
       loadPart('Registro de casas', getHouses, []),
       loadPart('Territorios', getTerritories, []),
-      loadPart('Ubicaciones', getLocations, []),
       loadPart('Ubicaciones por territorio', getTerritoryLocations, []),
       loadPart('Tipos de salida', getOutingTypes, []),
-      loadPart('Ubicaciones del mes', () => getMonthlyLocations(year, month), []),
     ]);
     if (!active) return;
 
-    const [savedConfiguration, savedOutings, savedDrivers, savedDriverRotations, savedHouses, savedRotations, allDrivers, allHouses, allTerritories, allLocations, savedTerritoryLocations, allTypes, monthLocations] = parts.map((part) => part.value);
+    const [savedConfiguration, savedOutings, savedDrivers, savedDriverRotations, savedHouses, savedRotations, allDrivers, allHouses, allTerritories, savedTerritoryLocations, allTypes] = parts.map((part) => part.value);
 
     setConfiguration(savedConfiguration);
     setOutings(savedOutings);
@@ -127,10 +117,8 @@ export default function App() {
     setRegisteredDrivers(allDrivers);
     setRegisteredHouses(allHouses);
     setTerritories(allTerritories);
-    setLocations(allLocations);
     setTerritoryLocations(savedTerritoryLocations);
     setTypes(allTypes);
-    setMonthlyLocations(monthLocations);
 
     const issues = parts.map((part) => part.error).filter(Boolean);
     setLoadIssues(issues);
@@ -378,73 +366,6 @@ export default function App() {
       setRegisteredHouses(registry);
       setHouses(monthly);
       setMessage('Se eliminó el registro sin asignaciones históricas.');
-    } catch (error) {
-      setMessage(error.message);
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function saveLocation(values, id) {
-    setSaving(true);
-    setMessage('');
-    try {
-      if (id) {
-        await updateLocation(id, values);
-      } else {
-        await createLocation(values);
-      }
-      setLocations(await getLocations());
-      setMessage(id ? 'Se actualizó la ubicación.' : 'La ubicación se agregó al registro general.');
-      return true;
-    } catch (error) {
-      setMessage(error.message);
-      return false;
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function changeLocationStatus(location, active) {
-    setSaving(true);
-    setMessage('');
-    try {
-      await updateLocation(location.id, { ...location, active });
-      setLocations(await getLocations());
-      setMessage(!active && location.assignedCount > 0
-        ? `Ubicación deshabilitada. Sus ${location.assignedCount} asignación(es) en salidas se conservan.`
-        : `Ubicación ${active ? 'habilitada' : 'deshabilitada'}.`);
-    } catch (error) {
-      setMessage(error.message);
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function deleteGeneralLocation(location) {
-    if (!window.confirm(`¿Eliminar la ubicación ${location.name}?`)) return;
-    setSaving(true);
-    setMessage('');
-    try {
-      await removeLocation(location.id);
-      setLocations(await getLocations());
-      setMessage('Se eliminó la ubicación sin salidas asociadas.');
-    } catch (error) {
-      setMessage(error.message);
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function changeLocationAvailability(location, available) {
-    setSaving(true);
-    setMessage('');
-    try {
-      await updateLocationAvailability(year, month, location.id, available);
-      setMonthlyLocations(await getMonthlyLocations(year, month));
-      setMessage(available
-        ? 'La ubicación volvió a estar disponible este mes.'
-        : 'La ubicación se quitó de las opciones de este mes. Las salidas que ya la usan la conservan.');
     } catch (error) {
       setMessage(error.message);
     } finally {
@@ -708,16 +629,12 @@ export default function App() {
         <AdministrationPage
           drivers={registeredDrivers}
           houses={registeredHouses}
-          locations={locations}
           territories={territories}
           territoryLocations={territoryLocations}
           onSaveTerritoryLocation={saveTerritoryLocation}
           onTerritoryLocationStatusChange={changeTerritoryLocationStatus}
           onDeleteTerritoryLocation={deleteTerritoryLocationRecord}
           types={types}
-          onSaveLocation={saveLocation}
-          onDeleteLocation={deleteGeneralLocation}
-          onLocationStatusChange={changeLocationStatus}
           onSaveType={saveType}
           onTypeStatusChange={changeTypeStatus}
           onDeleteType={deleteType}
@@ -742,8 +659,6 @@ export default function App() {
           houseRotations={houseRotations}
           groups={groups}
           types={types}
-          locations={monthlyLocations}
-          onLocationAvailabilityChange={changeLocationAvailability}
           outings={outings}
           year={year}
           month={month}
@@ -769,7 +684,6 @@ export default function App() {
           month={month}
           territories={territories}
           types={types}
-          locations={locations}
           monthOutings={outings}
           territoryLocations={territoryLocations}
           onSave={saveOuting}
@@ -802,7 +716,7 @@ export default function App() {
         )}
       </section>
 
-      {!loading && <TerritoryUsagePanel outings={outings} territories={territories} />}
+      {!loading && <TerritoryUsagePanel outings={outings} territories={territories} houses={houses} />}
       </>}
     </main>
   );

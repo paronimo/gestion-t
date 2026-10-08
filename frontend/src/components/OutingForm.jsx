@@ -13,7 +13,6 @@ export default function OutingForm({
   month,
   territories = [],
   types = [],
-  locations = [],
   monthOutings = [],
   territoryLocations = [],
   onSave,
@@ -122,9 +121,6 @@ export default function OutingForm({
   const currentHouseAvailable = houseOptions.some((house) => house.id === currentHouse?.id);
   const selectedDriver = values.driverId || (values.legacyDriver ? 'legacy' : '');
   const typeNames = types.map((type) => type.name);
-  const availableLocations = locations.filter((location) => (
-    location.active || location.id === values.placeId
-  ));
   // La casa ya asignada se mantiene visible aunque este mes no sea elegible.
   const availableHouses = currentHouse && !currentHouseAvailable
     ? [...houseOptions, currentHouse]
@@ -198,18 +194,13 @@ export default function OutingForm({
                 {availableHouses.map((house) => <option key={house.id} value={house.id}>{house.name}</option>)}
               </optgroup>
             )}
-            {availableLocations.length > 0 && (
-              <optgroup label="Ubicaciones">
-                {availableLocations.map((location) => <option key={location.id} value={location.id}>{location.name}</option>)}
-              </optgroup>
-            )}
             {territoryLocations.length > 0 && (
               <optgroup label="Ubicaciones por territorio">
                 {territoryLocations.map((location) => <option key={location.id} value={location.id}>{location.name}</option>)}
               </optgroup>
             )}
           </select>
-          <small className="field-hint">Puede ser una casa o una ubicación; ambas se muestran en la misma columna.</small>
+          <small className="field-hint">Puede ser una casa o una ubicación por territorio; ambas se muestran en la misma columna.</small>
 
           {suggestions.length > 0 && (
             <div className="place-suggestions" role="group" aria-label="Ubicaciones sugeridas por territorio">
