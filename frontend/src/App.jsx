@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from './firebase.js';
 import AdministrationPage from './components/AdministrationPage.jsx';
+import AuthGate from './components/AuthGate.jsx';
 import { groupIdsFromTypes } from './components/OutingTypesPanel.jsx';
 import MonthlyConfiguration from './components/MonthlyConfiguration.jsx';
 import OutingForm from './components/OutingForm.jsx';
@@ -53,6 +56,16 @@ const months = [
 ];
 
 export default function App() {
+  return (
+    <AuthGate>
+      <GestorPage />
+    </AuthGate>
+  );
+}
+
+// Gestor tal cual estaba: el contenido existente no cambia, solo queda detrás
+// de la comprobación de sesión y rol de administrador.
+function GestorPage() {
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [year, setYear] = useState(today.getFullYear());
@@ -555,6 +568,9 @@ export default function App() {
           <h1>Salidas de predicación</h1>
         </div>
         <div className="header-actions">
+          <button className="button button-quiet" type="button" onClick={() => signOut(auth)}>
+            Cerrar sesión
+          </button>
           <ThemeToggle />
           <button className="button button-quiet" type="button" onClick={runFirebaseTest}>
             Probar Firebase
