@@ -9,7 +9,6 @@ import OutingForm from './components/OutingForm.jsx';
 import OutingsTable from './components/OutingsTable.jsx';
 import TerritoryUsagePanel from './components/TerritoryUsagePanel.jsx';
 import ThemeToggle from './components/ThemeToggle.jsx';
-import { probarFirebase } from "./probarFirebase";
 import {
   createDriver,
   createHouseRecord,
@@ -141,12 +140,6 @@ function GestorPage() {
 
     return () => { active = false; };
   }, [year, month]);
-
-  async function runFirebaseTest() {
-    setMessage('Probando la conexión con Firebase…');
-    await probarFirebase();
-    setMessage('Prueba de Firebase finalizada. Revisa la consola del navegador para ver el detalle.');
-  }
 
   async function generateMonth() {
     setSaving(true);
@@ -572,9 +565,6 @@ function GestorPage() {
             Cerrar sesión
           </button>
           <ThemeToggle />
-          <button className="button button-quiet" type="button" onClick={runFirebaseTest}>
-            Probar Firebase
-          </button>
           {view === 'schedule' && <div className="month-controls" aria-label="Seleccionar mes y año">
           <label className="field">
             <span>Mes</span>
