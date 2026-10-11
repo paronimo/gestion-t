@@ -1,4 +1,4 @@
-// Verifica que Firestore coincida con backend/data/months.json después de migrar.
+copia// Verifica que Firestore coincida con backend/data/months.json después de migrar.
 //
 // Compara: cantidades, IDs, `source`, `configId`, las cuatro banderas
 // *ManualOverride, rotaciones, disponibilidades, campos opcionales,

@@ -89,29 +89,12 @@ export async function readData() {
 
   const months = {};
   for (const doc of mesesSnap.docs) {
-    const mes = doc.data();
-    months[doc.id] = {
-      configuration: mes.configuration || [],
-      outings: salidasPorMes[doc.id] || [],
-      driverAvailability: mes.driverAvailability || {},
-      driverRotations: mes.driverRotations || { elders: {}, groupConductors: {} },
-      houseAvailability: mes.houseAvailability || {},
-      houseRotations: mes.houseRotations || {},
-      // Campos opcionales: solo si existen en el documento.
-      ...(mes.locationAvailability !== undefined ? { locationAvailability: mes.locationAvailability } : {}),
-      ...(mes.houseAvailabilityConfirmations !== undefined ? { houseAvailabilityConfirmations: mes.houseAvailabilityConfirmations } : {}),
-    };
+    months[doc.id] = montarMes(doc.id, doc.data(), salidasPorMes[doc.id] || []);
   }
 
   // Un mes con salidas pero sin documento en `meses` no debe perder sus salidas.
   for (const [mes, outings] of Object.entries(salidasPorMes)) {
-    if (!months[mes]) {
-      months[mes] = {
-        configuration: [], outings,
-        driverAvailability: {}, driverRotations: { elders: {}, groupConductors: {} },
-        houseAvailability: {}, houseRotations: {},
-      };
-    }
+    if (!months[mes]) months[mes] = montarMes(mes, {}, outings);
   }
 
   return {
@@ -125,6 +108,86 @@ export async function readData() {
   };
 }
 
+// ---------------------------------------------------------------- lecturas selectivas
+//
+// readData() lee TODA la base (244 documentos con los datos actuales) y se
+// llamaba 30 veces. Para operaciones puntuales eso es un desperdicio enorme.
+// Estas funciones leen solo lo necesario:
+//   - solo los catálogos que haga falta,
+//   - solo las salidas de un mes,
+//   - solo el documento de un mes.
+//
+// Devuelven la MISMA forma que readData(), pero con lo demás vacío, para que el
+// código de negocio no tenga que cambiar.
+
+function catalogoVacio() {
+  return { types: [], drivers: [], houses: [], territories: [], locations: [], territoryLocations: [] };
+}
+
+// Lee un solo catálogo por nombre de colección.
+// Ejemplo: readCatalogo('conducuores') -> { drivers: [...] }
+const CLAVES_CATALOGO = Object.fromEntries(
+  Object.entries(COLECCIONES_CATALOGO).map(([clave, coleccion]) => [coleccion, clave]),
+);
+
+export async function readCatalogo(coleccion) {
+  const snap = await getDb().collection(coleccion).get();
+  const clave = CLAVES_CATALOGO[coleccion];
+  if (!clave) throw new Error(`Colección de catálogo desconocida: ${coleccion}`);
+  return { ...catalogoVacio(), [clave]: snap.docs.map(conId) };
+}
+
+// Lee SOLO las salidas de un mes. Con el campo `mes` indexado, esto trae
+// únicamente los documentos de ese mes en lugar de las 144 salidas.
+export async function readSalidasDeMes(mes) {
+  const snap = await getDb().collection('salidas').where('mes', '==', mes).get();
+  return snap.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
+
+// Lee SOLO el documento de un mes (configuración, rotaciones, disponibilidades).
+export async function readMes(mes) {
+  const snap = await getDb().collection('meses').doc(mes).get();
+  if (!snap.exists) return null;
+  return montarMes(snap.id, snap.data(), []);
+}
+
+// Lee un mes completo (su documento + sus salidas), sin tocar el resto.
+export async function readMesConSalidas(mes) {
+  const [docMes, salidas] = await Promise.all([
+    getDb().collection('meses').doc(mes).get(),
+    readSalidasDeMes(mes),
+  ]);
+  if (!docMes.exists) {
+    // Un mes con salidas pero sin documento no debe perder sus salidas.
+    return salidas.length ? montarMes(mes, {}, salidas) : null;
+  }
+  return montarMes(mes, docMes.data(), salidas);
+}
+
+// Lee un catálogo concreto más un mes completo: lo que necesita una operación
+// que toca, por ejemplo, conductores y las salidas de un mes.
+export async function readMesConSalidasYCatalogo(mes, coleccion) {
+  const [mesCompleto, catalogo] = await Promise.all([
+    readMesConSalidas(mes),
+    readCatalogo(coleccion),
+  ]);
+  return { ...catalogo, months: mesCompleto ? { [mes]: mesCompleto } : {} };
+}
+
+// Arma el objeto de un mes con la misma forma que devolvía readData().
+function montarMes(id, doc, salidas) {
+  return {
+    configuration: doc.configuration || [],
+    outings: salidas,
+    driverAvailability: doc.driverAvailability || {},
+    driverRotations: doc.driverRotations || { elders: {}, groupConductors: {} },
+    houseAvailability: doc.houseAvailability || {},
+    houseRotations: doc.houseRotations || {},
+    ...(doc.locationAvailability !== undefined ? { locationAvailability: doc.locationAvailability } : {}),
+    ...(doc.houseAvailabilityConfirmations !== undefined ? { houseAvailabilityConfirmations: doc.houseAvailabilityConfirmations } : {}),
+  };
+}
+
 // ---------------------------------------------------------------- escritura
 
 // Guarda el objeto `data` completo de forma segura:
@@ -134,11 +197,19 @@ export async function readData() {
 //
 // Se compara por contenido para no reescribir 144 salidas en cada cambio de
 // disponibilidad: sin esto, cada operación pequeña reescribiría toda la base.
-export async function writeData(data) {
+// Opciones de writeData:
+//   colecciones: limita la escritura a estas colecciones (lo demás se ignora).
+//   borrar: si es false, NO se borran documentos ausentes. Las operaciones
+//           puntuales (editar una salida, cambiar una disponibilidad) no pueden
+//           haber borrado nada, así que revisar toda la base para borrar es
+//           puro desperdicio: 8 lecturas de colección por cada cambio.
+export async function writeData(data, { colecciones = null, borrar = true, soloSalidasEnMes = null } = {}) {
   const db = getDb();
   const operaciones = [];
+  const incluir = (coleccion) => !colecciones || colecciones.includes(coleccion);
 
   for (const [clave, coleccion] of Object.entries(COLECCIONES_CATALOGO)) {
+    if (!incluir(coleccion)) continue;
     for (const item of data[clave] || []) {
       if (!item.id) throw new Error(`Documento de ${coleccion} sin id`);
       const { id, ...resto } = item;
@@ -148,12 +219,17 @@ export async function writeData(data) {
 
   for (const [mes, month] of Object.entries(data.months || {})) {
     const { outings, ...resto } = month;
-    operaciones.push({
-      tipo: 'set',
-      coleccion: 'meses',
-      id: mes,
-      datos: { year: Number(mes.slice(0, 4)), month: Number(mes.slice(5, 7)), ...resto },
-    });
+
+    if (incluir('meses')) {
+      operaciones.push({
+        tipo: 'set',
+        coleccion: 'meses',
+        id: mes,
+        datos: { year: Number(mes.slice(0, 4)), month: Number(mes.slice(5, 7)), ...resto },
+      });
+    }
+
+    if (!incluir('salidas')) continue;
 
     for (const outing of outings || []) {
       if (!outing.id) throw new Error(`Salida sin id en ${mes}`);
@@ -169,7 +245,9 @@ export async function writeData(data) {
   }
 
   await aplicarOperaciones(db, operaciones);
-  await borrarAusentes(db, data);
+
+  // Solo se revisan los ausentes cuando la operación pudo haber borrado algo.
+  if (borrar) await borrarAusentes(db, data, colecciones, soloSalidasEnMes);
 }
 
 // Escribe solo lo que difiere del contenido remoto, para no gastar escrituras.
@@ -201,7 +279,11 @@ async function aplicarOperaciones(db, operaciones) {
 //   - meses que ya no están,
 //   - conductores, casas, territorios, ubicaciones, tipos... borrados.
 // Sin esto, un borrado devolvería "ok" pero el documento seguiría en Firestore.
-async function borrarAusentes(db, data) {
+//
+// `soloSalidasEnMes`: cuando se indica un mes, las salidas ausentes se buscan
+// SOLO en ese mes. Borrar una salida concreta no necesita revisar las 144
+// salidas de la base: basta con comprobar las del mes afectado.
+async function borrarAusentes(db, data, colecciones = null, soloSalidasEnMes = null) {
   // IDs que deben existir, colección por colección.
   const esperados = {};
   for (const [clave, coleccion] of Object.entries(COLECCIONES_CATALOGO)) {
@@ -209,13 +291,19 @@ async function borrarAusentes(db, data) {
   }
   esperados.meses = new Set(Object.keys(data.months || {}));
   esperados.salidas = new Set(
-    Object.values(data.months || {}).flatMap((month) => (month.outings || []).map((o) => o.id)),
+    (soloSalidasEnMes ? [data.months[soloSalidasEnMes]].filter(Boolean) : Object.values(data.months || {}))
+      .flatMap((month) => (month.outings || []).map((o) => o.id)),
   );
 
   const aBorrar = [];
   for (const [coleccion, ids] of Object.entries(esperados)) {
+    if (colecciones && !colecciones.includes(coleccion)) continue;
     // `select()` trae solo las referencias: mucho más barato que los documentos.
-    const remotas = await db.collection(coleccion).select().get();
+    // Si se acotó a un mes, las salidas se consultan solo de ese mes (índice `mes`).
+    const consulta = (coleccion === 'salidas' && soloSalidasEnMes)
+      ? db.collection(coleccion).where('mes', '==', soloSalidasEnMes).select()
+      : db.collection(coleccion).select();
+    const remotas = await consulta.get();
     for (const doc of remotas.docs) {
       if (!ids.has(doc.id)) aBorrar.push(doc.ref);
     }

@@ -7,7 +7,15 @@ import { migrateData } from '../services/migrateData.js';
 import { isGroupType, normalizeGroupValue } from '../services/domain.js';
 import { normalizeColor } from '../../shared/colors.js';
 import { normalizeLocationTerritories } from '../../shared/territoryLocations.js';
-import { enCola, readData as readFirestore, writeData as writeFirestore } from '../services/firestoreData.js';
+import {
+  enCola,
+  readData as readFirestore,
+  writeData as writeFirestore,
+  readCatalogo,
+  readMesConSalidas,
+  readMesConSalidasYCatalogo,
+  readSalidasDeMes,
+} from '../services/firestoreData.js';
 
 // Origen de datos: Firestore o un archivo JSON.
 //
@@ -90,8 +98,35 @@ async function readData() {
 
 // Las escrituras se encadenan para que dos peticiones simultáneas no se pisen:
 // en Firestore evita perder actualizaciones; en JSON evita pisar el archivo.
-function writeData(data) {
-  return enCola(() => (USAR_ARCHIVO ? writeArchivo(data) : writeFirestore(data)));
+function writeData(data, opciones) {
+  return enCola(() => (USAR_ARCHIVO ? writeArchivo(data) : writeFirestore(data, opciones)));
+}
+
+// ---------------------------------------------------------------- lecturas puntuales
+//
+// readData() trae TODA la base. Para operaciones que solo tocan un mes o un
+// catálogo eso es un desperdicio enorme (con los datos actuales, 244 lecturas
+// por llamada). Las funciones de abajo leen solo lo necesario.
+//
+// En modo archivo (pruebas) no hay nada que optimizar: se sigue leyendo el JSON.
+
+// Lee un mes completo con sus salidas y, si se indica, un catálogo extra.
+async function leerMes(mes, catalogo) {
+  if (USAR_ARCHIVO) return readData();
+  const data = catalogo ? await readMesConSalidasYCatalogo(mes, catalogo) : await readMesConSalidas(mes);
+  return normalizarData(data);
+}
+
+// Lee un catálogo suelto (conductores, casas, territorios...).
+async function leerCatalogo(coleccion) {
+  if (USAR_ARCHIVO) return readData();
+  return normalizarData(await readCatalogo(coleccion));
+}
+
+// Lee solo las salidas de un mes.
+async function leerSalidas(mes) {
+  if (USAR_ARCHIVO) return (await readData()).months[mes]?.outings || [];
+  return readSalidasDeMes(mes);
 }
 
 function monthKey(year, month) {
@@ -118,15 +153,16 @@ function countAssignments(months, field, id) {
 // ---------------------------------------------------------------- tipos de salida
 
 export async function getOutingTypes() {
-  const data = await readData();
+  const data = await leerCatalogo('tiposSalida');
   return data.types.map((type) => ({ ...type, active: type.active !== false }));
 }
 
 export async function createOutingType(name) {
-  const data = await readData();
+  // Crear solo toca este catálogo.
+  const data = await leerCatalogo('tiposSalida');
   const type = { id: randomUUID(), name: name.trim(), active: true };
   data.types.push(type);
-  await writeData(data);
+  await writeData(data, { colecciones: ['tiposSalida'], borrar: false });
   return type;
 }
 
@@ -154,8 +190,10 @@ export async function deleteOutingType(id) {
 // ---------------------------------------------------------------- meses y salidas
 
 export async function getMonth(year, month) {
-  const data = await readData();
-  return { ...emptyMonth(), ...data.months[monthKey(year, month)] };
+  // Solo se leen el documento de ese mes y sus salidas, no toda la base.
+  const key = monthKey(year, month);
+  const data = await leerMes(key);
+  return { ...emptyMonth(), ...data.months[key] };
 }
 
 export async function saveConfiguration(year, month, rawConfiguration) {
@@ -179,21 +217,22 @@ export async function saveConfiguration(year, month, rawConfiguration) {
 }
 
 export async function addManualOuting(year, month, outing) {
-  const data = await readData();
   const key = monthKey(year, month);
+  const data = await leerMes(key);
   const currentMonth = { ...emptyMonth(), ...data.months[key] };
   const newOuting = { ...outing, id: randomUUID(), source: 'manual', configId: null, color: normalizeColor(outing.color) };
 
   currentMonth.outings.push(newOuting);
   currentMonth.outings.sort((first, second) => first.date.localeCompare(second.date) || first.time.localeCompare(second.time));
   data.months[key] = currentMonth;
-  await writeData(data);
+  // Solo se escriben las salidas de este mes: no hay nada que borrar.
+  await writeData(data, { colecciones: ['salidas'], borrar: false });
   return newOuting;
 }
 
 export async function updateOuting(year, month, id, changes) {
-  const data = await readData();
   const key = monthKey(year, month);
+  const data = await leerMes(key);
   const currentMonth = { ...emptyMonth(), ...data.months[key] };
   const outing = currentMonth.outings.find((item) => item.id === id);
 
@@ -220,13 +259,13 @@ export async function updateOuting(year, month, id, changes) {
 
   Object.assign(outing, changes);  currentMonth.outings.sort((first, second) => first.date.localeCompare(second.date) || first.time.localeCompare(second.time));
   data.months[key] = currentMonth;
-  await writeData(data);
+  await writeData(data, { colecciones: ['salidas'], borrar: false });
   return outing;
 }
 
 export async function deleteOuting(year, month, id) {
-  const data = await readData();
   const key = monthKey(year, month);
+  const data = await leerMes(key);
   const currentMonth = { ...emptyMonth(), ...data.months[key] };
   const outingIndex = currentMonth.outings.findIndex((item) => item.id === id);
 
@@ -234,7 +273,9 @@ export async function deleteOuting(year, month, id) {
 
   currentMonth.outings.splice(outingIndex, 1);
   data.months[key] = currentMonth;
-  await writeData(data);
+  // Aquí SÍ hay que borrar el documento ausente: se acaba de eliminar una salida.
+  // Se limita al mes afectado, así no se recorren las salidas de toda la base.
+  await writeData(data, { colecciones: ['salidas'], borrar: true, soloSalidasEnMes: key });
   return true;
 }
 
@@ -243,7 +284,7 @@ export async function deleteOuting(year, month, id) {
 // La relación es manual: cada ubicación guarda la lista de territorios cercanos.
 // No se calculan distancias ni se asigna nada automáticamente.
 export async function getTerritoryLocations() {
-  const data = await readData();
+  const data = await leerCatalogo('ubicacionesTerritorio');
   return (data.territoryLocations || []).map((location) => ({
     ...location,
     active: location.active !== false,
@@ -253,7 +294,7 @@ export async function getTerritoryLocations() {
 }
 
 export async function createTerritoryLocation(location) {
-  const data = await readData();
+  const data = await leerCatalogo('ubicacionesTerritorio');
   const newLocation = {
     id: randomUUID(),
     active: true,
@@ -262,7 +303,7 @@ export async function createTerritoryLocation(location) {
     territories: normalizeLocationTerritories(location.territories).join(', '),
   };
   data.territoryLocations.push(newLocation);
-  await writeData(data);
+  await writeData(data, { colecciones: ['ubicacionesTerritorio'], borrar: false });
   return { ...newLocation, assignedCount: 0 };
 }
 
@@ -302,10 +343,11 @@ export async function getDrivers() {
 }
 
 export async function createDriver(driver) {
-  const data = await readData();
+  // Crear no puede borrar nada ni afecta a los meses: basta con el catálogo.
+  const data = await leerCatalogo('conductores');
   const newDriver = { id: randomUUID(), active: true, ...driver };
   data.drivers.push(newDriver);
-  await writeData(data);
+  await writeData(data, { colecciones: ['conductores'], borrar: false });
   return newDriver;
 }
 
@@ -383,15 +425,17 @@ export async function getMonthlyDrivers(year, month) {
 }
 
 export async function updateDriverAvailability(year, month, driverId, slots) {
-  const data = await readData();
+  const key = monthKey(year, month);
+  // Solo se necesitan el documento del mes y el catálogo de conductores.
+  const data = await leerMes(key, 'conductores');
   const driverExists = data.drivers.some((driver) => driver.id === driverId);
   if (!driverExists) return null;
 
-  const key = monthKey(year, month);
   const currentMonth = { ...emptyMonth(), ...data.months[key] };
   currentMonth.driverAvailability[driverId] = { slots };
   data.months[key] = currentMonth;
-  await writeData(data);
+  // Solo cambia el documento del mes: ni catálogos ni salidas que tocar.
+  await writeData(data, { colecciones: ['meses'], borrar: false });
   return { slots };
 }
 
@@ -443,10 +487,10 @@ export async function getMonthlyHouses(year, month) {
 }
 
 export async function createHouse(house) {
-  const data = await readData();
+  const data = await leerCatalogo('casas');
   const newHouse = { id: randomUUID(), active: true, ...house };
   data.houses.push(newHouse);
-  await writeData(data);
+  await writeData(data, { colecciones: ['casas'], borrar: false });
   return newHouse;
 }
 
@@ -481,15 +525,16 @@ export async function deleteHouse(id) {
 }
 
 export async function updateHouseAvailability(year, month, houseId, available) {
-  const data = await readData();
+  const key = monthKey(year, month);
+  // Solo se necesitan el documento del mes y el catálogo de casas.
+  const data = await leerMes(key, 'casas');
   const houseExists = data.houses.some((house) => house.id === houseId);
   if (!houseExists) return null;
 
-  const key = monthKey(year, month);
   const currentMonth = { ...emptyMonth(), ...data.months[key] };
   currentMonth.houseAvailability[houseId] = available;
   data.months[key] = currentMonth;
-  await writeData(data);
+  await writeData(data, { colecciones: ['meses'], borrar: false });
   return { available };
 }
 
@@ -538,7 +583,7 @@ function countTerritoryAssignments(months, territory) {
 }
 
 export async function getTerritories() {
-  const data = await readData();
+  const data = await leerCatalogo('territorios');
   return data.territories.map((territory) => ({
     ...territory,
     active: territory.active !== false,
@@ -547,7 +592,7 @@ export async function getTerritories() {
 }
 
 export async function createTerritory(territory) {
-  const data = await readData();
+  const data = await leerCatalogo('territorios');
   const newTerritory = {
     id: randomUUID(),
     active: true,
@@ -555,7 +600,7 @@ export async function createTerritory(territory) {
     name: normalizeTerritoryName(territory.name),
   };
   data.territories.push(newTerritory);
-  await writeData(data);
+  await writeData(data, { colecciones: ['territorios'], borrar: false });
   return { ...newTerritory, assignedCount: 0 };
 }
 

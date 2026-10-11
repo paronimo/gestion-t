@@ -1,0 +1,177 @@
+rules_version = '2';
+
+// ============================================================================
+// REGLAS PROPUESTAS PARA FIRESTORE  —  NO PUBLICAR TODAVÍA
+// ============================================================================
+//
+// Este archivo es una PROPUESTA para revisar. No está activo: las reglas
+// vigentes en el proyecto son otras. Publicar es una acción manual desde la
+// consola de Firebase (Firestore Database -> Reglas).
+//
+// CÓMO FUNCIONA LA SEGURIDAD EN ESTE PROYECTO (dos capas independientes):
+//
+//   1. La web administrativa NO habla con Firestore: pasa por Express, que usa
+//      el SDK de administrador. El SDK de administrador OMITE estas reglas.
+//      Por eso el middleware `requireAdmin` del backend debe seguir activo:
+//      estas reglas no protegen a React ni a la web de administración.
+//
+//   2. La aplicación Android SÍ hablará directo con Firestore. Para ella
+//      estas reglas son la única barrera, y por eso se escriben restrictivas.
+//
+// IDENTIFICADORES (no confundir):
+//   request.auth.uid  -> UID de Firebase Authentication (la cuenta que entra).
+//   driverId          -> id INTERNO del conductor en la colección `conductores`.
+//   conductorUid      -> UID de Firebase copiado en la salida, para que las
+//                        reglas puedan comparar sin leer otro documento.
+//
+// El rol se llama `rol` con el valor exacto "admin". No se renombra.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ------------------------------------------------------------------ ayuda
+
+    // ¿El usuario que pide es administrador? Se lee su propio documento.
+    // Coste: 1 lectura. Firestore permite hasta 10 get() por petición; se usa 1.
+    function esAdmin() {
+      return request.auth != null
+        && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == 'admin';
+    }
+
+    // ¿Hay sesión? Se usa para las lecturas que cualquier usuario logueado puede
+    // hacer (catálogos que necesita el conductor para ver su salida).
+    function haySesion() {
+      return request.auth != null;
+    }
+
+    // ---------------------------------------------------------- usuarios/{uid}
+
+    // Datos privados de cada cuenta. Un conductor solo ve su propio perfil.
+    match /usuarios/{uid} {
+      // Leer: solo el dueño del documento. Así un conductor no puede listar
+      // los correos y roles de los demás.
+      allow read: if haySesion() && request.auth.uid == uid;
+
+      // Crear y borrar: solo un administrador (por ejemplo, al dar de alta).
+      allow create, delete: if esAdmin();
+
+      // Actualizar: un administrador puede todo. Un usuario puede editar su
+      // perfil, PERO no puede cambiar su propio rol: se exige que `rol` quede
+      // igual que antes. Sin esta comprobación cualquiera se haría admin.
+      allow update: if esAdmin()
+        || (haySesion()
+            && request.auth.uid == uid
+            && request.resource.data.rol == resource.data.rol);
+    }
+
+    // ------------------------------------------------------ conductores/{id}
+
+    // Registro del conductor. Contiene datos de contacto, no secretos.
+    match /conductores/{conductorId} {
+      // Lectura: el conductor necesita los datos de la salida que tiene
+      // asignada (nombre del compañero, grupo...). Se permite a cualquier
+      // usuario con sesión porque son datos de trabajo, no privados.
+      allow read: if haySesion();
+
+      // Escritura: nadie desde el cliente. Solo el backend de administración,
+      // que omite estas reglas. Un conductor no cambia su grupo ni su categoría.
+      allow write: if false;
+    }
+
+    // ----------------------------------------------------------- salidas/{id}
+
+    // La planificación es responsabilidad exclusiva de la web administrativa.
+    match /salidas/{salidaId} {
+      // Lectura: un administrador ve todo; un conductor SOLO las salidas
+      // donde `conductorUid` sea su propio UID.
+      //
+      // IMPORTANTE para Android: la consulta DEBE incluir el filtro
+      //   where('conductorUid', '==', uid)
+      // Si no lo incluye, Firestore RECHAZA la consulta completa. No devuelve
+      // una lista filtrada: falla. Las reglas de Firestore no filtran, solo
+      // autorizan o niegan.
+      allow read: if esAdmin()
+        || (haySesion() && resource.data.conductorUid == request.auth.uid);
+
+      // Escritura: NUNCA desde el cliente. Un conductor no puede crear,
+      // editar ni borrar salidas, ni cambiar su propia asignación.
+      allow write: if false;
+    }
+
+    // ----------------------------------------------------------- informes/{id}
+
+    // Informes que envían los conductores desde Android.
+    match /informes/{informeId} {
+      // Crear: el `uid` del documento debe ser el del usuario que lo envía.
+      // Así nadie puede crear un informe a nombre de otro.
+      allow create: if haySesion() && request.resource.data.uid == request.auth.uid;
+
+      // Leer: el administrador ve todos; un conductor solo los suyos.
+      allow read: if esAdmin() || (haySesion() && resource.data.uid == request.auth.uid);
+
+      // Actualizar: un administrador puede todo. Un conductor puede corregir
+      // SU informe, pero sin cambiar de dueño: `uid` debe seguir igual.
+      allow update: if esAdmin()
+        || (haySesion()
+            && resource.data.uid == request.auth.uid
+            && request.resource.data.uid == resource.data.uid);
+
+      // Borrar: solo el administrador. Un conductor no elimina evidencia
+      // de un informe ya enviado.
+      allow delete: if esAdmin();
+    }
+
+    // --------------------------------------------------------- meses/{YYYY-MM}
+
+    // Configuración mensual: reglas recurrentes, rotaciones y disponibilidades.
+    match /meses/{mes} {
+      // Un conductor necesita leer esto para entender por qué tiene asignada
+      // una salida (por ejemplo, la regla que la generó).
+      allow read: if haySesion();
+
+      // Modificar la planificación: solo el backend de administración.
+      allow write: if false;
+    }
+
+    // ------------------------------------------------------------- catálogos
+    //
+    // Casas, territorios, ubicaciones y tipos de salida.
+    // El conductor necesita leerlos para saber a dónde va (dirección, enlace
+    // de Google Maps). Pero NO puede modificarlos desde Android.
+
+    match /casas/{casaId} {
+      allow read: if haySesion();
+      allow write: if false;
+    }
+
+    match /territorios/{territorioId} {
+      allow read: if haySesion();
+      allow write: if false;
+    }
+
+    match /ubicaciones/{ubicacionId} {
+      allow read: if haySesion();
+      allow write: if false;
+    }
+
+    match /ubicacionesTerritorio/{ubicacionId} {
+      allow read: if haySesion();
+      allow write: if false;
+    }
+
+    match /tiposSalida/{tipoId} {
+      allow read: if haySesion();
+      allow write: if false;
+    }
+
+    // --------------------------------------------------------- resto cerrado
+    //
+    // Cualquier colección que no esté contemplada arriba queda CERRADA, incluso
+    // para administradores desde el cliente. Es deliberado: si mañana se crea
+    // una colección nueva y se olvida definir sus reglas, el valor por defecto
+    // es "nadie entra", no "todos entran".
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}
