@@ -1,3 +1,5 @@
+import { auth } from '../firebase.js';
+
 // Un fallo de red (backend apagado, proxy caído) llega como TypeError sin mensaje
 // útil. Se traduce a un error entendible en lugar de "Failed to fetch".
 export class ApiError extends Error {
@@ -9,13 +11,26 @@ export class ApiError extends Error {
   }
 }
 
+// El backend exige el token de Firebase en cada petición. Si falla la lectura
+// del token se devuelve null y la petición sigue sin él: el backend responde 401
+// con un mensaje claro, en lugar de romper la interfaz desde el cliente.
+async function currentToken() {
+  try {
+    return (await auth.currentUser?.getIdToken()) || null;
+  } catch {
+    return null;
+  }
+}
+
 async function request(path, options = {}) {
+  const token = await currentToken();
   let response;
   try {
     response = await fetch(path, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...options.headers,
       },
     });
@@ -24,8 +39,15 @@ async function request(path, options = {}) {
   }
 
   if (!response.ok) {
+    // 401 y 403 se traducen a mensajes entendibles; el detalle real sigue viniendo
+    // del backend cuando aporta algo (por ejemplo, que el rol no es admin).
     const result = await response.json().catch(() => ({}));
-    throw new ApiError(result.error || 'No se pudo completar la solicitud', { status: response.status, path });
+    const fallback = response.status === 401
+      ? 'Tu sesión venció o no es válida. Volvé a iniciar sesión.'
+      : response.status === 403
+        ? 'Tu cuenta no tiene permisos de administrador.'
+        : 'No se pudo completar la solicitud';
+    throw new ApiError(result.error || fallback, { status: response.status, path });
   }
 
   return response.status === 204 ? null : response.json();
@@ -170,6 +192,41 @@ export function saveHouseRotation(year, month, group, houseIds) {
 // El PDF se baja como archivo, no como JSON: se usa como enlace directo.
 export function schedulePdfUrl(year, month) {
   return `${monthPath(year, month)}/schedule.pdf`;
+}
+
+// Un enlace <a download> no puede enviar el encabezado Authorization, así que el
+// PDF se pide con fetch (que sí lleva el token) y se entrega como archivo.
+// Se conserva la ruta de schedulePdfUrl para no cambiar nada más en la interfaz.
+export async function downloadSchedulePdf(year, month, fileName) {
+  const token = await currentToken();
+  let response;
+  try {
+    response = await fetch(schedulePdfUrl(year, month), {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+  } catch {
+    throw new ApiError('No se pudo conectar con el servidor. Revisá que el backend esté iniciado.', { path: schedulePdfUrl(year, month) });
+  }
+
+  if (!response.ok) {
+    const result = await response.json().catch(() => ({}));
+    const fallback = response.status === 401
+      ? 'Tu sesión venció o no es válida. Volvé a iniciar sesión.'
+      : response.status === 403
+        ? 'Tu cuenta no tiene permisos de administrador.'
+        : 'No se pudo descargar el PDF';
+    throw new ApiError(result.error || fallback, { status: response.status, path: schedulePdfUrl(year, month) });
+  }
+
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 export function getMonthSummary(year, month) {

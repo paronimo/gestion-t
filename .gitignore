@@ -13,6 +13,15 @@ dist-ssr
 *.local
 backend/data/months.json
 
+# Credenciales privadas de Firebase Admin: nunca se suben al repositorio.
+.env
+.env.*
+!.env.example
+*serviceAccount*.json
+*service-account*.json
+*adminsdk*.json
+backend/credentials/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

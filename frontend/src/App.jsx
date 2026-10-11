@@ -39,7 +39,7 @@ import {
   saveDriverRotation,
   saveHouseRotation,
   loadPart,
-  schedulePdfUrl,
+  downloadSchedulePdf,
   updateDriver,
   updateDriverAvailability,
   updateHouse,
@@ -140,6 +140,17 @@ function GestorPage() {
 
     return () => { active = false; };
   }, [year, month]);
+
+  // El PDF viaja con el token de sesión, por eso se pide por código y no
+  // como enlace directo. Cualquier error se muestra en el aviso habitual.
+  async function downloadPdf() {
+    setMessage('');
+    try {
+      await downloadSchedulePdf(year, month, `Cronograma_${months[month - 1]}_${year}.pdf`);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  }
 
   async function generateMonth() {
     setSaving(true);
@@ -605,13 +616,13 @@ function GestorPage() {
           <p>{outings.length} {outings.length === 1 ? 'salida' : 'salidas'} en el mes</p>
         </div>
         <div className="toolbar-actions">
-          <a
+          <button
             className="button button-quiet"
-            href={schedulePdfUrl(year, month)}
-            download={`Cronograma_${months[month - 1]}_${year}.pdf`}
+            type="button"
+            onClick={downloadPdf}
           >
             Descargar PDF
-          </a>
+          </button>
           <button
             className="button button-quiet"
             type="button"
