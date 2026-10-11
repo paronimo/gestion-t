@@ -655,7 +655,10 @@ test('generar, editar una salida y agregar una manual conserva ambos flujos', as
   const regenerated = await saveConfiguration(2026, 10, [{
     id: 'tuesday-rule', weekday: 2, time: '17:30', type: 'Grupo 2', active: true,
   }]);
-  assert.notEqual(regenerated.outings.find((outing) => outing.date === first.date).id, first.id);
+  // El id se CONSERVA al regenerar: la salida mantiene su documento en Firestore
+  // en lugar de borrarse y recrearse con otro UUID.
+  assert.equal(regenerated.outings.find((outing) => outing.date === first.date).id, first.id);
+  // La hora vuelve al valor de la regla, porque editarla no marca overrides.
   assert.equal(regenerated.outings.find((outing) => outing.date === first.date).time, '17:30');
   assert(regenerated.outings.some((outing) => outing.id === manual.id));
 });

@@ -1,5 +1,5 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { generateOutings } from '../services/scheduleGenerator.js';
@@ -7,11 +7,26 @@ import { migrateData } from '../services/migrateData.js';
 import { isGroupType, normalizeGroupValue } from '../services/domain.js';
 import { normalizeColor } from '../../shared/colors.js';
 import { normalizeLocationTerritories } from '../../shared/territoryLocations.js';
+import { enCola, readData as readFirestore, writeData as writeFirestore } from '../services/firestoreData.js';
+
+// Origen de datos: Firestore o un archivo JSON.
+//
+//   - En producción se usa Firestore (meses.json quedó solo como copia de seguridad).
+//   - Si se define SCHEDULE_DATA_FILE, se usa ESE archivo JSON. Esto existe para que
+//     las pruebas automáticas corran aisladas, contra un archivo temporal, sin
+//     depender de credenciales ni de la base real.
+//
+// Nunca se usan las dos fuentes a la vez: la variable de entorno decide una sola.
+const USAR_ARCHIVO = Boolean(process.env.SCHEDULE_DATA_FILE);
 
 const dataFile = process.env.SCHEDULE_DATA_FILE
   ? pathToFileURL(resolve(process.env.SCHEDULE_DATA_FILE))
   : new URL('../data/months.json', import.meta.url);
 const dataDirectory = pathToFileURL(dirname(fileURLToPath(dataFile)));
+
+// readData() devuelve el mismo objeto con las dos fuentes
+// ({ types, drivers, houses, territories, territoryLocations, locations, months }),
+// así que toda la lógica de negocio de este archivo sigue igual.
 
 function normalizeGroup(group) {
   return normalizeGroupValue(group);
@@ -23,9 +38,11 @@ function emptyData() {
   return { types: defaultTypes(), drivers: [], houses: [], territoryLocations: [], territories: [], months: {} };
 }
 
-async function readData() {
+// Lectura del archivo JSON (solo cuando SCHEDULE_DATA_FILE está definido).
+// Se aplica la misma migración de formato que usaba el modelo original, para
+// que los datos de esquemas anteriores se adapten al modelo de tipo único.
+async function readArchivo() {
   await mkdir(dataDirectory, { recursive: true });
-
   try {
     const content = await readFile(dataFile, 'utf8');
     // Un archivo recién creado puede estar vacío: se trata como una base nueva.
@@ -40,17 +57,41 @@ async function readData() {
   }
 }
 
-// Las escrituras se encadenan para que dos peticiones simultáneas no se pisen
-// ni dejen el archivo a medio escribir.
-let writeQueue = Promise.resolve();
+// Escritura del archivo JSON, encadenada para que dos operaciones simultáneas
+// no dejen el archivo a medio escribir.
+let writeQueueArchivo = Promise.resolve();
 
-function writeData(data) {
+function writeArchivo(data) {
   const snapshot = JSON.stringify(data, null, 2);
-  writeQueue = writeQueue.then(async () => {
+  writeQueueArchivo = writeQueueArchivo.then(async () => {
     await mkdir(dataDirectory, { recursive: true });
     await writeFile(dataFile, snapshot);
   });
-  return writeQueue;
+  return writeQueueArchivo;
+}
+
+// Si Firestore devolviera el catálogo de tipos vacío (base nueva), se usa el
+// tipo congregacional por defecto para no romper el cronograma.
+function normalizarData(data) {
+  return {
+    types: data.types?.length ? data.types : defaultTypes(),
+    drivers: data.drivers || [],
+    houses: data.houses || [],
+    territories: data.territories || [],
+    locations: data.locations || [],
+    territoryLocations: data.territoryLocations || [],
+    months: data.months || {},
+  };
+}
+
+async function readData() {
+  return USAR_ARCHIVO ? readArchivo() : normalizarData(await readFirestore());
+}
+
+// Las escrituras se encadenan para que dos peticiones simultáneas no se pisen:
+// en Firestore evita perder actualizaciones; en JSON evita pisar el archivo.
+function writeData(data) {
+  return enCola(() => (USAR_ARCHIVO ? writeArchivo(data) : writeFirestore(data)));
 }
 
 function monthKey(year, month) {
@@ -616,6 +657,12 @@ function generateMonthlyOutings(data, year, month, currentMonth, configuration) 
   const preservedColors = Object.fromEntries(currentMonth.outings
     .filter((outing) => outing.source === 'recurring' && outing.colorManualOverride)
     .map((outing) => [key(outing), normalizeColor(outing.color)]));
+  // IDs de las salidas que ya existen para cada regla y fecha. Al regenerar se
+  // reutilizan, de modo que las salidas conservan su documento en Firestore en
+  // lugar de borrarse y recrearse con otro UUID.
+  const existingOutingIds = Object.fromEntries(currentMonth.outings
+    .filter((outing) => outing.source === 'recurring' && outing.configId && outing.id)
+    .map((outing) => [key(outing), outing.id]));
 
   return generateOutings(year, month, configuration, getEligibleHouseRotations(data.houses, currentMonth), {
     drivers,
@@ -625,6 +672,7 @@ function generateMonthlyOutings(data, year, month, currentMonth, configuration) 
     preservedTerritories,
     preservedPlaces,
     preservedColors,
+    existingOutingIds,
   });
 }
 

@@ -68,14 +68,21 @@ function validTime(time) {
   return typeof time === 'string' && /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time);
 }
 
-function validDate(date, year, month) {
+// Comprueba que la fecha exista de verdad (por ejemplo, no admite 2026-02-30).
+//
+// Ya NO exige que la fecha caiga dentro del mes de la URL: en Firestore una
+// salida es un documento propio con su campo `mes` derivado de la fecha, así
+// que mover una salida a otro mes es una operación válida. El día se valida
+// contra el mes de la propia fecha.
+function validDate(date) {
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return false;
   }
 
   const [dateYear, dateMonth, day] = date.split('-').map(Number);
-  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
-  return dateYear === year && dateMonth === month && day >= 1 && day <= lastDay;
+  if (dateMonth < 1 || dateMonth > 12 || day < 1) return false;
+  const lastDay = new Date(Date.UTC(dateYear, dateMonth, 0)).getUTCDate();
+  return day <= lastDay;
 }
 
 function normalizeTerritory(territory) {
@@ -108,7 +115,7 @@ function outingFields(body, year, month, response) {
     && (body.placeType === undefined || body.placeType === 'house' || body.placeType === 'location')
     && (body.color === undefined || typeof body.color === 'string');
 
-  if (!body || !validDate(body.date, year, month) || !validTime(body.time) || !hasValidText) {
+  if (!body || !validDate(body.date) || !validTime(body.time) || !hasValidText) {
     response.status(400).json({ error: 'La fecha, la hora y el tipo de salida son obligatorios' });
     return null;
   }
@@ -359,7 +366,7 @@ export async function getAvailableDrivers(request, response) {
   if (!params) return;
 
   const { date, type = 'Congregacional', time = '09:00', currentDriverId = '' } = request.query;
-  if (!validDate(date, params.year, params.month) || !validTime(time) || typeof type !== 'string') {
+  if (!validDate(date) || !validTime(time) || typeof type !== 'string') {
     response.status(400).json({ error: 'Fecha, hora y tipo válidos son necesarios' });
     return;
   }
@@ -488,7 +495,7 @@ export async function getAvailableHouses(request, response) {
   if (!params) return;
 
   const { date, type = '', time = '', currentHouseId = '' } = request.query;
-  if (!validDate(date, params.year, params.month) || typeof type !== 'string') {
+  if (!validDate(date) || typeof type !== 'string') {
     response.status(400).json({ error: 'Fecha y tipo válidos son necesarios' });
     return;
   }

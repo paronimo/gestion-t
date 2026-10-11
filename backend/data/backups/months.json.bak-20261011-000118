@@ -1,0 +1,4224 @@
+{
+  "types": [
+    {
+      "id": "congregacional",
+      "name": "Congregacional",
+      "active": true
+    },
+    {
+      "id": "fe5ec693-6f89-4bb6-8b9e-0629ed5305f6",
+      "name": "Grupo 1",
+      "active": true
+    },
+    {
+      "id": "b10489da-2164-4dcb-8c71-814d87021f8e",
+      "name": "Grupo 2",
+      "active": true
+    },
+    {
+      "id": "11f7c211-9c8e-428d-87f8-e010dd30c14d",
+      "name": "Grupo 3",
+      "active": true
+    },
+    {
+      "id": "bf2ca1cd-275a-44a9-a4da-bbd8e73eb546",
+      "name": "Grupo 4",
+      "active": true
+    }
+  ],
+  "territoryLocations": [
+    {
+      "id": "118ea91f-b3d0-4b49-a8cb-f5b65ee79325",
+      "active": true,
+      "mapsUrl": "https://maps.app.goo.gl/FJi6fRZwhSXhhABh8",
+      "name": "Plaza de la secundaria EPA",
+      "territories": "6, 7, 3, 10, 11"
+    }
+  ],
+  "territories": [
+    {
+      "id": "f87d9984-d77c-4c92-afea-36872a3a0491",
+      "active": true,
+      "name": "1"
+    },
+    {
+      "id": "1ceaaa69-a506-4996-8ace-1f925d883803",
+      "active": true,
+      "name": "2"
+    },
+    {
+      "id": "eb26c790-18b1-4bab-859d-41ce0b409875",
+      "active": true,
+      "name": "3"
+    },
+    {
+      "id": "633290e7-7102-4bcb-8bfe-e8a0d5fa1257",
+      "active": true,
+      "name": "6"
+    },
+    {
+      "id": "0cfee484-a7a4-4821-aaa8-5a02c7f87eff",
+      "active": true,
+      "name": "7"
+    },
+    {
+      "id": "645441bf-2853-4296-be4c-e06035ff1ad0",
+      "active": true,
+      "name": "4"
+    },
+    {
+      "id": "1d092996-3ebe-4794-b2c1-0a3ba7338aa2",
+      "active": true,
+      "name": "5"
+    },
+    {
+      "id": "77d36b78-5ff4-4ee6-bc3b-f202fc3a3a51",
+      "active": true,
+      "name": "8"
+    },
+    {
+      "id": "7ce054f0-f60f-44be-88b4-1cc004427445",
+      "active": true,
+      "name": "9"
+    },
+    {
+      "id": "501e010a-4efc-434d-b217-8e1b05a6be1f",
+      "active": true,
+      "name": "10"
+    },
+    {
+      "id": "50b99bf5-1fc4-4a96-8596-0ea5a293d1cc",
+      "active": true,
+      "name": "11"
+    },
+    {
+      "id": "1dc3f667-63df-4d05-84f0-346a800cfb0b",
+      "active": true,
+      "name": "12"
+    },
+    {
+      "id": "ec28d764-7e9f-4e6a-9bc4-6bfafeb91c21",
+      "active": true,
+      "name": "13"
+    },
+    {
+      "id": "022a712d-cc89-43d2-a5fb-b1b261a9bbc6",
+      "active": true,
+      "name": "14"
+    },
+    {
+      "id": "3394b6ef-9473-4922-aee7-65c837c3fd1b",
+      "active": true,
+      "name": "15"
+    },
+    {
+      "id": "bd36856e-6fa2-4c05-a83b-b4666a32ab40",
+      "active": true,
+      "name": "16"
+    },
+    {
+      "id": "9add14a4-fdd4-4954-b311-85a98003dba3",
+      "active": true,
+      "name": "17"
+    },
+    {
+      "id": "e906f2d0-2639-456b-8be9-b25b5d5fe428",
+      "active": true,
+      "name": "18"
+    },
+    {
+      "id": "4209c022-9d08-426e-94dd-cded7cb2881a",
+      "active": true,
+      "name": "19"
+    },
+    {
+      "id": "88e35182-f0f5-4cb8-bc72-802a1ad79ad3",
+      "active": true,
+      "name": "20"
+    },
+    {
+      "id": "fbbf487a-73a5-4ecd-bb6f-c8922d37213c",
+      "active": true,
+      "name": "21"
+    },
+    {
+      "id": "898067e8-c827-43a5-b0b9-1213f52b8f52",
+      "active": true,
+      "name": "22"
+    },
+    {
+      "id": "84cc644d-c069-43ee-97e4-4ca272c23267",
+      "active": true,
+      "name": "23"
+    },
+    {
+      "id": "e20a4676-d622-411f-b894-cd4ec6a93505",
+      "active": true,
+      "name": "24"
+    },
+    {
+      "id": "39624120-fd25-473a-b836-d9b0cdf6d09a",
+      "active": true,
+      "name": "25"
+    },
+    {
+      "id": "633f88ea-2830-417a-bf34-1d36e8501039",
+      "active": true,
+      "name": "26"
+    },
+    {
+      "id": "ce168926-75a4-46fb-972a-9df8cf3e3f19",
+      "active": true,
+      "name": "27"
+    },
+    {
+      "id": "3a87c934-29a6-41c3-a0d4-c95af5588dd6",
+      "active": true,
+      "name": "28"
+    },
+    {
+      "id": "698b8c1e-89a8-42bb-9f7b-b9edb4ce05b1",
+      "active": true,
+      "name": "29"
+    },
+    {
+      "id": "d9eaf3c1-4d31-4e72-845d-7447c304e940",
+      "active": true,
+      "name": "30"
+    }
+  ],
+  "locations": [],
+  "houses": [
+    {
+      "id": "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+      "name": "Flia.Vigneau",
+      "group": "3",
+      "congregationalWeekend": false,
+      "askAvailability": true,
+      "active": true,
+      "family": "Marcelo Vigneau"
+    },
+    {
+      "id": "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+      "name": "Flia.Sosa",
+      "group": "3",
+      "congregationalWeekend": true,
+      "askAvailability": true,
+      "active": true
+    },
+    {
+      "id": "6b175c11-665e-43a1-a850-0a9eb38ca672",
+      "name": "Flia.Gonzalez Guillermo",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4",
+      "name": "Flia.Constantini",
+      "group": "4",
+      "congregationalWeekend": true,
+      "askAvailability": true,
+      "active": true
+    },
+    {
+      "id": "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+      "name": "Flia.Verge",
+      "group": "2",
+      "congregationalWeekend": true,
+      "askAvailability": true,
+      "active": true
+    },
+    {
+      "id": "34b66b03-3016-45e6-9362-09338f43e3bf",
+      "name": "Flia.Suarez",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "5502e864-d44b-4a57-8656-97c42ff08e35",
+      "name": "Josefina Sosa",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "abe694df-92e3-4d41-898e-c45266325e1e",
+      "active": true,
+      "name": "Evangelina Verge",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "c07def08-4427-4c0b-b574-39b09570e4e3",
+      "active": true,
+      "name": "Flia.Dellasala",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+      "active": true,
+      "name": "Flia.Espinoza",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+      "active": true,
+      "name": "Flia.Salinas",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "abb28e6d-888c-499b-92c9-aafcbb92387a",
+      "active": true,
+      "name": "Flia.Smith",
+      "group": "1",
+      "congregationalWeekend": false
+    },
+    {
+      "id": "b3ece71c-174d-4ad2-95c8-85b09ecef42a",
+      "active": true,
+      "name": "Flia.Gomez",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "1663a5ea-2e6d-41bd-8fde-9e72046adae0",
+      "active": true,
+      "name": "Flia.Gonzalez Maria",
+      "group": "1",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "4d1606c3-105b-49ff-a596-db0e3e64d7da",
+      "active": true,
+      "name": "Marisa Gimenez",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "5c12a927-6309-4576-a51d-89f35b03804d",
+      "active": true,
+      "name": "Monica Aguilera",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4",
+      "active": true,
+      "name": "Flia.Carabajal",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "2d47564c-6160-41b5-859d-fe69f1300502",
+      "active": true,
+      "name": "Flia.Runge Gleisy",
+      "group": "2",
+      "congregationalWeekend": false
+    },
+    {
+      "id": "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+      "active": true,
+      "name": "Flia.Camargo",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "86f9e00b-b562-49e4-9f8d-389947582ad1",
+      "active": true,
+      "name": "Flia.Romero",
+      "group": "2",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+      "active": true,
+      "name": "Flia.Stoery",
+      "group": "3",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "bcc64b0c-44e6-46ab-ad45-1d862717fa41",
+      "active": true,
+      "name": "Flia.Molina Marcela",
+      "group": "3",
+      "congregationalWeekend": false
+    },
+    {
+      "id": "0c189a85-fa28-4638-9947-167204e1b079",
+      "active": true,
+      "name": "Flia.Cerutti",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "54e63f30-20e8-45b8-846d-4e6f92472794",
+      "active": true,
+      "name": "Yolanda Diel",
+      "group": "4",
+      "congregationalWeekend": false
+    },
+    {
+      "id": "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5",
+      "active": true,
+      "name": "Ana Raynich",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+      "active": true,
+      "name": "Antonia Bustos",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "0f85edca-1219-4b8a-ba9c-2f7068d7e972",
+      "active": true,
+      "name": "Flia.Pereyra",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "fe3676c4-1798-4409-9604-cd75affc725a",
+      "active": true,
+      "name": "Flia.Palmero",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+      "active": true,
+      "name": "Miriam Arce",
+      "group": "4",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "a5b7a4dc-2bf5-4090-b98b-57f5391aaabb",
+      "active": true,
+      "name": "CASA QA",
+      "group": "",
+      "congregationalWeekend": false
+    },
+    {
+      "id": "c93950d9-6340-4d20-b413-54c811e059cb",
+      "active": true,
+      "name": "CASA PRUEBA",
+      "group": "9",
+      "congregationalWeekend": true
+    },
+    {
+      "id": "7c062b1b-bbd5-40b4-954b-2a02bc73fdb8",
+      "active": true,
+      "name": "fheruhq",
+      "family": "t4tb4bb4",
+      "group": "2",
+      "congregationalWeekend": false,
+      "askAvailability": true
+    }
+  ],
+  "drivers": [
+    {
+      "id": "97dd6333-d4e3-4e3c-b4f1-32b681696f9b",
+      "active": true,
+      "firstName": "Carlos",
+      "lastName": "Pereyra",
+      "category": "Publicador",
+      "group": "4"
+    },
+    {
+      "id": "ad0f9dc0-c379-4cc1-a018-5690b0416a6c",
+      "active": true,
+      "firstName": "Karina",
+      "lastName": "Pereyra",
+      "category": "Precursor",
+      "group": "4"
+    },
+    {
+      "id": "e5dca8d2-3869-44fa-91e5-8965777e56a1",
+      "active": true,
+      "firstName": "Mayco",
+      "lastName": "Sebastiani",
+      "category": "Publicador",
+      "group": "3"
+    },
+    {
+      "id": "7a7f731e-fe63-4f54-ab59-f0bc413651c9",
+      "active": true,
+      "firstName": "Melina",
+      "lastName": "Verge",
+      "category": "Precursor",
+      "group": "2"
+    },
+    {
+      "id": "fd25e70d-b59d-463a-a75c-c9d174352184",
+      "active": true,
+      "firstName": "Evangelina",
+      "lastName": "Verge",
+      "category": "Precursor",
+      "group": "2"
+    },
+    {
+      "id": "8d43d385-09f6-4ad3-b291-5270a982aaab",
+      "active": true,
+      "firstName": "Lucas",
+      "lastName": "Camargo",
+      "category": "Publicador",
+      "group": "2"
+    },
+    {
+      "id": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+      "active": true,
+      "firstName": "Horacio",
+      "lastName": "Constantini",
+      "category": "Anciano",
+      "group": "4"
+    },
+    {
+      "id": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+      "active": true,
+      "firstName": "Sergio",
+      "lastName": "Orellano",
+      "category": "Anciano",
+      "group": "3"
+    },
+    {
+      "id": "e9dc5ad5-efd8-4f0f-a8e0-b2b339748b1d",
+      "active": false,
+      "firstName": "Lujan",
+      "lastName": "Gomez",
+      "category": "Precursor",
+      "group": "1"
+    },
+    {
+      "id": "f45a0818-d62f-4776-bb1a-cea37da8d58f",
+      "active": false,
+      "firstName": "Valentina",
+      "lastName": "Sosa",
+      "category": "Precursor",
+      "group": "3"
+    },
+    {
+      "id": "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+      "active": true,
+      "firstName": "Mateo",
+      "lastName": "Gonzalez",
+      "category": "Siervo ministerial",
+      "group": "4"
+    },
+    {
+      "id": "6f7475a6-3c20-4180-a10a-848395dce370",
+      "active": true,
+      "firstName": "Danilo",
+      "lastName": "Espinoza",
+      "category": "Anciano",
+      "group": "1"
+    },
+    {
+      "id": "5b7dedf4-f575-4ee0-9f03-05a90f702376",
+      "active": true,
+      "firstName": "Ricardo",
+      "lastName": "Delmolin",
+      "category": "Publicador",
+      "group": "4"
+    },
+    {
+      "id": "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7",
+      "active": true,
+      "firstName": "Jose Luis",
+      "lastName": "Carabajal",
+      "category": "Publicador",
+      "group": "2"
+    },
+    {
+      "id": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+      "active": true,
+      "firstName": "David",
+      "lastName": "Verge",
+      "category": "Anciano",
+      "group": "2"
+    },
+    {
+      "id": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+      "active": true,
+      "firstName": "Jorge",
+      "lastName": "Romero",
+      "category": "Anciano",
+      "group": "2"
+    },
+    {
+      "id": "fc9c9054-618a-4460-a1a7-eafbb2411049",
+      "active": true,
+      "firstName": "Alberto",
+      "lastName": "Ramos",
+      "category": "Publicador",
+      "group": "2"
+    },
+    {
+      "id": "c1d3e7da-c432-400a-9288-0e93fb533916",
+      "active": true,
+      "firstName": "Marcelo",
+      "lastName": "Vigneau",
+      "category": "Publicador",
+      "group": "3"
+    },
+    {
+      "id": "90ba983b-1635-4af4-9ecd-81878456239b",
+      "active": true,
+      "firstName": "Carlos",
+      "lastName": "Stoery",
+      "category": "Anciano",
+      "group": "3"
+    },
+    {
+      "id": "2b385fa9-3d15-445e-9aba-092e3463b934",
+      "active": true,
+      "firstName": "Juan",
+      "lastName": "Sosa",
+      "category": "Publicador",
+      "group": "3"
+    },
+    {
+      "id": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+      "active": true,
+      "firstName": "Guillermo",
+      "lastName": "Gonzalez",
+      "category": "Anciano",
+      "group": "4"
+    },
+    {
+      "id": "d258e435-b2dd-447f-9358-e76a78273e5b",
+      "active": false,
+      "firstName": "Ignacio",
+      "lastName": "Sosa",
+      "category": "Publicador",
+      "group": "3"
+    },
+    {
+      "id": "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5",
+      "active": true,
+      "firstName": "Emiliano",
+      "lastName": "Smith",
+      "category": "Siervo ministerial",
+      "group": "1"
+    },
+    {
+      "id": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+      "active": true,
+      "firstName": "Adrian",
+      "lastName": "Suarez",
+      "category": "Anciano",
+      "group": "1"
+    },
+    {
+      "id": "bd138c72-0bf2-4b9f-9731-e090b1aa5656",
+      "active": true,
+      "firstName": "QA",
+      "lastName": "Cond",
+      "category": "Publicador",
+      "group": ""
+    },
+    {
+      "id": "e971cc46-b5c5-4b1f-a834-d243d370a8b7",
+      "active": true,
+      "firstName": "Turno",
+      "lastName": "QA",
+      "category": "Publicador",
+      "group": "9"
+    },
+    {
+      "id": "dcb6fe3d-24ec-43d1-91d4-6037cabd9b41",
+      "active": false,
+      "firstName": "María",
+      "lastName": "Pérez",
+      "category": "Precursor",
+      "group": ""
+    },
+    {
+      "id": "72917d4b-b02c-4fd3-a4a5-2b9993ea66e1",
+      "active": true,
+      "firstName": "Ana",
+      "lastName": "Sala",
+      "category": "Publicador"
+    },
+    {
+      "id": "4e99b3bc-da37-4860-9b25-1591d21d0ad7",
+      "active": false,
+      "firstName": "Beto",
+      "lastName": "Sala",
+      "category": "Publicador",
+      "group": ""
+    }
+  ],
+  "months": {
+    "2026-10": {
+      "configuration": [
+        {
+          "id": "71e6f99c-f71a-4add-9d5e-d2ae6985e30a",
+          "weekday": 2,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "859091f0-a624-4e78-accb-93b4d3edd6ef",
+          "weekday": 3,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "weekday": 4,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "weekday": 5,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "weekday": 5,
+          "time": "18:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "weekday": 6,
+          "time": "10:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "47691ce7-343f-4779-b400-67e09dbfca66",
+          "weekday": 0,
+          "time": "10:30",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "weekday": 4,
+          "time": "18:00",
+          "type": "Grupo 3",
+          "active": true,
+          "color": "#95e0ea"
+        },
+        {
+          "id": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "weekday": 4,
+          "time": "19:00",
+          "type": "Grupo 2",
+          "active": true,
+          "color": "#b3e6d5"
+        },
+        {
+          "id": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "weekday": 4,
+          "time": "18:00",
+          "type": "Grupo 4",
+          "active": true,
+          "color": "#89f095"
+        },
+        {
+          "id": "fb295bb8-4f18-4c34-b825-5b7d140427f0",
+          "weekday": 2,
+          "time": "18:00",
+          "type": "Grupo 1",
+          "active": true,
+          "color": "#e8b164"
+        }
+      ],
+      "outings": [
+        {
+          "id": "7b8e0299-bd14-4729-a0ca-9e5d0ae749ef",
+          "date": "2026-10-01",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": true,
+          "source": "recurring",
+          "configId": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "5249f11d-727c-44af-9f13-f6e5cfcc237c",
+          "date": "2026-10-01",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "b6f83c32-9ed0-4bda-b108-c61ed5d02783",
+          "date": "2026-10-01",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "30",
+          "territoryManualOverride": true,
+          "source": "recurring",
+          "configId": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "ae730c5c-cf1e-4a2c-a80a-2b1b6acf940d",
+          "date": "2026-10-01",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "5c12a927-6309-4576-a51d-89f35b03804d",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "30",
+          "territoryManualOverride": true,
+          "source": "recurring",
+          "configId": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "69ef5244-7071-4cb4-a0a0-dbf8199a36c9",
+          "date": "2026-10-02",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "da2a98ab-02bf-42e9-b4b2-bb2e14ff334b",
+          "date": "2026-10-02",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "bf8f782f-7ba3-4bed-8fb7-fe82c479afd3",
+          "date": "2026-10-03",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "0d72c2a3-aa96-4e59-bb61-9e593532e7a6",
+          "date": "2026-10-04",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "47691ce7-343f-4779-b400-67e09dbfca66",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "1e76b296-8aac-4ea5-a84e-cf6eb052bf6c",
+          "date": "2026-10-06",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "72917d4b-b02c-4fd3-a4a5-2b9993ea66e1",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "71e6f99c-f71a-4add-9d5e-d2ae6985e30a",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "c94b66f5-17cb-4460-abad-96a1e75916a0",
+          "date": "2026-10-06",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "34b66b03-3016-45e6-9362-09338f43e3bf",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "fb295bb8-4f18-4c34-b825-5b7d140427f0",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "e355a596-93a5-4004-b604-614d8cae69ce",
+          "date": "2026-10-07",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "859091f0-a624-4e78-accb-93b4d3edd6ef",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "9c167a08-0093-49dc-9c55-fd534715657e",
+          "date": "2026-10-08",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "1a6d87bd-e16c-47e7-8f35-c105f532a1fd",
+          "date": "2026-10-08",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "5e10fe94-e83e-47d4-89a2-453c48938340",
+          "date": "2026-10-08",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "fe3676c4-1798-4409-9604-cd75affc725a",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "d6c0d6dd-adf5-4d6d-97ff-664603cc238b",
+          "date": "2026-10-08",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8d5462a4-9ad1-41c6-ba92-397e49860bcf",
+          "date": "2026-10-09",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "4780abfc-3b61-42b9-9e09-758bc2220ef7",
+          "date": "2026-10-09",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "9d9090e9-9ca7-41aa-917e-3701942a1d4e",
+          "date": "2026-10-10",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "4fa07cbc-5ab4-4d70-b4ef-edb8e7180c9c",
+          "date": "2026-10-11",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "90ba983b-1635-4af4-9ecd-81878456239b",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "47691ce7-343f-4779-b400-67e09dbfca66",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "52f85166-56d1-4dea-8aaa-131d5d2e8b06",
+          "date": "2026-10-13",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "71e6f99c-f71a-4add-9d5e-d2ae6985e30a",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "eaa98e67-8af5-4073-be36-20a4f8bae2ba",
+          "date": "2026-10-13",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "fb295bb8-4f18-4c34-b825-5b7d140427f0",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "aa6a430e-c4b6-47b9-85ed-1f16dd4a8dd1",
+          "date": "2026-10-14",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "859091f0-a624-4e78-accb-93b4d3edd6ef",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "1b329bb4-cedd-4a13-8754-9409941286e9",
+          "date": "2026-10-15",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "b3c77883-d2ee-4c3a-bb55-d41185011972",
+          "date": "2026-10-15",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8a7a8434-cf97-4037-bf8d-e97c82041b45",
+          "date": "2026-10-15",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "06e64e8b-16b2-44fe-a91a-634f4183804e",
+          "date": "2026-10-15",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "3d4148e9-2421-461e-8bc3-0220d70fb959",
+          "date": "2026-10-16",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8cf90382-9825-40be-9beb-ba948ec4fabe",
+          "date": "2026-10-16",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "b813ff26-5622-4e79-9a54-29a51ab12a07",
+          "date": "2026-10-17",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "40bc260b-1338-4996-96e7-189d310d9643",
+          "date": "2026-10-18",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "47691ce7-343f-4779-b400-67e09dbfca66",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8f2f244e-2b53-4b57-b15a-ea43a8dd57d2",
+          "date": "2026-10-20",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "71e6f99c-f71a-4add-9d5e-d2ae6985e30a",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "275f5703-40d6-4b4f-9c42-263f4363a89b",
+          "date": "2026-10-20",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "c07def08-4427-4c0b-b574-39b09570e4e3",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "fb295bb8-4f18-4c34-b825-5b7d140427f0",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "7678c9fd-132a-4e11-9d6b-e3a56523f689",
+          "date": "2026-10-21",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "859091f0-a624-4e78-accb-93b4d3edd6ef",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "59d6f4e0-0003-4971-8bc6-f2f058bb34f0",
+          "date": "2026-10-22",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "dd1b7edf-9864-4ae6-97b2-3c3e47ba7ef9",
+          "date": "2026-10-22",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "bcc64b0c-44e6-46ab-ad45-1d862717fa41",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "a1956b0d-ec05-47cb-ac18-2108b55c4f23",
+          "date": "2026-10-22",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "0c189a85-fa28-4638-9947-167204e1b079",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "dc2a9ef5-f79e-4216-8b06-a27dc2069c5a",
+          "date": "2026-10-22",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "2d47564c-6160-41b5-859d-fe69f1300502",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "f04bd911-af34-45fc-a8eb-a24079ab37a1",
+          "date": "2026-10-23",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "33953d25-9634-4745-894f-c1f99cd1daaf",
+          "date": "2026-10-23",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "64cae4c0-f4df-4845-8713-5baf96df3532",
+          "date": "2026-10-24",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "e571dca1-7a00-4384-bbee-86e361e35160",
+          "date": "2026-10-25",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "47691ce7-343f-4779-b400-67e09dbfca66",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "3a45412d-a86f-4abb-8e67-2d9d4021f7ba",
+          "date": "2026-10-27",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "71e6f99c-f71a-4add-9d5e-d2ae6985e30a",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "b17f6c98-50ed-4333-be77-0810d1519a89",
+          "date": "2026-10-27",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "fb295bb8-4f18-4c34-b825-5b7d140427f0",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "0d2904c3-a296-4155-ae83-5f1aba04f414",
+          "date": "2026-10-28",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "859091f0-a624-4e78-accb-93b4d3edd6ef",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "382b728c-9e10-4828-bbf1-ba8856fee59b",
+          "date": "2026-10-29",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a505cad2-d1df-40fc-9592-0a1c9ec29dea",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "driverManualOverride": true
+        },
+        {
+          "id": "17c6ad89-066e-4e28-89fe-e933cfe4834e",
+          "date": "2026-10-29",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "1111fc6f-f926-4e8f-9c11-accf121ebd96",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "882db56c-f5a3-4f86-9ccf-625c47828f42",
+          "date": "2026-10-29",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "54e63f30-20e8-45b8-846d-4e6f92472794",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "0165bdb8-eebb-4a19-a827-d09bfc363d1e",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "b4b22d5d-03e2-40d1-85a0-70401bb5db8f",
+          "date": "2026-10-29",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "55eabe0f-885b-4e02-8cd9-18b3e1d57b4b",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "359527b3-a63d-4204-b930-9318d0a34694",
+          "date": "2026-10-30",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "7f5eb755-0dac-4756-b375-95f539a24c4c",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "bf152209-49b6-49de-ab48-83835af29769",
+          "date": "2026-10-30",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "09c16c3a-a8b9-45cb-ae0e-f5f9f63d4e38",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8dc8acb2-24dd-4a51-b8d1-59a2bd219a79",
+          "date": "2026-10-31",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "af43a5c8-e75a-4fcd-958f-557c2f289392",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        }
+      ],
+      "driverAvailability": {
+        "97dd6333-d4e3-4e3c-b4f1-32b681696f9b": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true
+          }
+        },
+        "ad0f9dc0-c379-4cc1-a018-5690b0416a6c": {
+          "slots": {
+            "2:morning": true,
+            "4:morning": true,
+            "3:morning": true,
+            "5:morning": true
+          }
+        },
+        "e5dca8d2-3869-44fa-91e5-8965777e56a1": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "4:morning": true,
+            "5:morning": true,
+            "5:afternoon": true,
+            "4:afternoon": true
+          }
+        },
+        "7a7f731e-fe63-4f54-ab59-f0bc413651c9": {
+          "slots": {
+            "2:morning": true
+          }
+        },
+        "fd25e70d-b59d-463a-a75c-c9d174352184": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true
+          }
+        },
+        "8d43d385-09f6-4ad3-b291-5270a982aaab": {
+          "slots": {
+            "5:morning": true,
+            "4:afternoon": true,
+            "5:afternoon": true
+          }
+        },
+        "15633357-7a05-4cd1-b5c4-9cc8251c9808": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "5:morning": true,
+            "5:afternoon": true,
+            "0:morning": true,
+            "6:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "5:afternoon": true,
+            "5:morning": true,
+            "6:morning": true,
+            "0:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "e9dc5ad5-efd8-4f0f-a8e0-b2b339748b1d": {
+          "slots": {}
+        },
+        "f45a0818-d62f-4776-bb1a-cea37da8d58f": {
+          "slots": {}
+        },
+        "7c1dc93a-e958-4b45-a0de-e5d98041e6ea": {
+          "slots": {
+            "2:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "6f7475a6-3c20-4180-a10a-848395dce370": {
+          "slots": {
+            "5:afternoon": true,
+            "4:afternoon": true,
+            "6:morning": true,
+            "0:morning": true
+          }
+        },
+        "5b7dedf4-f575-4ee0-9f03-05a90f702376": {
+          "slots": {
+            "2:morning": true,
+            "4:morning": true,
+            "5:morning": true,
+            "3:morning": true
+          }
+        },
+        "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "4:morning": true,
+            "5:afternoon": true,
+            "5:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "106c3b52-05ae-47fe-b73d-306a1faca04f": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true
+          }
+        },
+        "639b34f2-de6e-4dd4-8666-b519584fd60a": {
+          "slots": {
+            "4:afternoon": true,
+            "6:morning": true,
+            "0:morning": true
+          }
+        },
+        "fc9c9054-618a-4460-a1a7-eafbb2411049": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "c1d3e7da-c432-400a-9288-0e93fb533916": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "90ba983b-1635-4af4-9ecd-81878456239b": {
+          "slots": {
+            "0:morning": true,
+            "6:morning": true
+          }
+        },
+        "2b385fa9-3d15-445e-9aba-092e3463b934": {
+          "slots": {
+            "3:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "0c28f11c-a057-4b3a-8d72-ae91c31ad6db": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true
+          }
+        },
+        "d258e435-b2dd-447f-9358-e76a78273e5b": {
+          "slots": {}
+        },
+        "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "db772d1b-617a-43ec-bb0a-f10b1e0606ce": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true,
+            "6:morning": true
+          }
+        },
+        "bd138c72-0bf2-4b9f-9731-e090b1aa5656": {
+          "slots": {}
+        },
+        "e971cc46-b5c5-4b1f-a834-d243d370a8b7": {
+          "slots": {}
+        },
+        "dcb6fe3d-24ec-43d1-91d4-6037cabd9b41": {
+          "slots": {
+            "2:morning": true,
+            "2:afternoon": true
+          }
+        },
+        "72917d4b-b02c-4fd3-a4a5-2b9993ea66e1": {
+          "slots": {
+            "2:morning": true,
+            "2:afternoon": true,
+            "4:morning": true
+          }
+        },
+        "4e99b3bc-da37-4860-9b25-1591d21d0ad7": {
+          "slots": {
+            "2:morning": true,
+            "2:afternoon": true,
+            "4:morning": true
+          }
+        }
+      },
+      "driverRotations": {
+        "elders": {
+          "1": [
+            "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+            "6f7475a6-3c20-4180-a10a-848395dce370"
+          ],
+          "2": [
+            "106c3b52-05ae-47fe-b73d-306a1faca04f",
+            "639b34f2-de6e-4dd4-8666-b519584fd60a"
+          ],
+          "3": [
+            "90ba983b-1635-4af4-9ecd-81878456239b",
+            "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78"
+          ],
+          "4": [
+            "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+            "15633357-7a05-4cd1-b5c4-9cc8251c9808"
+          ]
+        },
+        "groupConductors": {
+          "1": [
+            "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5"
+          ],
+          "2": [
+            "fc9c9054-618a-4460-a1a7-eafbb2411049",
+            "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7",
+            "8d43d385-09f6-4ad3-b291-5270a982aaab",
+            "7a7f731e-fe63-4f54-ab59-f0bc413651c9",
+            "fd25e70d-b59d-463a-a75c-c9d174352184"
+          ],
+          "3": [
+            "2b385fa9-3d15-445e-9aba-092e3463b934",
+            "c1d3e7da-c432-400a-9288-0e93fb533916",
+            "e5dca8d2-3869-44fa-91e5-8965777e56a1"
+          ],
+          "4": [
+            "97dd6333-d4e3-4e3c-b4f1-32b681696f9b",
+            "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+            "5b7dedf4-f575-4ee0-9f03-05a90f702376",
+            "ad0f9dc0-c379-4cc1-a018-5690b0416a6c"
+          ]
+        }
+      },
+      "houseAvailability": {
+        "b1086467-dfc2-4155-95e2-8c4818a3fe23": true,
+        "99b915a3-83fd-405a-89a7-3a63bc2ee912": true,
+        "6b175c11-665e-43a1-a850-0a9eb38ca672": true,
+        "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4": true,
+        "f50187a9-292d-4d5a-8a99-2a3a8e74f660": true,
+        "34b66b03-3016-45e6-9362-09338f43e3bf": true,
+        "5502e864-d44b-4a57-8656-97c42ff08e35": true,
+        "abe694df-92e3-4d41-898e-c45266325e1e": true,
+        "c07def08-4427-4c0b-b574-39b09570e4e3": true,
+        "6bad4c65-54f3-4759-90f0-90a79f6abf7a": true,
+        "1128e284-ca33-4b4f-808a-97b9a0cb84d3": true,
+        "abb28e6d-888c-499b-92c9-aafcbb92387a": true,
+        "b3ece71c-174d-4ad2-95c8-85b09ecef42a": true,
+        "1663a5ea-2e6d-41bd-8fde-9e72046adae0": true,
+        "4d1606c3-105b-49ff-a596-db0e3e64d7da": true,
+        "5c12a927-6309-4576-a51d-89f35b03804d": true,
+        "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4": true,
+        "2d47564c-6160-41b5-859d-fe69f1300502": true,
+        "60d31f98-3e2c-42e4-baa9-128a1468bdbe": true,
+        "86f9e00b-b562-49e4-9f8d-389947582ad1": true,
+        "a01d002a-3254-4739-9c7e-c0af8168b0f7": true,
+        "bcc64b0c-44e6-46ab-ad45-1d862717fa41": true,
+        "0c189a85-fa28-4638-9947-167204e1b079": true,
+        "54e63f30-20e8-45b8-846d-4e6f92472794": true,
+        "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5": true,
+        "b18d3220-1d73-4172-a7b0-972c1480dcf8": true,
+        "0f85edca-1219-4b8a-ba9c-2f7068d7e972": true,
+        "fe3676c4-1798-4409-9604-cd75affc725a": true,
+        "e10fe7e7-8085-498a-aa2e-438a22cf43ac": true,
+        "a5b7a4dc-2bf5-4090-b98b-57f5391aaabb": false,
+        "c93950d9-6340-4d20-b413-54c811e059cb": true
+      },
+      "houseRotations": {
+        "1": [
+          "34b66b03-3016-45e6-9362-09338f43e3bf",
+          "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "c07def08-4427-4c0b-b574-39b09570e4e3",
+          "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+          "abb28e6d-888c-499b-92c9-aafcbb92387a",
+          "b3ece71c-174d-4ad2-95c8-85b09ecef42a",
+          "1663a5ea-2e6d-41bd-8fde-9e72046adae0"
+        ],
+        "2": [
+          "5c12a927-6309-4576-a51d-89f35b03804d",
+          "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "2d47564c-6160-41b5-859d-fe69f1300502",
+          "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+          "abe694df-92e3-4d41-898e-c45266325e1e",
+          "4d1606c3-105b-49ff-a596-db0e3e64d7da",
+          "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4"
+        ],
+        "3": [
+          "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "bcc64b0c-44e6-46ab-ad45-1d862717fa41"
+        ],
+        "4": [
+          "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "fe3676c4-1798-4409-9604-cd75affc725a",
+          "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "0c189a85-fa28-4638-9947-167204e1b079",
+          "54e63f30-20e8-45b8-846d-4e6f92472794",
+          "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5",
+          "6b175c11-665e-43a1-a850-0a9eb38ca672",
+          "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4",
+          "0f85edca-1219-4b8a-ba9c-2f7068d7e972"
+        ]
+      },
+      "houseAvailabilityConfirmations": {},
+      "locationAvailability": {
+        "legacy:aqui": false,
+        "a4ecf4aa-cd35-4e6a-9c22-aece41552518": true
+      }
+    },
+    "2026-09": {
+      "configuration": [
+        {
+          "id": "f9e24e48-904f-4837-a547-57de7a82980b",
+          "weekday": 4,
+          "time": "18:00",
+          "type": "Grupo 3",
+          "active": true,
+          "color": "#95e0ea"
+        },
+        {
+          "id": "6512aaa5-851c-4316-86b0-71b8a36ca984",
+          "weekday": 4,
+          "time": "19:00",
+          "type": "Grupo 2",
+          "active": true,
+          "color": "#b3e6d5"
+        },
+        {
+          "id": "b868b446-53bc-45d1-b100-4774054dbed1",
+          "weekday": 4,
+          "time": "18:00",
+          "type": "Grupo 4",
+          "active": true,
+          "color": "#89f095"
+        },
+        {
+          "id": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "weekday": 2,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "weekday": 2,
+          "time": "18:00",
+          "type": "Grupo 1",
+          "active": true,
+          "color": "#e8b164"
+        },
+        {
+          "id": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "weekday": 3,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "16f447bb-93f2-4ed2-9de0-56a56fd1bef4",
+          "weekday": 4,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "9d239de9-bb5d-4eee-89d7-b4e04347dd57",
+          "weekday": 5,
+          "time": "09:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "45700121-becd-48e1-8eaf-e2dad357d896",
+          "weekday": 5,
+          "time": "18:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "78d1966f-6563-4b5e-b065-fe7e210edde3",
+          "weekday": 6,
+          "time": "10:00",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        },
+        {
+          "id": "729c2b6f-39d9-471d-b527-82fdb22a8af0",
+          "weekday": 0,
+          "time": "10:30",
+          "type": "Congregacional",
+          "active": true,
+          "color": ""
+        }
+      ],
+      "outings": [
+        {
+          "id": "860353f3-0d1b-4ad5-b133-1537b5c8b6a0",
+          "date": "2026-09-01",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "4",
+          "territoryManualOverride": true,
+          "source": "recurring",
+          "configId": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "date": "2026-09-01",
+          "weekday": "martes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "Guillermo",
+          "territory": "45",
+          "id": "344a0658-a950-44df-87a5-95337bcdf583",
+          "source": "manual",
+          "configId": null,
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "08fb537e-dc27-4f65-9ab3-a7ef96fe5f98",
+          "date": "2026-09-01",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "34b66b03-3016-45e6-9362-09338f43e3bf",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": true,
+          "source": "recurring",
+          "configId": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "3ae6f33b-87c5-4e3b-a06d-d72272b7c475",
+          "date": "2026-09-02",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "24e86ceb-3785-4a4f-946d-10e00676b1af",
+          "date": "2026-09-03",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": "118ea91f-b3d0-4b49-a8cb-f5b65ee79325",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "7",
+          "source": "recurring",
+          "configId": "16f447bb-93f2-4ed2-9de0-56a56fd1bef4",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false,
+          "placeManualOverride": true,
+          "territoryManualOverride": true
+        },
+        {
+          "id": "ecd4b37e-720e-43dd-863a-f3e6936302fb",
+          "date": "2026-09-03",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "2b385fa9-3d15-445e-9aba-092e3463b934",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f9e24e48-904f-4837-a547-57de7a82980b",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "3a293f92-94fa-412b-b909-e99acd752023",
+          "date": "2026-09-03",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "b868b446-53bc-45d1-b100-4774054dbed1",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "e96d4932-f1df-4391-9def-9b5fee624599",
+          "date": "2026-09-03",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "5c12a927-6309-4576-a51d-89f35b03804d",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "6512aaa5-851c-4316-86b0-71b8a36ca984",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "d87f7c7b-f2fb-4e17-bf4e-136d260f2f68",
+          "date": "2026-09-04",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "9d239de9-bb5d-4eee-89d7-b4e04347dd57",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "5cdda52e-07d8-4def-a015-a34561432b5b",
+          "date": "2026-09-04",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "45700121-becd-48e1-8eaf-e2dad357d896",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "7b837fb7-75d3-4b6b-9fae-bbfd56b79869",
+          "date": "2026-09-05",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "78d1966f-6563-4b5e-b065-fe7e210edde3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "045ea19b-5c7d-4cb3-8071-aed044ee48bb",
+          "date": "2026-09-06",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "729c2b6f-39d9-471d-b527-82fdb22a8af0",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "adbfe2d3-bf3b-474d-9321-b14336d6095d",
+          "date": "2026-09-08",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "5b296651-1e8f-4049-96f6-e2b9ecb4235c",
+          "date": "2026-09-08",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "61bbdc37-994e-4989-a828-60186fb6299a",
+          "date": "2026-09-09",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "890b07a3-488b-4795-9399-46d125010658",
+          "date": "2026-09-10",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "16f447bb-93f2-4ed2-9de0-56a56fd1bef4",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "6f21f8cd-bf16-4124-beed-4cfa05588c81",
+          "date": "2026-09-10",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "c1d3e7da-c432-400a-9288-0e93fb533916",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f9e24e48-904f-4837-a547-57de7a82980b",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "4ec39a52-3c16-4b3e-b48a-3e2ba4a2a031",
+          "date": "2026-09-10",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "fe3676c4-1798-4409-9604-cd75affc725a",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "b868b446-53bc-45d1-b100-4774054dbed1",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "790449db-565f-40b3-93bc-10357f9dd905",
+          "date": "2026-09-10",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "6512aaa5-851c-4316-86b0-71b8a36ca984",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "85917a0b-f354-4d7e-a24a-a9e6cf66fcc7",
+          "date": "2026-09-11",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "9d239de9-bb5d-4eee-89d7-b4e04347dd57",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "f8b7a253-bd88-4cff-b05c-2338700a4bb3",
+          "date": "2026-09-11",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "45700121-becd-48e1-8eaf-e2dad357d896",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "ffb66f0c-0d6c-4144-8032-adacc9ba68f1",
+          "date": "2026-09-12",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "78d1966f-6563-4b5e-b065-fe7e210edde3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8ab5eef0-036b-41df-ada9-f563f2854a73",
+          "date": "2026-09-13",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "729c2b6f-39d9-471d-b527-82fdb22a8af0",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "80ba0e3f-b17a-4af1-9ff6-53ae01c41ad2",
+          "date": "2026-09-15",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "e7adc73b-dcb8-4870-bbf5-c66847d28e22",
+          "date": "2026-09-15",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "c07def08-4427-4c0b-b574-39b09570e4e3",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "194a23e6-422c-4c14-bfb5-cc4e4dfee3f0",
+          "date": "2026-09-16",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "a600c2c2-69c2-433b-b944-83b85c034afe",
+          "date": "2026-09-17",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "16f447bb-93f2-4ed2-9de0-56a56fd1bef4",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "ad8a4db5-9f8b-45ce-a50f-344bcabf447d",
+          "date": "2026-09-17",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "e5dca8d2-3869-44fa-91e5-8965777e56a1",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f9e24e48-904f-4837-a547-57de7a82980b",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "dddc81e3-b9c5-4371-b438-bf55fe04f181",
+          "date": "2026-09-17",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "b868b446-53bc-45d1-b100-4774054dbed1",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "df4d57dd-e93b-4a80-af2e-e709de1dd28e",
+          "date": "2026-09-17",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "6512aaa5-851c-4316-86b0-71b8a36ca984",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "45021b19-93fc-4c13-8440-0583213f70d6",
+          "date": "2026-09-18",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "9d239de9-bb5d-4eee-89d7-b4e04347dd57",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "2248e196-d45e-4937-853c-8ca8fea91d56",
+          "date": "2026-09-18",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "45700121-becd-48e1-8eaf-e2dad357d896",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "685b5fea-9ca8-4dfd-8614-8a4c7da78eab",
+          "date": "2026-09-19",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "78d1966f-6563-4b5e-b065-fe7e210edde3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "bdd8efa8-8596-426a-b903-af89cc263cb6",
+          "date": "2026-09-20",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "729c2b6f-39d9-471d-b527-82fdb22a8af0",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "bb1b693c-7a7b-465f-bbe9-ae377debec3e",
+          "date": "2026-09-22",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "37095f61-a2a3-4a08-9826-1f6725c38fea",
+          "date": "2026-09-22",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "2b893206-941f-4a85-933c-55c74b41da7f",
+          "date": "2026-09-23",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "ab238cfb-d4e8-4800-90de-f3ba993e6616",
+          "date": "2026-09-24",
+          "weekday": "jueves",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "16f447bb-93f2-4ed2-9de0-56a56fd1bef4",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "3331382e-ed36-4bc7-94bc-c4e5cd421a40",
+          "date": "2026-09-24",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "placeId": "bcc64b0c-44e6-46ab-ad45-1d862717fa41",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "2b385fa9-3d15-445e-9aba-092e3463b934",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f9e24e48-904f-4837-a547-57de7a82980b",
+          "color": "#95e0ea",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "0a83f749-9311-40c0-9886-f00db8d7ace9",
+          "date": "2026-09-24",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 4",
+          "placeId": "0c189a85-fa28-4638-9947-167204e1b079",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "b868b446-53bc-45d1-b100-4774054dbed1",
+          "color": "#89f095",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "f061cc5b-fab3-49b9-aef3-ee1d48127503",
+          "date": "2026-09-24",
+          "weekday": "jueves",
+          "time": "19:00",
+          "type": "Grupo 2",
+          "placeId": "2d47564c-6160-41b5-859d-fe69f1300502",
+          "placeType": "house",
+          "driver": "",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "6512aaa5-851c-4316-86b0-71b8a36ca984",
+          "color": "#b3e6d5",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "8ee908e8-b309-4431-85b9-3919e05d70cb",
+          "date": "2026-09-25",
+          "weekday": "viernes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "9d239de9-bb5d-4eee-89d7-b4e04347dd57",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "ef643d5c-2cde-417e-91a6-bd08b0b08a54",
+          "date": "2026-09-25",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "45700121-becd-48e1-8eaf-e2dad357d896",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "fe0753f7-6aa4-44bb-a50d-6240a8aec0c1",
+          "date": "2026-09-26",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "78d1966f-6563-4b5e-b065-fe7e210edde3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "2bb4ba8a-e902-40f0-8ea4-123214bd13d6",
+          "date": "2026-09-27",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "729c2b6f-39d9-471d-b527-82fdb22a8af0",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "6be77054-e9fa-438c-8835-a01469a6109c",
+          "date": "2026-09-29",
+          "weekday": "martes",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "a1ed5cb1-a8d2-43c1-90a5-2ff53b8dbd43",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "756f7022-c23d-4af4-9965-1c03d5041d1c",
+          "date": "2026-09-29",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "placeId": "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+          "placeType": "house",
+          "driver": "",
+          "driverId": null,
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "f045d76f-587c-4d00-b39d-90d52f8e364a",
+          "color": "#e8b164",
+          "colorManualOverride": false,
+          "turn": "afternoon",
+          "turnOutOfRange": false
+        },
+        {
+          "id": "57225e63-a653-4b16-8a51-6485974f81fe",
+          "date": "2026-09-30",
+          "weekday": "miércoles",
+          "time": "09:00",
+          "type": "Congregacional",
+          "placeId": null,
+          "placeType": "location",
+          "driver": "",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "territory": "",
+          "territoryManualOverride": false,
+          "source": "recurring",
+          "configId": "c921ef8a-917b-4d81-97e7-b7d0414fdfe3",
+          "color": "",
+          "colorManualOverride": false,
+          "turn": "morning",
+          "turnOutOfRange": false
+        }
+      ],
+      "driverAvailability": {
+        "97dd6333-d4e3-4e3c-b4f1-32b681696f9b": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true
+          }
+        },
+        "ad0f9dc0-c379-4cc1-a018-5690b0416a6c": {
+          "slots": {
+            "2:morning": true,
+            "4:morning": true,
+            "3:morning": true,
+            "5:morning": true
+          }
+        },
+        "e5dca8d2-3869-44fa-91e5-8965777e56a1": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "4:morning": true,
+            "5:morning": true,
+            "5:afternoon": true,
+            "4:afternoon": true
+          }
+        },
+        "7a7f731e-fe63-4f54-ab59-f0bc413651c9": {
+          "slots": {
+            "2:morning": true
+          }
+        },
+        "fd25e70d-b59d-463a-a75c-c9d174352184": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true
+          }
+        },
+        "8d43d385-09f6-4ad3-b291-5270a982aaab": {
+          "slots": {
+            "5:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "15633357-7a05-4cd1-b5c4-9cc8251c9808": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "5:morning": true,
+            "5:afternoon": true,
+            "0:morning": true,
+            "6:morning": true
+          }
+        },
+        "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "5:afternoon": true,
+            "5:morning": true,
+            "6:morning": true,
+            "0:morning": true
+          }
+        },
+        "e9dc5ad5-efd8-4f0f-a8e0-b2b339748b1d": {
+          "slots": {}
+        },
+        "f45a0818-d62f-4776-bb1a-cea37da8d58f": {
+          "slots": {}
+        },
+        "7c1dc93a-e958-4b45-a0de-e5d98041e6ea": {
+          "slots": {
+            "2:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "6f7475a6-3c20-4180-a10a-848395dce370": {
+          "slots": {
+            "5:afternoon": true,
+            "4:afternoon": true,
+            "6:morning": true,
+            "0:morning": true
+          }
+        },
+        "5b7dedf4-f575-4ee0-9f03-05a90f702376": {
+          "slots": {
+            "2:morning": true,
+            "4:morning": true,
+            "5:morning": true,
+            "3:morning": true
+          }
+        },
+        "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7": {
+          "slots": {
+            "2:morning": true,
+            "3:morning": true,
+            "4:morning": true,
+            "5:afternoon": true,
+            "5:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "106c3b52-05ae-47fe-b73d-306a1faca04f": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true
+          }
+        },
+        "639b34f2-de6e-4dd4-8666-b519584fd60a": {
+          "slots": {
+            "4:afternoon": true,
+            "6:morning": true,
+            "0:morning": true
+          }
+        },
+        "fc9c9054-618a-4460-a1a7-eafbb2411049": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "c1d3e7da-c432-400a-9288-0e93fb533916": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "90ba983b-1635-4af4-9ecd-81878456239b": {
+          "slots": {
+            "0:morning": true,
+            "6:morning": true
+          }
+        },
+        "2b385fa9-3d15-445e-9aba-092e3463b934": {
+          "slots": {
+            "3:morning": true,
+            "4:afternoon": true
+          }
+        },
+        "0c28f11c-a057-4b3a-8d72-ae91c31ad6db": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true
+          }
+        },
+        "d258e435-b2dd-447f-9358-e76a78273e5b": {
+          "slots": {}
+        },
+        "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5": {
+          "slots": {
+            "4:afternoon": true
+          }
+        },
+        "db772d1b-617a-43ec-bb0a-f10b1e0606ce": {
+          "slots": {
+            "4:afternoon": true,
+            "0:morning": true,
+            "6:morning": true
+          }
+        },
+        "e971cc46-b5c5-4b1f-a834-d243d370a8b7": {
+          "slots": {}
+        }
+      },
+      "driverRotations": {
+        "elders": {
+          "1": [
+            "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+            "6f7475a6-3c20-4180-a10a-848395dce370"
+          ],
+          "2": [
+            "106c3b52-05ae-47fe-b73d-306a1faca04f",
+            "639b34f2-de6e-4dd4-8666-b519584fd60a"
+          ],
+          "3": [
+            "90ba983b-1635-4af4-9ecd-81878456239b",
+            "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78"
+          ],
+          "4": [
+            "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+            "15633357-7a05-4cd1-b5c4-9cc8251c9808"
+          ]
+        },
+        "groupConductors": {
+          "1": [
+            "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5"
+          ],
+          "2": [
+            "fc9c9054-618a-4460-a1a7-eafbb2411049",
+            "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7",
+            "8d43d385-09f6-4ad3-b291-5270a982aaab"
+          ],
+          "3": [
+            "2b385fa9-3d15-445e-9aba-092e3463b934",
+            "c1d3e7da-c432-400a-9288-0e93fb533916",
+            "e5dca8d2-3869-44fa-91e5-8965777e56a1"
+          ],
+          "4": [
+            "97dd6333-d4e3-4e3c-b4f1-32b681696f9b",
+            "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+            "5b7dedf4-f575-4ee0-9f03-05a90f702376"
+          ]
+        }
+      },
+      "houseAvailability": {
+        "b1086467-dfc2-4155-95e2-8c4818a3fe23": true,
+        "99b915a3-83fd-405a-89a7-3a63bc2ee912": true,
+        "6b175c11-665e-43a1-a850-0a9eb38ca672": true,
+        "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4": true,
+        "f50187a9-292d-4d5a-8a99-2a3a8e74f660": true,
+        "34b66b03-3016-45e6-9362-09338f43e3bf": true,
+        "5502e864-d44b-4a57-8656-97c42ff08e35": true,
+        "abe694df-92e3-4d41-898e-c45266325e1e": true,
+        "c07def08-4427-4c0b-b574-39b09570e4e3": true,
+        "6bad4c65-54f3-4759-90f0-90a79f6abf7a": true,
+        "1128e284-ca33-4b4f-808a-97b9a0cb84d3": true,
+        "abb28e6d-888c-499b-92c9-aafcbb92387a": true,
+        "b3ece71c-174d-4ad2-95c8-85b09ecef42a": true,
+        "1663a5ea-2e6d-41bd-8fde-9e72046adae0": true,
+        "4d1606c3-105b-49ff-a596-db0e3e64d7da": true,
+        "5c12a927-6309-4576-a51d-89f35b03804d": true,
+        "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4": true,
+        "2d47564c-6160-41b5-859d-fe69f1300502": true,
+        "60d31f98-3e2c-42e4-baa9-128a1468bdbe": true,
+        "86f9e00b-b562-49e4-9f8d-389947582ad1": true,
+        "a01d002a-3254-4739-9c7e-c0af8168b0f7": true,
+        "bcc64b0c-44e6-46ab-ad45-1d862717fa41": true,
+        "0c189a85-fa28-4638-9947-167204e1b079": true,
+        "54e63f30-20e8-45b8-846d-4e6f92472794": true,
+        "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5": true,
+        "b18d3220-1d73-4172-a7b0-972c1480dcf8": true,
+        "0f85edca-1219-4b8a-ba9c-2f7068d7e972": true,
+        "fe3676c4-1798-4409-9604-cd75affc725a": true,
+        "e10fe7e7-8085-498a-aa2e-438a22cf43ac": true,
+        "c93950d9-6340-4d20-b413-54c811e059cb": true
+      },
+      "houseRotations": {
+        "1": [
+          "34b66b03-3016-45e6-9362-09338f43e3bf",
+          "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "c07def08-4427-4c0b-b574-39b09570e4e3",
+          "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+          "abb28e6d-888c-499b-92c9-aafcbb92387a",
+          "b3ece71c-174d-4ad2-95c8-85b09ecef42a",
+          "1663a5ea-2e6d-41bd-8fde-9e72046adae0"
+        ],
+        "2": [
+          "5c12a927-6309-4576-a51d-89f35b03804d",
+          "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "2d47564c-6160-41b5-859d-fe69f1300502",
+          "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+          "abe694df-92e3-4d41-898e-c45266325e1e",
+          "4d1606c3-105b-49ff-a596-db0e3e64d7da",
+          "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4"
+        ],
+        "3": [
+          "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "bcc64b0c-44e6-46ab-ad45-1d862717fa41"
+        ],
+        "4": [
+          "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "fe3676c4-1798-4409-9604-cd75affc725a",
+          "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "0c189a85-fa28-4638-9947-167204e1b079",
+          "54e63f30-20e8-45b8-846d-4e6f92472794",
+          "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5",
+          "6b175c11-665e-43a1-a850-0a9eb38ca672",
+          "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4",
+          "0f85edca-1219-4b8a-ba9c-2f7068d7e972"
+        ]
+      },
+      "locationAvailability": {
+        "legacy:aqui": false
+      }
+    },
+    "2026-11": {
+      "configuration": [
+        {
+          "id": "bdc92bd1-5111-48ba-9463-f1575fc3792f",
+          "weekday": 2,
+          "time": "09:45",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "11f5d0bd-d1c9-405f-ad28-b2d6c16420fa",
+          "weekday": 3,
+          "time": "09:45",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "6b62f644-1aac-47e9-9b8c-3fd855cf89fd",
+          "weekday": 4,
+          "time": "09:45",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "deba61a9-38ad-43ff-83fc-6f6659a2310d",
+          "weekday": 5,
+          "time": "09:45",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "5f116c33-ae35-47c3-a34d-84036f79224d",
+          "weekday": 5,
+          "time": "18:00",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "de8f51af-78a6-4676-bf4d-a458412ace4a",
+          "weekday": 6,
+          "time": "10:00",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "weekday": 0,
+          "time": "10:30",
+          "type": "Congregacional",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "d428f596-1098-4bc6-8b72-dd56a5076f3f",
+          "weekday": 2,
+          "time": "18:00",
+          "type": "Grupo 1",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "bf1052a8-5143-40a8-a8d5-c07996e68f58",
+          "weekday": 4,
+          "time": "17:45",
+          "type": "Grupo 2",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "5849f0b1-9267-4c56-8e7b-982da1e3ddc7",
+          "weekday": 4,
+          "time": "18:00",
+          "type": "Grupo 3",
+          "meetingPlace": "",
+          "active": true
+        },
+        {
+          "id": "501b75ad-0363-4d0b-af4d-df6ce7342db4",
+          "weekday": 4,
+          "time": "17:45",
+          "type": "Grupo 4",
+          "meetingPlace": "",
+          "active": true
+        }
+      ],
+      "outings": [
+        {
+          "id": "bc1bc6b1-039c-4cd0-9218-31034cb5b585",
+          "date": "2026-11-01",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "d1b21c36-2698-4260-bf2c-4bbd141a7616",
+          "date": "2026-11-03",
+          "weekday": "martes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bdc92bd1-5111-48ba-9463-f1575fc3792f",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "1589525d-3ece-4f7e-96d7-b1faf7237c5e",
+          "date": "2026-11-03",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "d428f596-1098-4bc6-8b72-dd56a5076f3f",
+          "driverId": "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5",
+          "placeId": "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "placeType": "house"
+        },
+        {
+          "id": "9d8685b2-b1b3-4b67-b331-85310135abea",
+          "date": "2026-11-04",
+          "weekday": "miércoles",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "11f5d0bd-d1c9-405f-ad28-b2d6c16420fa",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "4360df6f-185f-4ce9-b619-2c37d9486556",
+          "date": "2026-11-05",
+          "weekday": "jueves",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "6b62f644-1aac-47e9-9b8c-3fd855cf89fd",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "6adf0c3f-42a8-484b-83c2-f1076a586818",
+          "date": "2026-11-05",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 2",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bf1052a8-5143-40a8-a8d5-c07996e68f58",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "placeId": "2d47564c-6160-41b5-859d-fe69f1300502",
+          "placeType": "house"
+        },
+        {
+          "id": "83b6626f-9de4-4a58-bc25-df153ecfdd2b",
+          "date": "2026-11-05",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 4",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "501b75ad-0363-4d0b-af4d-df6ce7342db4",
+          "driverId": "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+          "placeId": "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "placeType": "house"
+        },
+        {
+          "id": "221abb2c-069f-4bff-b7ac-25b4e19bd27b",
+          "date": "2026-11-05",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5849f0b1-9267-4c56-8e7b-982da1e3ddc7",
+          "driverId": "e5dca8d2-3869-44fa-91e5-8965777e56a1",
+          "placeId": "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "placeType": "house"
+        },
+        {
+          "id": "cbeb17e0-4cc7-4b60-a9e5-d81af0ac4a23",
+          "date": "2026-11-06",
+          "weekday": "viernes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "deba61a9-38ad-43ff-83fc-6f6659a2310d",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "034aa38f-df17-4876-8b32-d8802ca6ca59",
+          "date": "2026-11-06",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5f116c33-ae35-47c3-a34d-84036f79224d",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "e727b7bb-180a-475d-959d-172f0f182bce",
+          "date": "2026-11-07",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "de8f51af-78a6-4676-bf4d-a458412ace4a",
+          "driverId": "90ba983b-1635-4af4-9ecd-81878456239b",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "117b25e7-adbf-4828-b743-d926ebd950dd",
+          "date": "2026-11-08",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "fa59936c-c976-4e40-bbfd-1f3d0f7d6801",
+          "date": "2026-11-10",
+          "weekday": "martes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bdc92bd1-5111-48ba-9463-f1575fc3792f",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "a147fbf7-d614-469d-a59b-29670ebe61b1",
+          "date": "2026-11-10",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "d428f596-1098-4bc6-8b72-dd56a5076f3f",
+          "driverId": "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5",
+          "placeId": "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "placeType": "house"
+        },
+        {
+          "id": "753f5c88-745d-4829-9d95-8e4dce22bb1e",
+          "date": "2026-11-11",
+          "weekday": "miércoles",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "11f5d0bd-d1c9-405f-ad28-b2d6c16420fa",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "82488d6d-de1c-4ff8-8911-f4ba84a5e627",
+          "date": "2026-11-12",
+          "weekday": "jueves",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "6b62f644-1aac-47e9-9b8c-3fd855cf89fd",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "2f8402d4-8486-445a-a02e-0c79f1b115db",
+          "date": "2026-11-12",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 2",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bf1052a8-5143-40a8-a8d5-c07996e68f58",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "placeId": "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "placeType": "house"
+        },
+        {
+          "id": "714294c0-d635-4478-aa04-269fced01ab0",
+          "date": "2026-11-12",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 4",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "501b75ad-0363-4d0b-af4d-df6ce7342db4",
+          "driverId": "5b7dedf4-f575-4ee0-9f03-05a90f702376",
+          "placeId": "0f85edca-1219-4b8a-ba9c-2f7068d7e972",
+          "placeType": "house"
+        },
+        {
+          "id": "8bac27b6-adac-4a50-a7c1-0443783b91f0",
+          "date": "2026-11-12",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5849f0b1-9267-4c56-8e7b-982da1e3ddc7",
+          "driverId": "c1d3e7da-c432-400a-9288-0e93fb533916",
+          "placeId": "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "placeType": "house"
+        },
+        {
+          "id": "372fee39-a846-4e3e-b62f-b21f48e8d98c",
+          "date": "2026-11-13",
+          "weekday": "viernes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "deba61a9-38ad-43ff-83fc-6f6659a2310d",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "1cf9651e-fbcb-4f50-94a2-4ebf618de74f",
+          "date": "2026-11-13",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5f116c33-ae35-47c3-a34d-84036f79224d",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "830f0921-f23f-4a39-a006-0b740670aed0",
+          "date": "2026-11-14",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "de8f51af-78a6-4676-bf4d-a458412ace4a",
+          "driverId": "90ba983b-1635-4af4-9ecd-81878456239b",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "88b92b9e-95aa-4f1e-831b-1a8f6b107579",
+          "date": "2026-11-15",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "6803b984-729a-402e-a61a-7e693566beee",
+          "date": "2026-11-17",
+          "weekday": "martes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bdc92bd1-5111-48ba-9463-f1575fc3792f",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "24dbb0be-0279-45d2-903d-b2ed36e6ef7e",
+          "date": "2026-11-17",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "d428f596-1098-4bc6-8b72-dd56a5076f3f",
+          "driverId": "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5",
+          "placeId": "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+          "placeType": "house"
+        },
+        {
+          "id": "f6374bb0-75ba-42d7-ba35-73219f88d205",
+          "date": "2026-11-18",
+          "weekday": "miércoles",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "11f5d0bd-d1c9-405f-ad28-b2d6c16420fa",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "9da8968c-c3b7-4093-a6af-068f3396890d",
+          "date": "2026-11-19",
+          "weekday": "jueves",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "6b62f644-1aac-47e9-9b8c-3fd855cf89fd",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "e7dff065-2cf0-43a3-9306-3c749fa4ca5f",
+          "date": "2026-11-19",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 2",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bf1052a8-5143-40a8-a8d5-c07996e68f58",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "placeId": "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "placeType": "house"
+        },
+        {
+          "id": "933fd2fe-1b9e-4aa3-a169-69dbaa3683d6",
+          "date": "2026-11-19",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 4",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "501b75ad-0363-4d0b-af4d-df6ce7342db4",
+          "driverId": "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+          "placeId": "fe3676c4-1798-4409-9604-cd75affc725a",
+          "placeType": "house"
+        },
+        {
+          "id": "a3cae8a8-ada4-4b26-8ecf-a0d03dd3acf8",
+          "date": "2026-11-19",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5849f0b1-9267-4c56-8e7b-982da1e3ddc7",
+          "driverId": "2b385fa9-3d15-445e-9aba-092e3463b934",
+          "placeId": "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "placeType": "house"
+        },
+        {
+          "id": "03ca2760-b2d4-4a1f-a758-f5cc8d17c6fa",
+          "date": "2026-11-20",
+          "weekday": "viernes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "deba61a9-38ad-43ff-83fc-6f6659a2310d",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "a71f4d08-ca9f-4374-9352-925442d68d45",
+          "date": "2026-11-20",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5f116c33-ae35-47c3-a34d-84036f79224d",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "af0f2664-546c-46d5-adb5-f06c8d6f049b",
+          "date": "2026-11-21",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "de8f51af-78a6-4676-bf4d-a458412ace4a",
+          "driverId": "90ba983b-1635-4af4-9ecd-81878456239b",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "a0d6b634-3477-4bcf-a01d-5e11fa7edca4",
+          "date": "2026-11-22",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "90bfaa78-fd5e-45cb-b33a-9c37dc9e50fa",
+          "date": "2026-11-24",
+          "weekday": "martes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bdc92bd1-5111-48ba-9463-f1575fc3792f",
+          "driverId": "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "8e32ed13-9824-4af8-b00d-9565ebb58d84",
+          "date": "2026-11-24",
+          "weekday": "martes",
+          "time": "18:00",
+          "type": "Grupo 1",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "d428f596-1098-4bc6-8b72-dd56a5076f3f",
+          "driverId": "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5",
+          "placeId": "b3ece71c-174d-4ad2-95c8-85b09ecef42a",
+          "placeType": "house"
+        },
+        {
+          "id": "1a9048f2-da11-40fd-953e-a7949c8f7b57",
+          "date": "2026-11-25",
+          "weekday": "miércoles",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "11f5d0bd-d1c9-405f-ad28-b2d6c16420fa",
+          "driverId": "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "b31721a9-9843-4a49-8055-ef9371f748b9",
+          "date": "2026-11-26",
+          "weekday": "jueves",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "6b62f644-1aac-47e9-9b8c-3fd855cf89fd",
+          "driverId": "6f7475a6-3c20-4180-a10a-848395dce370",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "193b4c09-a67e-4b5c-b34d-9c727f2fa83d",
+          "date": "2026-11-26",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 2",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "bf1052a8-5143-40a8-a8d5-c07996e68f58",
+          "driverId": "106c3b52-05ae-47fe-b73d-306a1faca04f",
+          "placeId": "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+          "placeType": "house"
+        },
+        {
+          "id": "3d5a0719-9847-454f-a6bc-93c7434e5bc5",
+          "date": "2026-11-26",
+          "weekday": "jueves",
+          "time": "17:45",
+          "type": "Grupo 4",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "501b75ad-0363-4d0b-af4d-df6ce7342db4",
+          "driverId": "5b7dedf4-f575-4ee0-9f03-05a90f702376",
+          "placeId": "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "placeType": "house"
+        },
+        {
+          "id": "bb843720-36c6-4a41-98d3-3045cecc92a7",
+          "date": "2026-11-26",
+          "weekday": "jueves",
+          "time": "18:00",
+          "type": "Grupo 3",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5849f0b1-9267-4c56-8e7b-982da1e3ddc7",
+          "driverId": "e5dca8d2-3869-44fa-91e5-8965777e56a1",
+          "placeId": "bcc64b0c-44e6-46ab-ad45-1d862717fa41",
+          "placeType": "house"
+        },
+        {
+          "id": "e65626b9-862f-4a1c-970e-eec2c9c80cc4",
+          "date": "2026-11-27",
+          "weekday": "viernes",
+          "time": "09:45",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "deba61a9-38ad-43ff-83fc-6f6659a2310d",
+          "driverId": "db772d1b-617a-43ec-bb0a-f10b1e0606ce",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "d0e72eb0-5364-4e32-b6cf-4d61d4782ca0",
+          "date": "2026-11-27",
+          "weekday": "viernes",
+          "time": "18:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "5f116c33-ae35-47c3-a34d-84036f79224d",
+          "driverId": "639b34f2-de6e-4dd4-8666-b519584fd60a",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "8c134e3c-d861-4dd1-ade4-138b39597d8d",
+          "date": "2026-11-28",
+          "weekday": "sábado",
+          "time": "10:00",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "de8f51af-78a6-4676-bf4d-a458412ace4a",
+          "driverId": "90ba983b-1635-4af4-9ecd-81878456239b",
+          "placeId": null,
+          "placeType": "location"
+        },
+        {
+          "id": "7b239c76-24cf-49d1-9daf-c8e655dca85e",
+          "date": "2026-11-29",
+          "weekday": "domingo",
+          "time": "10:30",
+          "type": "Congregacional",
+          "driver": "",
+          "territory": "",
+          "source": "recurring",
+          "configId": "7b03bc7c-048f-40e9-bb50-36961f9cca33",
+          "driverId": "0c28f11c-a057-4b3a-8d72-ae91c31ad6db",
+          "placeId": null,
+          "placeType": "location"
+        }
+      ],
+      "driverAvailability": {
+        "97dd6333-d4e3-4e3c-b4f1-32b681696f9b": {
+          "slots": {}
+        },
+        "ad0f9dc0-c379-4cc1-a018-5690b0416a6c": {
+          "slots": {
+            "2:morning": true,
+            "4:morning": true,
+            "5:morning": true,
+            "3:morning": true
+          }
+        },
+        "e5dca8d2-3869-44fa-91e5-8965777e56a1": {
+          "slots": {}
+        },
+        "7a7f731e-fe63-4f54-ab59-f0bc413651c9": {
+          "slots": {
+            "2:morning": true
+          }
+        },
+        "fd25e70d-b59d-463a-a75c-c9d174352184": {
+          "slots": {
+            "3:morning": true,
+            "2:morning": true
+          }
+        },
+        "8d43d385-09f6-4ad3-b291-5270a982aaab": {
+          "slots": {}
+        },
+        "15633357-7a05-4cd1-b5c4-9cc8251c9808": {
+          "slots": {}
+        },
+        "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78": {
+          "slots": {}
+        },
+        "e9dc5ad5-efd8-4f0f-a8e0-b2b339748b1d": {
+          "slots": {}
+        },
+        "f45a0818-d62f-4776-bb1a-cea37da8d58f": {
+          "slots": {}
+        },
+        "7c1dc93a-e958-4b45-a0de-e5d98041e6ea": {
+          "slots": {}
+        },
+        "6f7475a6-3c20-4180-a10a-848395dce370": {
+          "slots": {}
+        },
+        "5b7dedf4-f575-4ee0-9f03-05a90f702376": {
+          "slots": {}
+        },
+        "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7": {
+          "slots": {}
+        },
+        "106c3b52-05ae-47fe-b73d-306a1faca04f": {
+          "slots": {}
+        },
+        "639b34f2-de6e-4dd4-8666-b519584fd60a": {
+          "slots": {}
+        },
+        "fc9c9054-618a-4460-a1a7-eafbb2411049": {
+          "slots": {}
+        },
+        "c1d3e7da-c432-400a-9288-0e93fb533916": {
+          "slots": {}
+        },
+        "90ba983b-1635-4af4-9ecd-81878456239b": {
+          "slots": {}
+        },
+        "2b385fa9-3d15-445e-9aba-092e3463b934": {
+          "slots": {}
+        },
+        "0c28f11c-a057-4b3a-8d72-ae91c31ad6db": {
+          "slots": {}
+        },
+        "d258e435-b2dd-447f-9358-e76a78273e5b": {
+          "slots": {}
+        },
+        "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5": {
+          "slots": {}
+        },
+        "db772d1b-617a-43ec-bb0a-f10b1e0606ce": {
+          "slots": {}
+        }
+      },
+      "driverRotations": {
+        "elders": {
+          "1": [
+            "6f7475a6-3c20-4180-a10a-848395dce370",
+            "db772d1b-617a-43ec-bb0a-f10b1e0606ce"
+          ],
+          "2": [
+            "106c3b52-05ae-47fe-b73d-306a1faca04f",
+            "639b34f2-de6e-4dd4-8666-b519584fd60a"
+          ],
+          "3": [
+            "06f10e1f-d0b1-4fca-9d9f-b1c40bf4df78",
+            "90ba983b-1635-4af4-9ecd-81878456239b"
+          ],
+          "4": [
+            "15633357-7a05-4cd1-b5c4-9cc8251c9808",
+            "0c28f11c-a057-4b3a-8d72-ae91c31ad6db"
+          ]
+        },
+        "groupConductors": {
+          "1": [
+            "4ccc3f4f-40b2-443f-a7c7-6601d99c0ea5"
+          ],
+          "2": [
+            "8d43d385-09f6-4ad3-b291-5270a982aaab",
+            "2fde5ab2-0cae-4a07-86ea-1ab1a338d1c7"
+          ],
+          "3": [
+            "e5dca8d2-3869-44fa-91e5-8965777e56a1",
+            "c1d3e7da-c432-400a-9288-0e93fb533916",
+            "2b385fa9-3d15-445e-9aba-092e3463b934"
+          ],
+          "4": [
+            "7c1dc93a-e958-4b45-a0de-e5d98041e6ea",
+            "5b7dedf4-f575-4ee0-9f03-05a90f702376"
+          ]
+        }
+      },
+      "houseAvailability": {
+        "b1086467-dfc2-4155-95e2-8c4818a3fe23": true,
+        "99b915a3-83fd-405a-89a7-3a63bc2ee912": true,
+        "6b175c11-665e-43a1-a850-0a9eb38ca672": true,
+        "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4": true,
+        "f50187a9-292d-4d5a-8a99-2a3a8e74f660": true,
+        "34b66b03-3016-45e6-9362-09338f43e3bf": true,
+        "5502e864-d44b-4a57-8656-97c42ff08e35": true,
+        "abe694df-92e3-4d41-898e-c45266325e1e": true,
+        "c07def08-4427-4c0b-b574-39b09570e4e3": true,
+        "6bad4c65-54f3-4759-90f0-90a79f6abf7a": true,
+        "1128e284-ca33-4b4f-808a-97b9a0cb84d3": true,
+        "abb28e6d-888c-499b-92c9-aafcbb92387a": true,
+        "b3ece71c-174d-4ad2-95c8-85b09ecef42a": true,
+        "1663a5ea-2e6d-41bd-8fde-9e72046adae0": true,
+        "4d1606c3-105b-49ff-a596-db0e3e64d7da": true,
+        "5c12a927-6309-4576-a51d-89f35b03804d": true,
+        "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4": true,
+        "2d47564c-6160-41b5-859d-fe69f1300502": true,
+        "60d31f98-3e2c-42e4-baa9-128a1468bdbe": true,
+        "86f9e00b-b562-49e4-9f8d-389947582ad1": true,
+        "a01d002a-3254-4739-9c7e-c0af8168b0f7": true,
+        "bcc64b0c-44e6-46ab-ad45-1d862717fa41": true,
+        "0c189a85-fa28-4638-9947-167204e1b079": true,
+        "54e63f30-20e8-45b8-846d-4e6f92472794": true,
+        "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5": true,
+        "b18d3220-1d73-4172-a7b0-972c1480dcf8": true,
+        "0f85edca-1219-4b8a-ba9c-2f7068d7e972": true,
+        "fe3676c4-1798-4409-9604-cd75affc725a": true,
+        "e10fe7e7-8085-498a-aa2e-438a22cf43ac": true
+      },
+      "houseRotations": {
+        "1": [
+          "6bad4c65-54f3-4759-90f0-90a79f6abf7a",
+          "5502e864-d44b-4a57-8656-97c42ff08e35",
+          "1128e284-ca33-4b4f-808a-97b9a0cb84d3",
+          "b3ece71c-174d-4ad2-95c8-85b09ecef42a",
+          "1663a5ea-2e6d-41bd-8fde-9e72046adae0",
+          "abb28e6d-888c-499b-92c9-aafcbb92387a",
+          "34b66b03-3016-45e6-9362-09338f43e3bf",
+          "c07def08-4427-4c0b-b574-39b09570e4e3"
+        ],
+        "2": [
+          "2d47564c-6160-41b5-859d-fe69f1300502",
+          "60d31f98-3e2c-42e4-baa9-128a1468bdbe",
+          "86f9e00b-b562-49e4-9f8d-389947582ad1",
+          "f50187a9-292d-4d5a-8a99-2a3a8e74f660",
+          "abe694df-92e3-4d41-898e-c45266325e1e",
+          "4d1606c3-105b-49ff-a596-db0e3e64d7da",
+          "5c12a927-6309-4576-a51d-89f35b03804d",
+          "0f5fde9a-c424-4f30-97e1-d2a4e3f675c4"
+        ],
+        "3": [
+          "b1086467-dfc2-4155-95e2-8c4818a3fe23",
+          "99b915a3-83fd-405a-89a7-3a63bc2ee912",
+          "a01d002a-3254-4739-9c7e-c0af8168b0f7",
+          "bcc64b0c-44e6-46ab-ad45-1d862717fa41"
+        ],
+        "4": [
+          "b18d3220-1d73-4172-a7b0-972c1480dcf8",
+          "0f85edca-1219-4b8a-ba9c-2f7068d7e972",
+          "fe3676c4-1798-4409-9604-cd75affc725a",
+          "e10fe7e7-8085-498a-aa2e-438a22cf43ac",
+          "6b175c11-665e-43a1-a850-0a9eb38ca672",
+          "03ecdaa2-7309-4394-afc5-f7a0b70cd9a4",
+          "0c189a85-fa28-4638-9947-167204e1b079",
+          "54e63f30-20e8-45b8-846d-4e6f92472794",
+          "1b9d63ee-b538-4cdb-97dd-fdb6264da6b5"
+        ]
+      }
+    }
+  }
+}

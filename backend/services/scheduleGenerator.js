@@ -142,6 +142,13 @@ export function generateOutings(year, month, configuration, houseRotations = {},
   const preservedTerritories = driverOptions.preservedTerritories || {};
   const preservedPlaces = driverOptions.preservedPlaces || {};
   const preservedColors = driverOptions.preservedColors || {};
+  // IDs de las salidas ya existentes, por "configId:fecha".
+  //
+  // Al regenerar se REUTILIZA el id de la salida que ya existía para esa regla y
+  // esa fecha, en vez de crear uno nuevo. Así una salida generada conserva su
+  // documento en Firestore (y con él sus ajustes manuales y sus referencias),
+  // en lugar de borrarse y recrearse con otro UUID.
+  const idsExistentes = driverOptions.existingOutingIds || {};
 
   for (let day = 1; day <= daysInMonth; day += 1) {
     const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -163,7 +170,8 @@ export function generateOutings(year, month, configuration, houseRotations = {},
       const preservedColor = preservedColors[assignmentKey];
 
       outings.push({
-        id: randomUUID(),
+        // Se conserva el id anterior si esta regla ya tenía una salida ese día.
+        id: idsExistentes[assignmentKey] || randomUUID(),
         date,
         weekday: weekdays[weekdayIndex],
         weekdayIndex,
