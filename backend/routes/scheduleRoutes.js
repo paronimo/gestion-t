@@ -6,11 +6,13 @@ import {
   deleteOutingType,
   deleteTerritory,
   deleteTerritoryLocation,
+  getAvailabilityInquiryList,
   getAvailableDrivers,
   getAvailableHouses,
   getConfiguration,
   getDriverList,
   getDriverRotations,
+  getHouseAvailabilityMessage,
   getHouseList,
   getHouseRotations,
   getLocationList,
@@ -26,6 +28,8 @@ import {
   postConfigurationCopy,
   postDriver,
   postHouse,
+  postHouseAvailabilityConfirm,
+  postHouseAvailabilityReject,
   postHouseRecord,
   postLocation,
   postOuting,
@@ -99,5 +103,10 @@ router.get('/months/:year/:month/outings', getOutings);
 router.post('/months/:year/:month/outings', postOuting);
 router.put('/months/:year/:month/outings/:id', putOuting);
 router.delete('/months/:year/:month/outings/:id', removeOuting);
+// Mensajería: consultar disponibilidad de casas (generar, confirmar, rechazar).
+router.get('/months/:year/:month/availability-inquiries', getAvailabilityInquiryList);
+router.get('/months/:year/:month/houses/:id/availability-message', getHouseAvailabilityMessage);
+router.post('/months/:year/:month/houses/:id/availability/confirm', postHouseAvailabilityConfirm);
+router.post('/months/:year/:month/houses/:id/availability/reject', postHouseAvailabilityReject);
 
 export default router;

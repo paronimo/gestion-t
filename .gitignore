@@ -23,3 +23,18 @@ backend/data/months.json
 *.njsproj
 *.sln
 *.sw?
+
+# --- Credenciales y secretos (NUNCA commitear) ---
+backend/credentials/
+backend/.env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+keystore.properties
+serviceAccount*.json

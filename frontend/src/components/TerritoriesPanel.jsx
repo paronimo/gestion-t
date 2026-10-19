@@ -64,7 +64,7 @@ export default function TerritoriesPanel({ territories = [], onSave, onStatusCha
           {list.matches === 0 ? <p className="empty-note">Ningún territorio coincide con la búsqueda.</p> : (
         <div className="house-list">
           {list.visible.map((territory) => (
-            <article className="house-row" key={territory.id}>
+            <article className="house-row admin-card" key={territory.id}>
               <div className="house-details">
                 <strong>{territory.name}</strong>
                 <span className={territory.active ? 'availability-enabled' : 'availability-disabled'}>

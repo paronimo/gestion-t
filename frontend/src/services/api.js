@@ -259,3 +259,38 @@ export function updateTerritoryLocation(id, location) {
 export function removeTerritoryLocation(id) {
   return request(`/api/territory-locations/${id}`, { method: 'DELETE' });
 }
+
+// Mensajería: consultar la disponibilidad de casas. Solo genera el mensaje y
+// registra la respuesta; no envía notificaciones.
+export function getAvailabilityInquiries(year, month) {
+  return request(`${monthPath(year, month)}/availability-inquiries`);
+}
+
+export function getHouseAvailabilityMessage(year, month, id) {
+  return request(`${monthPath(year, month)}/houses/${id}/availability-message`);
+}
+
+export function confirmHouseAvailability(year, month, id) {
+  return request(`${monthPath(year, month)}/houses/${id}/availability/confirm`, { method: 'POST' });
+}
+
+export function rejectHouseAvailability(year, month, id, outingIds) {
+  return request(`${monthPath(year, month)}/houses/${id}/availability/reject`, {
+    method: 'POST',
+    body: JSON.stringify({ outingIds }),
+  });
+}
+
+// Reportes enviados desde la app Android. La consulta exige la misma sesión de
+// Firebase que el envío: el ID token se pasa como parámetro porque todavía no
+// hay una pantalla web con sesión iniciada (esa sección corresponde a otra
+// etapa). El backend devuelve { reports: [...], count }.
+export function getReports({ token, salidaId, limit } = {}) {
+  const query = new URLSearchParams();
+  if (salidaId) query.set('salidaId', salidaId);
+  if (limit) query.set('limit', String(limit));
+  const suffix = query.toString() ? `?${query}` : '';
+  return request(`/api/reports${suffix}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+}

@@ -11,6 +11,7 @@ process.env.SCHEDULE_DATA_FILE = testDataFile;
 
 const {
   addManualOuting,
+  confirmHouseAvailability,
   copyMonthConfiguration,
   createDriver,
   createHouse,
@@ -22,6 +23,8 @@ const {
   deleteHouse,
   deleteLocation,
   deleteTerritory,
+  getAvailabilityInquiries,
+  getAvailabilityMessage,
   getDrivers,
   getHouses,
   getLocations,
@@ -45,6 +48,7 @@ const {
   updateTerritory,
   updateTerritoryLocation,
   deleteTerritoryLocation,
+  rejectHouseAvailability,
   saveConfiguration,
 } = await import('./scheduleModel.js');
 
@@ -1592,4 +1596,175 @@ test('después de aceptar una sugerencia se puede cambiar el lugar a mano', asyn
   const final = regenerated.outings.find((outing) => outing.date === salida.date);
   assert.equal(final.placeId, casa.id, 'la edición manual gana');
   assert.equal(final.placeType, 'house');
+});
+
+// ---------------------------------------------------------------- mensajería: disponibilidad de casas
+
+// Una casa marcada con "Preguntar disponibilidad" y usada como punto de
+// encuentro en varias salidas del mes.
+async function casaConPregunta(extra = {}) {
+  return createHouse({ name: 'Flia. Vigneau', group: '1', congregationalWeekend: false, askAvailability: true, ...extra });
+}
+
+test('la marca "Preguntar disponibilidad" se guarda y se lee', async () => {
+  await emptyData();
+  const conPregunta = await createHouse({ name: 'Casa pregunta', group: '1', congregationalWeekend: false, askAvailability: true });
+  const sinPregunta = await createHouse({ name: 'Casa normal', group: '1', congregationalWeekend: false });
+  const antigua = await createHouse({ name: 'Casa sin campo', group: '1', congregationalWeekend: false });
+  // Una casa antigua sin el campo no se pregunta por defecto.
+  assert.equal((await getHouses()).find((house) => house.id === antigua.id).askAvailability, false);
+
+  await updateHouse(conPregunta.id, { ...conPregunta, askAvailability: false });
+  assert.equal((await getHouses()).find((house) => house.id === conPregunta.id).askAvailability, false);
+  assert.equal((await getHouses()).find((house) => house.id === sinPregunta.id).askAvailability, false);
+});
+
+test('las consultas solo incluyen casas marcadas que aparecen como punto de encuentro', async () => {
+  await emptyData();
+  const pregunta = await casaConPregunta();
+  const sinPregunta = await createHouse({ name: 'Flia. Stoery', group: '1', congregationalWeekend: false });
+
+  await addManualOuting(2026, 10, {
+    date: '2026-10-03', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: pregunta.id, placeType: 'house', territory: '',
+  });
+  await addManualOuting(2026, 10, {
+    date: '2026-10-04', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: sinPregunta.id, placeType: 'house', territory: '',
+  });
+
+  const inquiries = await getAvailabilityInquiries(2026, 10);
+  assert.equal(inquiries.length, 1);
+  assert.equal(inquiries[0].houseId, pregunta.id);
+  assert.equal(inquiries[0].dates.length, 1);
+  assert.match(inquiries[0].message, /^¿Estaría disponible tu casa para esta fecha\?/);
+});
+
+test('el mensaje usa las fechas y horas reales de las salidas', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  for (const [date, time] of [['2026-10-03', '10:30'], ['2026-10-10', '10:00'], ['2026-10-17', '10:00']]) {
+    await addManualOuting(2026, 10, {
+      date, time, type: 'Grupo 1',
+      driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+    });
+  }
+
+  const [inquiry] = await getAvailabilityInquiries(2026, 10);
+  assert.equal(
+    inquiry.message,
+    '¿Estaría disponible tu casa para estas fechas?\n\n'
+      + '🟤 Sábado 3 a las 10:30 AM\n'
+      + '🟤 Sábado 10 a las 10:00 AM\n'
+      + '🟤 Sábado 17 a las 10:00 AM',
+  );
+});
+
+test('confirmar disponibilidad deja las salidas intactas y registra la confirmación', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  const salida = await addManualOuting(2026, 10, {
+    date: '2026-10-03', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+
+  const result = await confirmHouseAvailability(2026, 10, casa.id);
+  assert.equal(result.houseId, casa.id);
+  assert(result.confirmedAt);
+
+  // El cronograma no cambió en nada.
+  const [inquiry] = await getAvailabilityInquiries(2026, 10);
+  assert.equal(inquiry.dates[0].outingId, salida.id);
+  assert(inquiry.confirmedAt);
+  const month = await getMonth(2026, 10);
+  assert.equal(month.outings[0].placeId, casa.id, 'la salida conserva su punto de encuentro');
+  assert.equal(month.outings[0].date, '2026-10-03');
+});
+
+test('rechazar quita la casa solo de las salidas de esa consulta', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  const otraFecha = await addManualOuting(2026, 10, {
+    date: '2026-10-10', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+  const primera = await addManualOuting(2026, 10, {
+    date: '2026-10-03', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+  // Otra salida del mismo mes con OTRA casa no se toca.
+  const vecina = await createHouse({ name: 'Flia. Stoery', group: '1', congregationalWeekend: false });
+  const conVecina = await addManualOuting(2026, 10, {
+    date: '2026-10-11', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: vecina.id, placeType: 'house', territory: '',
+  });
+
+  const result = await rejectHouseAvailability(2026, 10, casa.id, [primera.id]);
+  assert.equal(result.cleared, 1);
+
+  const month = await getMonth(2026, 10);
+  const rechazada = month.outings.find((outing) => outing.id === primera.id);
+  assert.equal(rechazada.placeId, null, 'la celda Punto de encuentro queda vacía');
+  assert.equal(rechazada.placeType, 'location');
+  assert.equal(month.outings.find((outing) => outing.id === otraFecha.id).placeId, casa.id, 'la otra fecha de la casa se conserva');
+  assert.equal(month.outings.find((outing) => outing.id === conVecina.id).placeId, vecina.id, 'la otra casa no se toca');
+
+  // La casa sigue existiendo en el registro general y sigue marcada para preguntar.
+  const enRegistro = (await getHouses()).find((house) => house.id === casa.id);
+  assert(enRegistro, 'la casa no se elimina del registro');
+  assert.equal(enRegistro.askAvailability, true);
+});
+
+test('rechazar en un mes no afecta a otro mes de la misma casa', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  const octubre = await addManualOuting(2026, 10, {
+    date: '2026-10-03', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+  const noviembre = await addManualOuting(2026, 11, {
+    date: '2026-11-07', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+
+  await rejectHouseAvailability(2026, 10, casa.id, [octubre.id]);
+
+  assert.equal((await getMonth(2026, 10)).outings.find((outing) => outing.id === octubre.id).placeId, null);
+  assert.equal((await getMonth(2026, 11)).outings.find((outing) => outing.id === noviembre.id).placeId, casa.id, 'noviembre intacto');
+});
+
+test('regenerar el mes no vuelve a poner una casa que se rechazó a mano', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  await updateHouseAvailability(2026, 10, casa.id, true);
+  await updateHouseRotation(2026, 10, '1', [casa.id]);
+
+  const configuration = [{ id: 'g1', weekday: 2, time: '10:00', type: 'Grupo 1', active: true }];
+  const month = await saveConfiguration(2026, 10, configuration);
+  const salida = month.outings.find((outing) => outing.placeId === casa.id);
+  assert(salida, 'la rotación asigna la casa');
+
+  await rejectHouseAvailability(2026, 10, casa.id, [salida.id]);
+  // Al regenerar, las salidas recurrentes se vuelven a crear; se busca la misma
+  // fecha para comprobar que la casa rechazada no se vuelve a asignar.
+  const regenerated = await saveConfiguration(2026, 10, configuration);
+  const misma = regenerated.outings.find((outing) => outing.date === salida.date);
+  assert(misma, 'la salida sigue existiendo');
+  assert.equal(misma.placeId, null, 'la corrección manual sobrevive a la regeneración');
+});
+
+test('getAvailabilityMessage devuelve el mensaje de una casa y null si no existe', async () => {
+  await emptyData();
+  const casa = await casaConPregunta();
+  await addManualOuting(2026, 10, {
+    date: '2026-10-27', time: '10:00', type: 'Grupo 1',
+    driver: '', driverId: null, placeId: casa.id, placeType: 'house', territory: '',
+  });
+
+  const message = await getAvailabilityMessage(2026, 10, casa.id);
+  assert.equal(message.houseName, 'Flia. Vigneau');
+  assert.equal(message.dates.length, 1);
+  assert.equal(message.message, '¿Estaría disponible tu casa para esta fecha?\n\n🟤 Martes 27 a las 10:00 AM');
+
+  assert.equal(await getAvailabilityMessage(2026, 10, 'no-existe'), null);
 });

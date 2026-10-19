@@ -55,7 +55,7 @@ export default function OutingTypesPanel({ types = [], onSave, onStatusChange, o
       {list.matches === 0 ? <p className="empty-note">Ningún tipo coincide con la búsqueda.</p> : (
       <div className="house-list">
         {list.visible.map((type) => (
-          <article className="house-row" key={type.id}>
+          <article className="house-row admin-card" key={type.id}>
             <div className="house-details">
               <strong>{type.name}</strong>
               <span className={type.active ? 'availability-enabled' : 'availability-disabled'}>

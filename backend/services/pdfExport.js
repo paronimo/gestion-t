@@ -21,14 +21,14 @@ const ROW_HEIGHT = 18;
 const FONT_SIZE = 8.5;
 
 // La primera columna es la fecha: se combina verticalmente entre las salidas del mismo día.
-const DATE_WIDTH = 64;
+const DATE_WIDTH = 72;
 const COLUMNS = [
   { key: 'date', label: 'Fecha', width: DATE_WIDTH },
   { key: 'time', label: 'Hora', width: 40 },
   { key: 'type', label: 'Tipo', width: 84 },
-  { key: 'place', label: 'Lugar de Encuentro', width: 100 },
+  { key: 'place', label: 'Lugar de Encuentro', width: 120 },
   { key: 'driver', label: 'Conductor', width: 80 },
-  { key: 'territory', label: 'Territorio', width: 130 },
+  { key: 'territory', label: 'Territorio', width: 120 },
 ];
 
 const HEADER_HEIGHT = 20;
@@ -95,7 +95,7 @@ export function buildSchedulePdf({ year, month, outings }) {
   const monthTitle = monthName.charAt(0).toUpperCase() + monthName.slice(1);
   const pageWidth = document.page.width - MARGIN * 2;
 
-  drawHeader(document, monthTitle, year, outings.length);
+  drawHeader(document, monthTitle, year);
 
   const days = groupByDay(outings);
   const rowWidth = COLUMNS.reduce((total, column) => total + column.width, 0);
@@ -110,9 +110,10 @@ export function buildSchedulePdf({ year, month, outings }) {
 
   for (const dayOutings of days) {
     // El bloque del día se dibuja entero: así la celda de fecha combinada nunca se parte.
-    ensureSpace(document, dayOutings.length * ROW_HEIGHT);
+    const rowHeights = getDayRowHeights(document, dayOutings);
+    ensureSpace(document, rowHeights.reduce((total, height) => total + height, 0));
     if (document.y <= MARGIN + 60) drawColumnHeader(document, rowWidth);
-    drawDayBlock(document, dayOutings, rowWidth);
+    drawDayBlock(document, dayOutings, rowWidth, rowHeights);
   }
 
   document.end();
@@ -122,25 +123,41 @@ export function buildSchedulePdf({ year, month, outings }) {
   });
 }
 
-function drawHeader(document, monthTitle, year, total) {
+function drawHeader(document, monthTitle, year) {
   const pageWidth = document.page.width - MARGIN * 2;
   document.rect(MARGIN, MARGIN, pageWidth, 40).fill('#2F4858');
   document.fillColor('#FFFFFF').font(FONT_BOLD).fontSize(15)
-    .text('Cronograma de salidas', MARGIN + 12, MARGIN + 9, { width: pageWidth - 24 });
-  document.font(FONT).fontSize(10)
-    .text(`${monthTitle} ${year} · ${total} ${total === 1 ? 'salida' : 'salidas'}`, MARGIN + 12, MARGIN + 27, { width: pageWidth - 24 });
+    .text(`Cronograma de salidas · ${monthTitle} ${year}`, MARGIN + 12, MARGIN + 12, { width: pageWidth - 24 });
   document.y = MARGIN + 52;
 }
 
-// Recorta el texto para que nunca desborde la celda ni se parta en dos líneas.
-function fitText(document, text, maxWidth) {
-  if (document.widthOfString(text) <= maxWidth) return text;
-  const ellipsis = '…';
-  let cut = text;
-  while (cut.length > 1 && document.widthOfString(cut + ellipsis) > maxWidth) {
-    cut = cut.slice(0, -1);
-  }
-  return cut.trimEnd() + ellipsis;
+function valueForColumn(column, outing) {
+  if (column.key === 'place') return outing.placeName || '—';
+  return ({
+    time: outing.time,
+    type: normalizeType(outing.type) || '—',
+    driver: outing.driverName || outing.driver || 'Sin definir',
+    territory: outing.territory || 'Sin definir',
+  })[column.key];
+}
+
+function textHeight(document, text, width, font = FONT, fontSize = FONT_SIZE) {
+  return document.font(font).fontSize(fontSize).heightOfString(text, {
+    width,
+    align: 'center',
+    lineGap: 0,
+  });
+}
+
+function getDayRowHeights(document, dayOutings) {
+  return dayOutings.map((outing) => {
+    const contentHeight = COLUMNS.slice(1).reduce((height, column) => {
+      const value = valueForColumn(column, outing);
+      const font = column.key === 'type' ? FONT_BOLD : FONT;
+      return Math.max(height, textHeight(document, value, column.width - CELL_PADDING * 2, font));
+    }, 0);
+    return Math.max(ROW_HEIGHT, contentHeight + CELL_PADDING * 2);
+  });
 }
 
 // Encabezados de columna: se repiten en cada página nueva, con borde y centrado total.
@@ -150,9 +167,8 @@ function drawColumnHeader(document, rowWidth) {
   let x = MARGIN;
   for (const column of COLUMNS) {
     document.font(FONT_BOLD).fontSize(8.5);
-    const shown = fitText(document, column.label, column.width - CELL_PADDING * 2);
     document.fillColor('#33302A')
-      .text(shown, x + CELL_PADDING, top + (HEADER_HEIGHT - 10) / 2, {
+      .text(column.label, x + CELL_PADDING, top + (HEADER_HEIGHT - 10) / 2, {
         width: column.width - CELL_PADDING * 2, align: 'center', lineBreak: false,
       });
     x += column.width;
@@ -163,16 +179,17 @@ function drawColumnHeader(document, rowWidth) {
 
 // Dibuja la retícula. rowLines permite omitir las líneas horizontales internas,
 // que es justo lo que necesita la celda de fecha combinada.
-function drawBorders(document, top, height, rowWidth, { rowLines = true, rowCount = 1 } = {}) {
+function drawBorders(document, top, height, rowWidth, { rowLines = true, rowHeights = [] } = {}) {
   document.lineWidth(0.5).strokeColor(BORDER_COLOR);
   const bottom = top + height;
 
   document.moveTo(MARGIN, top).lineTo(MARGIN + rowWidth, top).stroke();
   document.moveTo(MARGIN, bottom).lineTo(MARGIN + rowWidth, bottom).stroke();
 
-  if (rowLines && rowCount > 1) {
-    for (let index = 1; index < rowCount; index += 1) {
-      const y = top + index * ROW_HEIGHT;
+  if (rowLines && rowHeights.length > 1) {
+    let y = top;
+    for (const rowHeight of rowHeights.slice(0, -1)) {
+      y += rowHeight;
       // La línea arranca después de la columna de fecha: esa celda es una sola.
       document.moveTo(MARGIN + DATE_WIDTH, y).lineTo(MARGIN + rowWidth, y).stroke();
     }
@@ -187,14 +204,16 @@ function drawBorders(document, top, height, rowWidth, { rowLines = true, rowCoun
 }
 
 // Un día completo: celda de fecha combinada + una fila independiente por salida.
-function drawDayBlock(document, dayOutings, rowWidth) {
+function drawDayBlock(document, dayOutings, rowWidth, rowHeights) {
   const top = document.y;
-  const height = dayOutings.length * ROW_HEIGHT;
+  const height = rowHeights.reduce((total, rowHeight) => total + rowHeight, 0);
 
   // Franja de color por tipo: distingue de un vistazo sin repetir el texto.
+  let rowTop = top;
   for (const [index, outing] of dayOutings.entries()) {
-    document.rect(MARGIN, top + index * ROW_HEIGHT, rowWidth, ROW_HEIGHT)
+    document.rect(MARGIN, rowTop, rowWidth, rowHeights[index])
       .fill(paletteFor(outing).background);
+    rowTop += rowHeights[index];
   }
 
   // Cuando un día mezcla varios colores, la celda de fecha usa un fondo neutro:
@@ -204,48 +223,43 @@ function drawDayBlock(document, dayOutings, rowWidth) {
 
   // La fecha se escribe una sola vez, centrada vertical y horizontalmente.
   document.rect(MARGIN, top, DATE_WIDTH, height).fill(dateBackground);
+  const dateText = formatDate(dayOutings[0].date);
+  const dateHeight = textHeight(document, dateText, DATE_WIDTH - CELL_PADDING * 2, FONT_BOLD, 9);
   document.font(FONT_BOLD).fontSize(9);
-  const dateText = fitText(document, formatDate(dayOutings[0].date), DATE_WIDTH - CELL_PADDING * 2);
   document.fillColor('#3A3226')
-    .text(dateText, MARGIN + CELL_PADDING, top + (height - 11) / 2, {
-      width: DATE_WIDTH - CELL_PADDING * 2, align: 'center', lineBreak: false,
+    .text(dateText, MARGIN + CELL_PADDING, top + (height - dateHeight) / 2, {
+      width: DATE_WIDTH - CELL_PADDING * 2, align: 'center',
     });
 
   // Cada salida sigue siendo su propia fila; solo la fecha se combina.
   let x = MARGIN + DATE_WIDTH;
   for (const column of COLUMNS.slice(1)) {
+    rowTop = top;
     for (const [index, outing] of dayOutings.entries()) {
       const colors = paletteFor(outing.type);
-      const rowTop = top + index * ROW_HEIGHT;
       const maxWidth = column.width - CELL_PADDING * 2;
       const isPlace = column.key === 'place';
-      const value = isPlace
-        ? (outing.placeName || '—')
-        : ({
-          time: outing.time,
-          type: normalizeType(outing.type) || '—',
-          driver: outing.driverName || outing.driver || 'Sin definir',
-          territory: outing.territory || 'Sin definir',
-        })[column.key];
-      document.font(column.key === 'type' ? FONT_BOLD : FONT).fontSize(FONT_SIZE);
-      const shown = fitText(document, value, maxWidth);
-      const y = rowTop + (ROW_HEIGHT - 10) / 2;
+      const value = valueForColumn(column, outing);
+      const font = column.key === 'type' ? FONT_BOLD : FONT;
+      const contentHeight = textHeight(document, value, maxWidth, font);
+      document.font(font).fontSize(FONT_SIZE);
+      const y = rowTop + (rowHeights[index] - contentHeight) / 2;
       document.fillColor(colors.text);
 
       if (isPlace && outing.placeMapsUrl) {
         // El lugar se muestra como texto; la URL solo queda detrás del enlace.
-        // Siempre subrayado: deja claro que es clicable aunque el texto se recorte.
-        document.text(shown, x + CELL_PADDING, y, {
-          width: maxWidth, align: 'center', link: outing.placeMapsUrl, underline: true, lineBreak: false,
+        document.text(value, x + CELL_PADDING, y, {
+          width: maxWidth, align: 'center', link: outing.placeMapsUrl, underline: true,
         });
       } else {
-        document.text(shown, x + CELL_PADDING, y, { width: maxWidth, align: 'center', lineBreak: false });
+        document.text(value, x + CELL_PADDING, y, { width: maxWidth, align: 'center' });
       }
+      rowTop += rowHeights[index];
     }
     x += column.width;
   }
 
-  drawBorders(document, top, height, rowWidth, { rowLines: true, rowCount: dayOutings.length });
+  drawBorders(document, top, height, rowWidth, { rowLines: true, rowHeights });
   document.y = top + height;
 }
 

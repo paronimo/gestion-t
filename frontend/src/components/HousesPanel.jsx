@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ListSearch, useLongList } from './LongList.jsx';
 
-const emptyHouse = { name: '', group: '', congregationalWeekend: false };
+const emptyHouse = { name: '', group: '', congregationalWeekend: false, askAvailability: false };
 
 export default function HousesPanel({ houses, groups = [], outings = [], houseRotations = {}, onSave, onAvailabilityChange, onRotationChange, onGeneralStatusChange, onDelete, saving, mode = 'monthly' }) {
   const registryMode = mode === 'registry';
@@ -15,6 +15,7 @@ export default function HousesPanel({ houses, groups = [], outings = [], houseRo
       name: house.name,
       group: house.group || '',
       congregationalWeekend: house.congregationalWeekend,
+      askAvailability: house.askAvailability === true,
       active: house.active,
     });
   }
@@ -81,6 +82,14 @@ export default function HousesPanel({ houses, groups = [], outings = [], houseRo
               onChange={(event) => setForm({ ...form, congregationalWeekend: event.target.checked })}
             />
             También puede usarse en salidas congregacionales de fin de semana
+          </label>
+          <label className="house-congregational-option">
+            <input
+              type="checkbox"
+              checked={form.askAvailability}
+              onChange={(event) => setForm({ ...form, askAvailability: event.target.checked })}
+            />
+            Preguntar disponibilidad (aparece en Mensajería)
           </label>
           <div className="form-actions house-form-actions">
             <button className="button button-quiet" type="button" onClick={() => setEditing(null)}>Cancelar</button>
@@ -150,7 +159,7 @@ export default function HousesPanel({ houses, groups = [], outings = [], houseRo
           {list.visible.map((house) => {
             const assignedCount = outings.filter((outing) => outing.houseId === house.id).length;
             return (
-              <article className="house-row" key={house.id}>
+              <article className={registryMode ? 'house-row admin-card' : 'house-row'} key={house.id}>
                 <div className="house-details">
                   <strong>{house.name}</strong>
                   <span>{house.group ? `Grupo ${house.group.replace(/^grupo\s*/i, '')}` : 'Sin grupo'}</span>

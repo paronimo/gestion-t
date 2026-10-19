@@ -270,6 +270,51 @@ input[type='color'] { width: 46px; height: 34px; padding: 2px; border: 1px solid
 .availability-enabled { color: var(--ok) !important; font-weight: 700; }
 .availability-disabled { color: var(--danger) !important; font-weight: 700; }
 .driver-actions, .house-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Tarjetas de la sección Administración: cada registro se muestra como una tarjeta
+   independiente con borde, esquinas redondeadas y aire interno, sin cambiar ninguna
+   acción existente. Los paneles mensuales conservan el diseño de fila. */
+.administration-page .driver-list,
+.administration-page .house-list { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.administration-page .admin-card { flex-direction: column; align-items: stretch; padding: 18px; }
+.administration-page .admin-card .house-details,
+.administration-page .admin-card .driver-details { min-width: 0; flex: none; gap: 5px; }
+.administration-page .admin-card .house-details strong,
+.administration-page .admin-card .driver-details strong { font-size: 15px; }
+.administration-page .admin-card .house-actions,
+.administration-page .admin-card .driver-actions {
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------------------------------------------------------------- mensajería */
+
+.messaging-page { padding-top: 22px; }
+.messaging-tabs { display: inline-flex; gap: 6px; margin: 0 0 20px; padding: 5px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.availability-panel { margin-top: 8px; padding: 20px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.availability-panel h3 { margin: 0; color: var(--ink); font-size: 16px; }
+.availability-month { color: var(--ink-2); font-size: 13px; font-weight: 700; }
+.availability-list { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+.availability-card { flex-direction: column; align-items: stretch; padding: 18px; }
+.availability-card .house-details { min-width: 0; flex: none; gap: 5px; }
+.availability-card .house-details strong { font-size: 15px; }
+.availability-dates { display: grid; gap: 4px; margin: 12px 0 0; padding: 0; list-style: none; }
+.availability-dates li { color: var(--ink-2); font-size: 12.5px; }
+.availability-message {
+  margin: 12px 0 0; padding: 12px 14px;
+  border: 1px dashed var(--line-strong); border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; line-height: 1.5;
+  white-space: pre-wrap; word-break: break-word;
+}
+.availability-actions { justify-content: flex-end; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.availability-copied { margin: 12px 0 0; }
+
 .driver-warning {
   grid-column: 1 / -1; margin: 0; padding: 10px 12px;
   border-left: 3px solid var(--danger);
@@ -528,6 +573,12 @@ tbody tr:hover .date-cell { background: var(--brand-soft); }
   .copy-options { grid-template-columns: 1fr; }
   .administration-page .drivers-panel, .administration-page .houses-panel { padding: 16px; }
   .driver-row, .house-row { align-items: flex-start; }
+  .administration-page .driver-list,
+  .administration-page .house-list { grid-template-columns: 1fr; }
+  .administration-page .admin-card .house-actions,
+  .administration-page .admin-card .driver-actions { justify-content: flex-start; }
+  .availability-list { grid-template-columns: 1fr; }
+  .availability-actions { justify-content: flex-start; }
   .weekday-options { flex: 1 1 100%; }
   .field-place { grid-column: span 2; }
   .rule-row .button-remove { justify-self: start; }

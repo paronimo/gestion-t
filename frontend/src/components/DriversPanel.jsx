@@ -200,7 +200,7 @@ export default function DriversPanel({
         {list.matches === 0 ? <p className="empty-note">Ningún conductor coincide con la búsqueda.</p> : (
       <div className="driver-list">
         {list.visible.map((driver) => (
-          <article className="driver-row" key={driver.id}>
+          <article className="driver-row admin-card" key={driver.id}>
             <div className="driver-details">
               <strong>{driver.firstName} {driver.lastName}</strong>
               <span>{driver.category}{driver.group ? ` · Grupo ${driver.group}` : ''}</span>

@@ -101,7 +101,7 @@ export default function TerritoryLocationsPanel({
               : (
                 <div className="house-list">
                   {list.visible.map((location) => (
-                    <article className="house-row" key={location.id}>
+                    <article className="house-row admin-card" key={location.id}>
                       <div className="house-details">
                         <strong>{location.name}</strong>
                         <span>Territorios: {location.territories || '—'}</span>

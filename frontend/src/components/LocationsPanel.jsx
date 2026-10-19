@@ -78,7 +78,7 @@ export default function LocationsPanel({ locations = [], onSave, onStatusChange,
           {list.matches === 0 ? <p className="empty-note">Ninguna ubicación coincide con la búsqueda.</p> : (
         <div className="house-list">
           {list.visible.map((location) => (
-            <article className="house-row" key={location.id}>
+            <article className={registryMode ? 'house-row admin-card' : 'house-row'} key={location.id}>
               <div className="house-details">
                 <strong>{location.name}</strong>
                 {location.address && <span>{location.address}</span>}

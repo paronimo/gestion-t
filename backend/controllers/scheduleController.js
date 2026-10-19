@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import {
   addManualOuting,
+  confirmHouseAvailability,
   copyMonthConfiguration,
   createDriver,
   createHouse,
@@ -15,6 +16,8 @@ import {
   deleteLocation as removeLocation,
   deleteOuting,
   deleteOutingType as removeOutingType,
+  getAvailabilityInquiries,
+  getAvailabilityMessage,
   getDrivers,
   getHouses,
   getLocations,
@@ -28,6 +31,7 @@ import {
   getTerritories,
   getTerritoryLocations,
   getMonthlyHouseRotations,
+  rejectHouseAvailability,
   saveConfiguration,
   updateDriver,
   updateDriverAvailability,
@@ -157,6 +161,7 @@ function validHouse(body, response, groups) {
     || (body.group !== undefined && typeof body.group !== 'string')
     || (body.group && !groups.has(normalizeGroup(body.group)))
     || typeof body.congregationalWeekend !== 'boolean'
+    || (body.askAvailability !== undefined && typeof body.askAvailability !== 'boolean')
     || (body.active !== undefined && typeof body.active !== 'boolean')
   ) {
     response.status(400).json({ error: 'Nombre, grupo y uso congregacional son obligatorios' });
@@ -168,6 +173,8 @@ function validHouse(body, response, groups) {
     group: normalizeGroup(body.group || ''),
     congregationalWeekend: body.congregationalWeekend,
   };
+  // Marca para consultar la disponibilidad de la casa en la sección Mensajería.
+  if (typeof body.askAvailability === 'boolean') house.askAvailability = body.askAvailability;
   if (typeof body.active === 'boolean') house.active = body.active;
   return house;
 }
@@ -880,4 +887,63 @@ export async function putOutingType(request, response) {
   }
 
   response.json(updated);
+}
+
+// ---------------------------------------------------------------- mensajería
+// Genera el mensaje de consulta de disponibilidad para las casas marcadas.
+// No envía nada: solo arma el texto que el usuario copia y pega.
+
+export async function getAvailabilityInquiryList(request, response) {
+  const params = monthParams(request, response);
+  if (!params) return;
+
+  response.json(await getAvailabilityInquiries(params.year, params.month));
+}
+
+// Vuelve a generar el mensaje de una casa concreta del mes.
+export async function getHouseAvailabilityMessage(request, response) {
+  const params = monthParams(request, response);
+  if (!params) return;
+
+  const message = await getAvailabilityMessage(params.year, params.month, request.params.id);
+  if (!message) {
+    response.status(404).json({ error: 'No se encontró la casa' });
+    return;
+  }
+
+  response.json(message);
+}
+
+// Confirmar disponibilidad: no toca las salidas, solo registra la confirmación.
+export async function postHouseAvailabilityConfirm(request, response) {
+  const params = monthParams(request, response);
+  if (!params) return;
+
+  const result = await confirmHouseAvailability(params.year, params.month, request.params.id);
+  if (!result) {
+    response.status(404).json({ error: 'No se encontró la casa' });
+    return;
+  }
+
+  response.json(result);
+}
+
+// ❌ Rechazar: quita la casa como punto de encuentro de las salidas de esa consulta.
+export async function postHouseAvailabilityReject(request, response) {
+  const params = monthParams(request, response);
+  if (!params) return;
+
+  const { outingIds } = request.body || {};
+  if (!Array.isArray(outingIds) || !outingIds.every((id) => typeof id === 'string')) {
+    response.status(400).json({ error: 'Los identificadores de salida no son válidos' });
+    return;
+  }
+
+  const result = await rejectHouseAvailability(params.year, params.month, request.params.id, outingIds);
+  if (!result) {
+    response.status(404).json({ error: 'No se encontró la casa' });
+    return;
+  }
+
+  response.json(result);
 }

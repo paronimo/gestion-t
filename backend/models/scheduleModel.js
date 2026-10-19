@@ -7,6 +7,7 @@ import { migrateData } from '../services/migrateData.js';
 import { isGroupType, normalizeGroupValue } from '../services/domain.js';
 import { normalizeColor } from '../../shared/colors.js';
 import { normalizeLocationTerritories } from '../../shared/territoryLocations.js';
+import { availabilityInquiries, buildAvailabilityMessage, houseOutings } from '../../shared/messaging.js';
 
 const dataFile = process.env.SCHEDULE_DATA_FILE
   ? pathToFileURL(resolve(process.env.SCHEDULE_DATA_FILE))
@@ -20,8 +21,19 @@ function normalizeGroup(group) {
 const defaultTypes = () => [{ id: 'congregacional', name: 'Congregacional', active: true }];
 
 function emptyData() {
-  return { types: defaultTypes(), drivers: [], houses: [], locations: [], territoryLocations: [], territories: [], months: {} };
+  return {
+    types: defaultTypes(), drivers: [], houses: [], locations: [], territoryLocations: [], territories: [],
+    months: {}, reports: [], devices: [], notifications: { settings: {}, outbox: [] },
+  };
 }
+
+function emptyNotifications() {
+  return { settings: {}, outbox: [] };
+}
+
+// Los avisos ya enviados no se pierden si el archivo se recorta: se guardan en
+// el outbox con su estado. Un archivo anterior a esta integración arranca sin
+// el campo y se completa al leer.
 
 async function readData() {
   await mkdir(dataDirectory, { recursive: true });
@@ -33,7 +45,18 @@ async function readData() {
 
     const parsed = JSON.parse(content);
     const data = parsed.months && parsed.drivers ? parsed : { drivers: [], houses: [], months: parsed };
-    return migrateData({ types: defaultTypes(), locations: [], territoryLocations: [], territories: [], ...data });
+    // Los reportes enviados desde Android se conservan junto al cronograma.
+    // Un archivo anterior a esta integración no tiene el campo y arranca vacío.
+    const withReports = { ...data, reports: Array.isArray(data.reports) ? data.reports : [] };
+    const notifications = withReports.notifications && Array.isArray(withReports.notifications.outbox)
+      ? withReports.notifications
+      : emptyNotifications();
+    return migrateData({
+      types: defaultTypes(), locations: [], territoryLocations: [], territories: [],
+      ...withReports,
+      devices: Array.isArray(withReports.devices) ? withReports.devices : [],
+      notifications,
+    });
   } catch (error) {
     if (error.code === 'ENOENT') return emptyData();
     throw error;
@@ -44,13 +67,18 @@ async function readData() {
 // ni dejen el archivo a medio escribir.
 let writeQueue = Promise.resolve();
 
-function writeData(data) {
+// Escritura efectiva. Solo se llama desde la cola: nunca encola por su cuenta.
+async function writeSnapshot(snapshot) {
+  await mkdir(dataDirectory, { recursive: true });
+  await writeFile(dataFile, snapshot);
+}
+
+export function writeData(data) {
   const snapshot = JSON.stringify(data, null, 2);
-  writeQueue = writeQueue.then(async () => {
-    await mkdir(dataDirectory, { recursive: true });
-    await writeFile(dataFile, snapshot);
-  });
-  return writeQueue;
+  const write = writeQueue.then(() => writeSnapshot(snapshot));
+  // Un error no debe dejar la cola rechazada para las escrituras siguientes.
+  writeQueue = write.catch(() => {});
+  return write;
 }
 
 function monthKey(year, month) {
@@ -73,6 +101,77 @@ function countAssignments(months, field, id) {
   return Object.values(months).reduce((total, month) => (
     total + (month.outings || []).filter((outing) => outing[field] === id).length
   ), 0);
+}
+
+// ---------------------------------------------------------------- reportes de salida
+//
+// Un reporte llega desde la app Android (pantalla "Reportar salida"). Se guarda
+// una sola vez por (salida, usuario): si el celular reintenta el envío porque se
+// perdió la respuesta, el reporte existente se devuelve sin duplicarlo.
+// Los campos de la salida (tipo, fecha real, turno, territorio y conductor) se
+// copian del cronograma en el momento de recibir para que el reporte no cambie
+// si después se edita o se elimina la salida.
+
+function sameReport(report, salidaId, uid) {
+  return report.salidaId === salidaId && report.receivedBy?.uid === uid;
+}
+
+// Identificador de idempotencia que envía el cliente (cabecera Idempotency-Key).
+function sameKey(report, key) {
+  return Boolean(key) && report.idempotencyKey === key;
+}
+
+export function publicReport(report) {
+  if (!report) return null;
+  const { receivedBy, ...rest } = report;
+  return { ...rest, receivedBy: { uid: receivedBy?.uid || '' } };
+}
+
+export async function saveOutingReport(report, { idempotencyKey } = {}) {
+  // Leer, comprobar y escribir se hace dentro de la misma cola de escritura:
+  // dos envíos simultáneos del mismo reporte no pueden crear dos registros.
+  const run = async () => {
+    const data = await readData();
+    const existing = data.reports.find((item) => (
+      sameKey(item, idempotencyKey) || sameReport(item, report.salidaId, report.receivedBy.uid)
+    ));
+    if (existing) return { report: publicReport(existing), duplicate: true };
+
+    data.reports.push(idempotencyKey ? { ...report, idempotencyKey } : report);
+    // Se escribe directamente: writeData volveria a encolarse y esperaria a
+    // esta misma tarea, dejando la peticion pendiente para siempre.
+    await writeSnapshot(JSON.stringify(data, null, 2));
+    return { report: publicReport(report), duplicate: false };
+  };
+
+  const result = writeQueue.then(run, run);
+  // La cola no debe quedar rechazada: el error se devuelve a quien llamó.
+  writeQueue = result.catch(() => {});
+  return result;
+}
+
+export async function getOutingReports({ salidaId, limit } = {}) {
+  const data = await readData();
+  let reports = data.reports;
+  if (salidaId) reports = reports.filter((report) => report.salidaId === salidaId);
+
+  const ordered = [...reports].sort((first, second) => second.receivedAt.localeCompare(first.receivedAt));
+  return (limit ? ordered.slice(0, limit) : ordered).map(publicReport);
+}
+
+// Salida del cronograma por id, buscando en todos los meses. Devuelve el mes
+// al que pertenece para poder validar fechas y turnos con las mismas reglas
+// que usa el resto del backend.
+export async function findOutingById(id) {
+  const data = await readData();
+  for (const [key, month] of Object.entries(data.months)) {
+    const outing = (month.outings || []).find((item) => item.id === id);
+    if (outing) {
+      const [year, number] = key.split('-').map(Number);
+      return { year, month: number, outing };
+    }
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------- tipos de salida
@@ -388,6 +487,8 @@ export async function getHouses() {
   return data.houses.map((house) => ({
     ...house,
     active: house.active !== false,
+    // La marca de consulta de disponibilidad es explícita: sin campo, no se pregunta.
+    askAvailability: house.askAvailability === true,
     assignedCount: countAssignments(data.months, 'placeId', house.id),
   }));
 }
@@ -400,6 +501,81 @@ export async function getMonthlyHouses(year, month) {
     generalActive: house.active !== false,
     available: currentMonth.houseAvailability[house.id] === true,
   }));
+}
+
+// ---------------------------------------------------- mensajería: disponibilidad
+// El lugar de encuentro de una salida se muestra igual sea una casa o una
+// ubicación. Para el mensaje solo importan las casas, pero el filtro se hace
+// sobre placeId, que es lo que guarda la salida.
+function outingsForMonth(data, year, month) {
+  return data.months[monthKey(year, month)]?.outings || [];
+}
+
+// Las casas con "Preguntar disponibilidad" activado que este mes aparecen como
+// punto de encuentro, con el mensaje ya generado y el estado de confirmación.
+export async function getAvailabilityInquiries(year, month) {
+  const data = await readData();
+  const houses = await getHouses();
+  const outings = outingsForMonth(data, year, month);
+  return availabilityInquiries(houses, outings, { year, month });
+}
+
+// Devuelve el mensaje de una casa sin tocar nada: sirve para volver a generarlo
+// o para reutilizarlo desde otra capa (por ejemplo, un futuro envío automático).
+export async function getAvailabilityMessage(year, month, houseId) {
+  const data = await readData();
+  const house = data.houses.find((item) => item.id === houseId);
+  if (!house) return null;
+
+  const outings = outingsForMonth(data, year, month);
+  const dates = houseOutings(house, outings).map((outing) => ({
+    outingId: outing.id,
+    date: outing.date,
+    time: outing.time,
+  }));
+  return { houseId: house.id, houseName: house.name, dates, message: buildAvailabilityMessage(house, outings) };
+}
+
+// ✅ Confirmar: las salidas quedan exactamente como están; solo se registra que
+// la disponibilidad fue confirmada para esa casa en ese mes.
+export async function confirmHouseAvailability(year, month, houseId) {
+  const data = await readData();
+  const house = data.houses.find((item) => item.id === houseId);
+  if (!house) return null;
+
+  const key = monthKey(year, month);
+  house.availabilityConfirmed = { ...(house.availabilityConfirmed || {}), [key]: new Date().toISOString() };
+  await writeData(data);
+  return { houseId: house.id, confirmedAt: house.availabilityConfirmed[key] };
+}
+
+// ❌ Rechazar: se quita la casa como punto de encuentro SOLO de las salidas de
+// ese mes con los ids indicados. La casa sigue en el registro general y las
+// demás salidas (de este u otros meses) no se tocan.
+export async function rejectHouseAvailability(year, month, houseId, outingIds = []) {
+  const data = await readData();
+  const house = data.houses.find((item) => item.id === houseId);
+  if (!house) return null;
+
+  const key = monthKey(year, month);
+  const currentMonth = { ...emptyMonth(), ...data.months[key] };
+  const wanted = new Set(outingIds);
+  let cleared = 0;
+
+  for (const outing of currentMonth.outings) {
+    // Solo las salidas de ESA casa y de ESA consulta. Al dejar la celda vacía, la
+    // salida deja de tener punto de encuentro, pero no se elimina ni se regenera.
+    if (outing.placeId === houseId && wanted.has(outing.id)) {
+      outing.placeId = null;
+      outing.placeType = 'location';
+      outing.placeManualOverride = true;
+      cleared += 1;
+    }
+  }
+
+  data.months[key] = currentMonth;
+  await writeData(data);
+  return { houseId: house.id, cleared };
 }
 
 export async function createHouse(house) {

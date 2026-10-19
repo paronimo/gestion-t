@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import AdministrationPage from './components/AdministrationPage.jsx';
+import MessagingPage from './components/MessagingPage.jsx';
 import { groupIdsFromTypes } from './components/OutingTypesPanel.jsx';
 import MonthlyConfiguration from './components/MonthlyConfiguration.jsx';
 import OutingForm from './components/OutingForm.jsx';
@@ -16,8 +17,10 @@ import {
   removeTerritoryLocation,
   createLocation,
   createOutingType,
+  confirmHouseAvailability,
   copyMonthConfiguration,
   deleteOutingType,
+  getAvailabilityInquiries,
   getConfiguration,
   getDriverRotations,
   getDrivers,
@@ -35,6 +38,7 @@ import {
   removeDriver,
   removeHouse,
   removeLocation,
+  rejectHouseAvailability,
   removeTerritory,
   saveConfiguration,
   saveDriverRotation,
@@ -86,6 +90,9 @@ export default function App() {
   const groups = useMemo(() => groupIdsFromTypes(types), [types]);
   // Avisos de carga: cada fuente falla por separado, sin vaciar las demás.
   const [loadIssues, setLoadIssues] = useState([]);
+  // Mensajería: consultas de disponibilidad de casas del mes.
+  const [inquiries, setInquiries] = useState([]);
+  const [messagingLoading, setMessagingLoading] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -140,6 +147,70 @@ export default function App() {
 
     return () => { active = false; };
   }, [year, month]);
+
+  // Las consultas de disponibilidad se recargan al abrir Mensajería o al cambiar
+  // de mes, para reflejar siempre las salidas reales.
+  async function loadInquiries() {
+    setMessagingLoading(true);
+    try {
+      setInquiries(await getAvailabilityInquiries(year, month));
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setMessagingLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (view !== 'messaging') return;
+    let active = true;
+    setMessagingLoading(true);
+    (async () => {
+      const part = await loadPart('Mensajería', () => getAvailabilityInquiries(year, month), []);
+      if (!active) return;
+      setInquiries(part.value);
+      if (part.error) setMessage(part.error);
+      setMessagingLoading(false);
+    })();
+    return () => { active = false; };
+  }, [view, year, month]);
+
+  async function confirmAvailability(inquiry) {
+    setSaving(true);
+    setMessage('');
+    try {
+      await confirmHouseAvailability(year, month, inquiry.houseId);
+      await loadInquiries();
+      setMessage(`Disponibilidad de ${inquiry.houseName} confirmada. Las salidas quedaron sin cambios.`);
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function rejectAvailability(inquiry) {
+    const count = inquiry.dates.length;
+    if (!window.confirm(`¿Quitar ${inquiry.houseName} como punto de encuentro de ${count === 1 ? 'esta salida' : `estas ${count} salidas`}?`)) return;
+    setSaving(true);
+    setMessage('');
+    try {
+      const result = await rejectHouseAvailability(year, month, inquiry.houseId, inquiry.dates.map((date) => date.outingId));
+      // Las salidas cambiaron: se recargan la lista de consultas y el cronograma.
+      const [nextInquiries, nextOutings] = await Promise.all([
+        getAvailabilityInquiries(year, month),
+        getOutings(year, month),
+        getMonthlyHouses(year, month),
+      ]);
+      setInquiries(nextInquiries);
+      setOutings(nextOutings);
+      setMessage(`Se quitó la casa como punto de encuentro de ${result.cleared} ${result.cleared === 1 ? 'salida' : 'salidas'}. La casa sigue en el registro.`);
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setSaving(false);
+    }
+  }
 
   async function generateMonth() {
     setSaving(true);
@@ -629,7 +700,7 @@ export default function App() {
         </div>
         <div className="header-actions">
           <ThemeToggle />
-          {view === 'schedule' && <div className="month-controls" aria-label="Seleccionar mes y año">
+          {(view === 'schedule' || view === 'messaging') && <div className="month-controls" aria-label="Seleccionar mes y año">
           <label className="field">
             <span>Mes</span>
             <select value={month} onChange={(event) => setMonth(Number(event.target.value))}>
@@ -661,6 +732,7 @@ export default function App() {
       <nav className="view-tabs" aria-label="Secciones principales">
         <button className={view === 'schedule' ? 'view-tab selected' : 'view-tab'} type="button" onClick={() => setView('schedule')}>Cronograma</button>
         <button className={view === 'administration' ? 'view-tab selected' : 'view-tab'} type="button" onClick={() => setView('administration')}>Administración</button>
+        <button className={view === 'messaging' ? 'view-tab selected' : 'view-tab'} type="button" onClick={() => setView('messaging')}>Mensajería</button>
       </nav>
 
       {view === 'schedule' && <section className="month-toolbar" aria-label={`Acciones para ${monthLabel}`}>
@@ -695,7 +767,19 @@ export default function App() {
         </p>
       )}
 
-      {view === 'administration' ? (
+      {view === 'messaging' ? (
+        <MessagingPage
+          inquiries={inquiries}
+          year={year}
+          month={month}
+          monthLabel={monthLabel}
+          onCopied={() => setMessage('Mensaje copiado al portapapeles.')}
+          onConfirm={confirmAvailability}
+          onReject={rejectAvailability}
+          loading={messagingLoading}
+          saving={saving}
+        />
+      ) : view === 'administration' ? (
         <AdministrationPage
           drivers={registeredDrivers}
           houses={registeredHouses}
